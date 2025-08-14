@@ -2,7 +2,15 @@
 
 A modern, responsive personal portfolio website built with React, TypeScript, and Tailwind CSS.
 
-![Portfolio Website](https://img.shields.io/badge/React-18.2.0-blue?style=flat-square&logo=react)
+![Portfolio Website](https://## ## �📞 Contact
+
+Bryan Chan - [cky.bryan@gmail.com](mailto:cky.bryan@gmail.com)
+
+Project Link: [https://github.com/ckybryan/my-site](https://github.com/ckybryan/my-site)tact
+
+Bryan Chan - [cky.bryan@gmail.com](mailto:cky.bryan@gmail.com)
+
+Project Link: [https://github.com/ckybryan/my-site](https://github.com/ckybryan/my-site)hields.io/badge/React-18.2.0-blue?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0.2-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3.0-blue?style=flat-square&logo=tailwindcss)
 ![Vite](https://img.shields.io/badge/Vite-5.4.10-green?style=flat-square&logo=vite)
