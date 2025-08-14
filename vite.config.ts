@@ -13,4 +13,14 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
+  preview: {
+    port: 4173,
+    host: '0.0.0.0',
+    allowedHosts: [
+      'bryan.wtf',
+      '.railway.app',
+      'localhost',
+      '127.0.0.1'
+    ]
+  },
 })
