@@ -137,9 +137,39 @@ This project is open source and available under the [MIT License](LICENSE).
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/ckybryan/my-site/issues).
 
-## 📞 Contact
+## � Deployment
 
-Bryan Chan - [bryan@example.com](mailto:bryan@example.com)
+### Railway Deployment
+
+This project is configured for easy deployment on Railway:
+
+1. **Connect GitHub Repository**:
+   - Go to [Railway.app](https://railway.app)
+   - Click "Start a New Project"
+   - Connect your GitHub account and select this repository
+
+2. **Automatic Configuration**:
+   - Railway will automatically detect the configuration from `railway.json`
+   - Build and deployment settings are pre-configured
+   - Node.js 18 environment is specified
+
+3. **Environment Variables**:
+   - No additional environment variables needed for basic deployment
+   - Railway will automatically set `PORT` for the application
+
+4. **Custom Domain** (Optional):
+   - Add your custom domain in Railway dashboard
+   - Update DNS settings as instructed
+
+### Alternative Deployment Options
+
+- **Docker**: Use the included `Dockerfile`
+- **Vercel**: Connect repository directly
+- **Netlify**: Deploy as static site
+
+## �📞 Contact
+
+Bryan Chan - [cky.bryan@gmail.com](mailto:cky.bryan@gmail.com)
 
 Project Link: [https://github.com/ckybryan/my-site](https://github.com/ckybryan/my-site)
 
