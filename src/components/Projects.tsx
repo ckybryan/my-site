@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Projects: React.FC = () => {
@@ -8,7 +9,7 @@ const Projects: React.FC = () => {
       description: t.projects.careerConversation.description,
       technologies: ['TypeScript', 'Node.js', 'Express.js', 'AI Integration', 'PDF Parser', 'Pushover API'],
       githubUrl: 'https://github.com/ckybryan/personal-carrier-chat-agent',
-      liveUrl: 'https://career-conversation.railway.app',
+      liveUrl: 'https://www.career-chat.bryan.wtf/',
       imageUrl: '/api/placeholder/400/250',
     },
     {
@@ -79,6 +80,21 @@ const Projects: React.FC = () => {
                     </span>
                   ))}
                 </div>
+                
+                {/* Special button for Career Conversation project only */}
+                {project.title === t.projects.careerConversation.title && (
+                  <div className="mt-4">
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-medium"
+                    >
+                      <ExternalLink size={16} className="mr-2" />
+                      Try Live Demo
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}
