@@ -13,99 +13,142 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.8;
-            color: #333;
-            background: #f9fafb;
+            line-height: 1.7;
+            color: #1f2937;
+            background: #ffffff;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 24px;
         }
 
         header {
-            background: linear-gradient(135deg, #9568ed 0%, #7c3aed 100%);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 80px 0 60px;
+        }
+
+        .nav-link {
+            color: #7c3aed;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #6d28d9;
         }
 
         h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #111827;
+            letter-spacing: -0.02em;
         }
 
         .subtitle {
-            font-size: 18px;
-            opacity: 0.9;
+            font-size: 17px;
+            color: #6b7280;
         }
 
         .content {
-            background: white;
-            padding: 60px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            margin-top: -30px;
+            padding: 80px 0;
         }
 
         h2 {
-            font-size: 28px;
-            margin-top: 40px;
-            margin-bottom: 16px;
-            color: #7c3aed;
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 80px;
+            margin-bottom: 20px;
+            color: #111827;
+            letter-spacing: -0.01em;
+        }
+
+        h2:first-child {
+            margin-top: 0;
         }
 
         h3 {
-            font-size: 22px;
-            margin-top: 30px;
-            margin-bottom: 12px;
-            color: #1f2937;
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            color: #111827;
         }
 
         p {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             color: #4b5563;
+            font-size: 17px;
         }
 
         ul {
-            margin-left: 30px;
-            margin-bottom: 16px;
+            margin-left: 24px;
+            margin-bottom: 24px;
             color: #4b5563;
+            font-size: 17px;
         }
 
         li {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            padding-left: 8px;
+        }
+
+        strong {
+            color: #111827;
+            font-weight: 600;
         }
 
         .contact-box {
             background: #f9fafb;
             border: 2px solid #7c3aed;
             border-radius: 12px;
-            padding: 30px;
+            padding: 48px;
             text-align: center;
-            margin: 40px 0;
+            margin: 0 0 64px 0;
         }
 
-        .contact-box h3 {
-            color: #7c3aed;
-            margin-bottom: 16px;
+        .contact-box h2 {
+            color: #111827;
+            font-size: 28px;
+            margin: 0 0 12px 0;
+        }
+
+        .contact-box p {
+            color: #6b7280;
+            margin-bottom: 24px;
         }
 
         .email-link {
-            font-size: 20px;
+            font-size: 22px;
             color: #7c3aed;
             text-decoration: none;
             font-weight: 600;
+            display: inline-block;
+            margin: 8px 0;
         }
 
         .email-link:hover {
-            text-decoration: underline;
+            color: #6d28d9;
+        }
+
+        .response-time {
+            color: #6b7280;
+            font-size: 15px;
+            margin-top: 16px;
         }
 
         .faq-item {
-            margin-bottom: 30px;
-            padding-bottom: 30px;
+            margin-bottom: 48px;
+            padding-bottom: 48px;
             border-bottom: 1px solid #e5e7eb;
         }
 
@@ -114,39 +157,74 @@
         }
 
         .faq-question {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 12px;
+            color: #111827;
+            margin-bottom: 16px;
         }
 
         .faq-answer {
             color: #4b5563;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-top: 40px;
-            color: #7c3aed;
-            text-decoration: none;
-            font-weight: 500;
+        .faq-answer p {
+            margin-bottom: 16px;
         }
 
-        .back-link:hover {
+        .faq-answer ul {
+            margin-top: 12px;
+        }
+
+        a {
+            color: #7c3aed;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #6d28d9;
             text-decoration: underline;
         }
 
+        footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 60px 0;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #6b7280;
+            font-size: 15px;
+        }
+
         @media (max-width: 768px) {
-            .content {
-                padding: 30px 20px;
+            header {
+                padding: 48px 0 36px;
             }
 
             h1 {
-                font-size: 28px;
+                font-size: 36px;
             }
 
             h2 {
-                font-size: 24px;
+                font-size: 28px;
+                margin-top: 56px;
+            }
+
+            .faq-question {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 48px 0;
+            }
+
+            .contact-box {
+                padding: 32px 24px;
+            }
+
+            .email-link {
+                font-size: 18px;
             }
         }
     </style>
@@ -154,6 +232,12 @@
 <body>
     <header>
         <div class="container">
+            <a href="/petcrew" class="nav-link">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Back to PetCrew
+            </a>
             <h1>Support & Help</h1>
             <p class="subtitle">We're here to help with any questions or issues</p>
         </div>
@@ -162,14 +246,10 @@
     <div class="container">
         <div class="content">
             <div class="contact-box">
-                <h3>📧 Get in Touch</h3>
-                <p style="color: #6b7280; margin-bottom: 16px;">
-                    Have a question, bug report, or feature request?
-                </p>
-                <a href="mailto:bryan@bryan.wtf" class="email-link">bryan@bryan.wtf</a>
-                <p style="color: #6b7280; margin-top: 16px; font-size: 14px;">
-                    We typically respond within 24-48 hours
-                </p>
+                <h2>Get in Touch</h2>
+                <p>Have a question, bug report, or feature request?</p>
+                <a href="mailto:bryanstudio.dev@gmail.com" class="email-link">bryanstudio.dev@gmail.com</a>
+                <p class="response-time">We typically respond within 24-48 hours</p>
             </div>
 
             <h2>Frequently Asked Questions</h2>
@@ -232,14 +312,14 @@
                 <div class="faq-question">How do I delete my data?</div>
                 <div class="faq-answer">
                     <p><strong>Free users:</strong> Go to Settings → "Delete All Data" → Confirm. This deletes all pets and feeding logs from your device.</p>
-                    <p><strong>Premium users:</strong> Go to Members → "Leave Household" to delete cloud data, or contact bryan@bryan.wtf to delete your account entirely.</p>
+                    <p><strong>Premium users:</strong> Go to Members → "Leave Household" to delete cloud data, or contact bryanstudio.dev@gmail.com to delete your account entirely.</p>
                 </div>
             </div>
 
             <div class="faq-item">
                 <div class="faq-question">Can I export my data?</div>
                 <div class="faq-answer">
-                    <p>Yes! Contact bryan@bryan.wtf and we'll send you your data in JSON or CSV format within 48 hours.</p>
+                    <p>Yes! Contact bryanstudio.dev@gmail.com and we'll send you your data in JSON or CSV format within 48 hours.</p>
                 </div>
             </div>
 
@@ -253,7 +333,7 @@
             <div class="faq-item">
                 <div class="faq-question">I found a bug! Where do I report it?</div>
                 <div class="faq-answer">
-                    <p>Email bryan@bryan.wtf with:</p>
+                    <p>Email bryanstudio.dev@gmail.com with:</p>
                     <ul>
                         <li>What you were trying to do</li>
                         <li>What happened instead</li>
@@ -267,7 +347,7 @@
             <div class="faq-item">
                 <div class="faq-question">Can I request a feature?</div>
                 <div class="faq-answer">
-                    <p>Absolutely! Email bryan@bryan.wtf with your idea. We're actively working on:</p>
+                    <p>Absolutely! Email bryanstudio.dev@gmail.com with your idea. We're actively working on:</p>
                     <ul>
                         <li>Apple Watch app</li>
                         <li>Medication tracking</li>
@@ -280,12 +360,21 @@
             <h2>Still Need Help?</h2>
             <p>If your question isn't answered above, please reach out:</p>
             <ul>
-                <li><strong>Email:</strong> <a href="mailto:bryan@bryan.wtf" style="color: #7c3aed;">bryan@bryan.wtf</a></li>
-                <li><strong>Privacy inquiries:</strong> <a href="mailto:privacy@bryan.wtf" style="color: #7c3aed;">privacy@bryan.wtf</a></li>
+                <li><strong>Email:</strong> <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a></li>
+                <li><strong>Privacy inquiries:</strong> <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a></li>
             </ul>
-
-            <a href="/petcrew" class="back-link">← Back to PetCrew</a>
         </div>
+
+        <footer>
+            <div class="container">
+                <p class="footer-text">&copy; 2025 PetCrew. All rights reserved.</p>
+                <p class="footer-text" style="margin-top: 16px;">
+                    <a href="/petcrew" style="color: #7c3aed; text-decoration: none; margin: 0 12px;">Home</a> •
+                    <a href="/petcrew/privacy" style="color: #7c3aed; text-decoration: none; margin: 0 12px;">Privacy</a> •
+                    <a href="/petcrew/support" style="color: #7c3aed; text-decoration: none; margin: 0 12px;">Support</a>
+                </p>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
