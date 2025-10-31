@@ -1,380 +1,867 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Support - PetCrew</title>
+    <meta
+      name="description"
+      content="Get help with PetCrew - FAQ, troubleshooting, and contact support"
+    />
+    <link rel="icon" type="image/svg+xml" href="/petcrew/favicon.svg" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.7;
-            color: #1f2937;
-            background: #ffffff;
-        }
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --text: #1f2937;
+        --text-light: #6b7280;
+        --bg: #ffffff;
+        --bg-secondary: #f9fafb;
+        --border: #e5e7eb;
+        --accent: #10b981;
+        --shadow: rgba(0, 0, 0, 0.05);
+        --shadow-hover: rgba(0, 0, 0, 0.1);
+      }
 
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --primary: #818cf8;
+          --primary-dark: #6366f1;
+          --text: #f9fafb;
+          --text-light: #9ca3af;
+          --bg: #111827;
+          --bg-secondary: #1f2937;
+          --border: #374151;
+          --accent: #34d399;
+          --shadow: rgba(0, 0, 0, 0.3);
+          --shadow-hover: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+          'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+
+      @media (min-width: 768px) {
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 24px;
+          padding: 3rem 2rem;
         }
+      }
 
-        header {
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 80px 0 60px;
+      /* Header */
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .logo {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
         }
-
-        .nav-link {
-            color: #7c3aed;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 40px;
-            transition: color 0.2s;
+        50% {
+          transform: translateY(-5px);
         }
+      }
 
-        .nav-link:hover {
-            color: #6d28d9;
-        }
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
 
+      @media (min-width: 768px) {
         h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #111827;
-            letter-spacing: -0.02em;
+          font-size: 2.5rem;
         }
+      }
 
-        .subtitle {
-            font-size: 17px;
-            color: #6b7280;
-        }
+      .subtitle {
+        color: var(--text-light);
+        font-size: 1.0625rem;
+        margin-top: 0.5rem;
+      }
 
-        .content {
-            padding: 80px 0;
-        }
+      /* Contact Box */
+      .contact-box {
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.1),
+          rgba(16, 185, 129, 0.1)
+        );
+        border: 2px solid var(--primary);
+        border-radius: 16px;
+        padding: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        box-shadow: 0 8px 16px var(--shadow);
+      }
 
-        h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-top: 80px;
-            margin-bottom: 20px;
-            color: #111827;
-            letter-spacing: -0.01em;
-        }
+      .contact-box h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: var(--text);
+      }
 
-        h2:first-child {
-            margin-top: 0;
-        }
+      .contact-box p {
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
 
-        h3 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-top: 48px;
-            margin-bottom: 16px;
-            color: #111827;
-        }
+      .email-link {
+        font-size: 1.375rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        margin: 0.5rem 0;
+        transition: all 0.2s;
+      }
 
-        p {
-            margin-bottom: 20px;
-            color: #4b5563;
-            font-size: 17px;
-        }
+      .email-link:hover {
+        color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
 
-        ul {
-            margin-left: 24px;
-            margin-bottom: 24px;
-            color: #4b5563;
-            font-size: 17px;
-        }
+      .response-time {
+        color: var(--text-light);
+        font-size: 0.9375rem;
+        margin-top: 1rem;
+      }
 
-        li {
-            margin-bottom: 12px;
-            padding-left: 8px;
-        }
+      /* Section Title */
+      .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin: 3rem 0 2rem;
+        color: var(--text);
+        text-align: center;
+      }
 
-        strong {
-            color: #111827;
-            font-weight: 600;
-        }
+      /* Accordion FAQ */
+      .accordion {
+        margin-bottom: 1rem;
+      }
 
-        .contact-box {
-            background: #f9fafb;
-            border: 2px solid #7c3aed;
-            border-radius: 12px;
-            padding: 48px;
-            text-align: center;
-            margin: 0 0 64px 0;
-        }
+      .accordion-item {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-        .contact-box h2 {
-            color: #111827;
-            font-size: 28px;
-            margin: 0 0 12px 0;
-        }
+      .accordion-item:hover {
+        box-shadow: 0 4px 12px var(--shadow-hover);
+        transform: translateY(-2px);
+      }
 
-        .contact-box p {
-            color: #6b7280;
-            margin-bottom: 24px;
-        }
+      .accordion-header {
+        padding: 1.25rem 1.5rem;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        transition: background 0.2s;
+      }
 
-        .email-link {
-            font-size: 22px;
-            color: #7c3aed;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            margin: 8px 0;
-        }
+      .accordion-header:hover {
+        background: var(--bg);
+      }
 
-        .email-link:hover {
-            color: #6d28d9;
-        }
+      .accordion-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--text);
+        flex: 1;
+      }
 
-        .response-time {
-            color: #6b7280;
-            font-size: 15px;
-            margin-top: 16px;
-        }
+      .accordion-icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        color: var(--primary);
+      }
 
-        .faq-item {
-            margin-bottom: 48px;
-            padding-bottom: 48px;
-            border-bottom: 1px solid #e5e7eb;
-        }
+      .accordion-item.active .accordion-icon {
+        transform: rotate(180deg);
+      }
 
-        .faq-item:last-child {
-            border-bottom: none;
-        }
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-        .faq-question {
-            font-size: 22px;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 16px;
-        }
+      .accordion-item.active .accordion-content {
+        max-height: 1000px;
+      }
 
-        .faq-answer {
-            color: #4b5563;
-        }
+      .accordion-body {
+        padding: 0 1.5rem 1.5rem;
+        color: var(--text-light);
+        line-height: 1.7;
+      }
 
-        .faq-answer p {
-            margin-bottom: 16px;
-        }
+      .accordion-body p {
+        margin-bottom: 1rem;
+      }
 
-        .faq-answer ul {
-            margin-top: 12px;
-        }
+      .accordion-body p:last-child {
+        margin-bottom: 0;
+      }
 
-        a {
-            color: #7c3aed;
-            text-decoration: none;
-        }
+      .accordion-body ul {
+        margin: 0.75rem 0 1rem 1.5rem;
+      }
 
-        a:hover {
-            color: #6d28d9;
-            text-decoration: underline;
-        }
+      .accordion-body li {
+        margin-bottom: 0.5rem;
+      }
 
-        footer {
-            border-top: 1px solid #e5e7eb;
-            padding: 60px 0;
-            margin-top: 60px;
-        }
+      .accordion-body strong {
+        color: var(--text);
+      }
 
-        .footer-text {
-            text-align: center;
-            color: #6b7280;
-            font-size: 15px;
-        }
+      .accordion-body a {
+        color: var(--primary);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
 
-        @media (max-width: 768px) {
-            header {
-                padding: 48px 0 36px;
-            }
+      .accordion-body a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
 
-            h1 {
-                font-size: 36px;
-            }
+      /* Expand all button */
+      .expand-all {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
 
-            h2 {
-                font-size: 28px;
-                margin-top: 56px;
-            }
+      .expand-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 2px 8px var(--shadow);
+      }
 
-            .faq-question {
-                font-size: 20px;
-            }
+      .expand-btn:hover {
+        background: var(--primary-dark);
+        box-shadow: 0 4px 12px var(--shadow-hover);
+        transform: translateY(-2px);
+      }
 
-            .content {
-                padding: 48px 0;
-            }
+      .expand-btn:active {
+        transform: translateY(0);
+      }
 
-            .contact-box {
-                padding: 32px 24px;
-            }
+      /* Still need help section */
+      .help-section {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+      }
 
-            .email-link {
-                font-size: 18px;
-            }
-        }
+      .help-section h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text);
+      }
+
+      .help-section p {
+        color: var(--text-light);
+        margin-bottom: 1rem;
+      }
+
+      .help-section ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .help-section li {
+        padding: 0.75rem 0;
+        color: var(--text-light);
+      }
+
+      .help-section a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .help-section a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .footer-text {
+        color: var(--text-light);
+        font-size: 0.875rem;
+      }
     </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <a href="/petcrew" class="nav-link">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Back to PetCrew
-            </a>
-            <h1>Support & Help</h1>
-            <p class="subtitle">We're here to help with any questions or issues</p>
-        </div>
-    </header>
-
+  </head>
+  <body>
     <div class="container">
-        <div class="content">
-            <div class="contact-box">
-                <h2>Get in Touch</h2>
-                <p>Have a question, bug report, or feature request?</p>
-                <a href="mailto:bryanstudio.dev@gmail.com" class="email-link">bryanstudio.dev@gmail.com</a>
-                <p class="response-time">We typically respond within 24-48 hours</p>
+      <header>
+        <div class="logo">💬</div>
+        <h1>Support & Help</h1>
+        <p class="subtitle">We're here to help with any questions or issues</p>
+      </header>
+
+      <!-- Contact Box -->
+      <div class="contact-box">
+        <h2>Get in Touch</h2>
+        <p>Have a question, bug report, or feature request?</p>
+        <a href="mailto:bryanstudio.dev@gmail.com" class="email-link">bryanstudio.dev@gmail.com</a>
+        <p class="response-time">We typically respond within 24-48 hours</p>
+      </div>
+
+      <!-- FAQ Section -->
+      <h2 class="section-title">Frequently Asked Questions</h2>
+
+      <div class="expand-all">
+        <button class="expand-btn" id="expandAllBtn">
+          Expand All Questions
+        </button>
+      </div>
+
+      <div class="accordion">
+        <!-- FAQ Item 1 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">How do I add a pet?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                On the home screen, tap the "Add Pet" button. Fill in your pet's
+                name, type, feeding schedule, and optionally add a photo. Your
+                pet will appear on the home screen immediately.
+              </p>
             </div>
-
-            <h2>Frequently Asked Questions</h2>
-
-            <div class="faq-item">
-                <div class="faq-question">How do I add a pet?</div>
-                <div class="faq-answer">
-                    <p>On the home screen, tap the "Add Pet" button. Fill in your pet's name, type, feeding schedule, and optionally add a photo. Your pet will appear on the home screen immediately.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How do I log a quick feeding?</div>
-                <div class="faq-answer">
-                    <p>Tap the "Quick Feed" button on any pet card. The feeding is logged instantly with the current time. You can also use the Quick Feed button on your iOS home screen widget!</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How do I add iOS widgets?</div>
-                <div class="faq-answer">
-                    <p>Long-press on your iPhone home screen → Tap the "+" button in the top-left corner → Search for "PetCrew" → Choose small, medium, or large widget → Tap "Add Widget". You can customize which pet to show by editing the widget.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Is the app really free?</div>
-                <div class="faq-answer">
-                    <p>Yes! You can track up to 2 pets forever for free with no account required. Upgrade to Premium ($2.99/month) only if you want household sync, unlimited pets, or advanced analytics.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Do I need to create an account?</div>
-                <div class="faq-answer">
-                    <p>No! For free users, no account is needed. All your data stays on your device. Only Premium users who want household sync need to create a household (which uses anonymous authentication).</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How do I invite family members?</div>
-                <div class="faq-answer">
-                    <p>Upgrade to Premium → Go to Members tab → Tap "Create Household" → Tap "Invite Member" → Share the invitation code with your family. They'll enter the code in their app to join your household and sync data in real-time.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">What do the colored dots on the calendar mean?</div>
-                <div class="faq-answer">
-                    <ul>
-                        <li><strong>🟢 Green:</strong> All meals fed (complete day)</li>
-                        <li><strong>🟡 Yellow:</strong> Some meals fed (incomplete day)</li>
-                        <li><strong>🔴 Red:</strong> No feedings logged (missed day)</li>
-                        <li><strong>🟣 Purple:</strong> Extra feedings (more than scheduled)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How do I delete my data?</div>
-                <div class="faq-answer">
-                    <p><strong>Free users:</strong> Go to Settings → "Delete All Data" → Confirm. This deletes all pets and feeding logs from your device.</p>
-                    <p><strong>Premium users:</strong> Go to Members → "Leave Household" to delete cloud data, or contact bryanstudio.dev@gmail.com to delete your account entirely.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Can I export my data?</div>
-                <div class="faq-answer">
-                    <p>Yes! Contact bryanstudio.dev@gmail.com and we'll send you your data in JSON or CSV format within 48 hours.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How do I cancel my Premium subscription?</div>
-                <div class="faq-answer">
-                    <p>Subscriptions are managed by Apple. Go to iPhone Settings → Your Name → Subscriptions → PetCrew → Cancel Subscription. Your data will be retained for 30 days in case you re-subscribe.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">I found a bug! Where do I report it?</div>
-                <div class="faq-answer">
-                    <p>Email bryanstudio.dev@gmail.com with:</p>
-                    <ul>
-                        <li>What you were trying to do</li>
-                        <li>What happened instead</li>
-                        <li>Your iPhone model and iOS version</li>
-                        <li>Screenshots if possible</li>
-                    </ul>
-                    <p>We'll investigate and fix it ASAP!</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Can I request a feature?</div>
-                <div class="faq-answer">
-                    <p>Absolutely! Email bryanstudio.dev@gmail.com with your idea. We're actively working on:</p>
-                    <ul>
-                        <li>Apple Watch app</li>
-                        <li>Medication tracking</li>
-                        <li>Weight tracking</li>
-                        <li>Vet appointment reminders</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h2>Still Need Help?</h2>
-            <p>If your question isn't answered above, please reach out:</p>
-            <ul>
-                <li><strong>Email:</strong> <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a></li>
-                <li><strong>Privacy inquiries:</strong> <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a></li>
-            </ul>
+          </div>
         </div>
 
-        <footer>
-            <div class="container">
-                <p class="footer-text">&copy; 2025 PetCrew. All rights reserved.</p>
-                <p class="footer-text" style="margin-top: 16px;">
-                    <a href="/petcrew" style="color: #7c3aed; text-decoration: none; margin: 0 12px;">Home</a> •
-                    <a href="/petcrew/privacy" style="color: #7c3aed; text-decoration: none; margin: 0 12px;">Privacy</a> •
-                    <a href="/petcrew/support" style="color: #7c3aed; text-decoration: none; margin: 0 12px;">Support</a>
-                </p>
+        <!-- FAQ Item 2 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">How do I log a quick feeding?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                Tap the "Quick Feed" button on any pet card. The feeding is
+                logged instantly with the current time. You can also use the
+                Quick Feed button on your iOS home screen widget!
+              </p>
             </div>
-        </footer>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">How do I add iOS widgets?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                Long-press on your iPhone home screen → Tap the "+" button in
+                the top-left corner → Search for "PetCrew" → Choose small,
+                medium, or large widget → Tap "Add Widget". You can customize
+                which pet to show by editing the widget.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">Is the app really free?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                Yes! You can track up to 2 pets forever for free with no account
+                required. Upgrade to Premium ($1.99/month) only if you want
+                household sync, unlimited pets, or advanced analytics.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">Do I need to create an account?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                No! For free users, no account is needed. All your data stays on
+                your device. Only Premium users who want household sync need to
+                create a household (which uses anonymous authentication).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">How do I invite family members?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                Upgrade to Premium → Go to Members tab → Tap "Create Household"
+                → Tap "Invite Member" → Share the invitation code with your
+                family. They'll enter the code in their app to join your
+                household and sync data in real-time.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 7 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">
+              What do the colored dots on the calendar mean?
+            </h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <ul>
+                <li><strong>🟢 Green:</strong> All meals fed (complete day)</li>
+                <li>
+                  <strong>🟡 Yellow:</strong> Some meals fed (incomplete day)
+                </li>
+                <li>
+                  <strong>🔴 Red:</strong> No feedings logged (missed day)
+                </li>
+                <li>
+                  <strong>🟣 Purple:</strong> Extra feedings (more than
+                  scheduled)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 8 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">How do I delete my data?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                <strong>Free users:</strong> Go to Settings → "Delete All Data"
+                → Confirm. This deletes all pets and feeding logs from your
+                device.
+              </p>
+              <p>
+                <strong>Premium users:</strong> Go to Members → "Leave
+                Household" to delete cloud data, or contact
+                <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a> to delete
+                your account entirely.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 9 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">Can I export my data?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                Yes! Contact
+                <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a> and we'll
+                send you your data in JSON or CSV format within 48 hours.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 10 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">
+              How do I cancel my Premium subscription?
+            </h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                Subscriptions are managed by Apple. Go to iPhone Settings → Your
+                Name → Subscriptions → PetCrew → Cancel Subscription. Your data
+                will be retained for 30 days in case you re-subscribe.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 11 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">I found a bug! Where do I report it?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                Email <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a> with:
+              </p>
+              <ul>
+                <li>What you were trying to do</li>
+                <li>What happened instead</li>
+                <li>Your iPhone model and iOS version</li>
+                <li>Screenshots if possible</li>
+              </ul>
+              <p>We'll investigate and fix it ASAP!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 12 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h3 class="accordion-title">Can I request a feature?</h3>
+            <svg
+              class="accordion-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <p>
+                Absolutely! Email
+                <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a> with your
+                idea. We're actively working on:
+              </p>
+              <ul>
+                <li>Apple Watch app</li>
+                <li>Medication tracking</li>
+                <li>Weight tracking</li>
+                <li>Vet appointment reminders</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Still Need Help Section -->
+      <div class="help-section">
+        <h2>Still Need Help?</h2>
+        <p>If your question isn't answered above, please reach out:</p>
+        <ul>
+          <li>
+            <strong>Email:</strong>
+            <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a>
+          </li>
+          <li>
+            <strong>Privacy inquiries:</strong>
+            <a href="mailto:bryanstudio.dev@gmail.com">bryanstudio.dev@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+
+      <footer>
+        <div class="footer-links">
+          <a href="https://bryan.wtf/petcrew/">Home</a>
+          <a href="https://bryan.wtf/petcrew/privacy">Privacy Policy</a>
+          <a href="https://bryan.wtf/petcrew/terms">Terms of Use</a>
+        </div>
+        <p class="footer-text">© 2025 PetCrew. All rights reserved.</p>
+      </footer>
     </div>
-</body>
+
+    <script>
+      // Accordion functionality
+      const accordionItems = document.querySelectorAll('.accordion-item');
+      const expandAllBtn = document.getElementById('expandAllBtn');
+      let allExpanded = true;
+
+      // Initialize button text since all items start expanded
+      expandAllBtn.textContent = 'Collapse All Questions';
+
+      accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        header.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+
+          // Close all items
+          accordionItems.forEach(i => i.classList.remove('active'));
+
+          // Open clicked item if it wasn't active
+          if (!isActive) {
+            item.classList.add('active');
+          }
+
+          // Update expand all button state
+          updateExpandAllButton();
+        });
+      });
+
+      // Expand/collapse all functionality
+      expandAllBtn.addEventListener('click', () => {
+        if (allExpanded) {
+          accordionItems.forEach(item => item.classList.remove('active'));
+          expandAllBtn.textContent = 'Expand All Questions';
+          allExpanded = false;
+        } else {
+          accordionItems.forEach(item => item.classList.add('active'));
+          expandAllBtn.textContent = 'Collapse All Questions';
+          allExpanded = true;
+        }
+      });
+
+      function updateExpandAllButton() {
+        const activeCount = document.querySelectorAll('.accordion-item.active')
+          .length;
+        if (activeCount === accordionItems.length) {
+          allExpanded = true;
+          expandAllBtn.textContent = 'Collapse All Questions';
+        } else if (activeCount === 0) {
+          allExpanded = false;
+          expandAllBtn.textContent = 'Expand All Questions';
+        }
+      }
+
+      // Smooth scroll to top on page load
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    </script>
+  </body>
 </html>
