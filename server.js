@@ -24,6 +24,10 @@ app.get('/petcrew/support', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'petcrew', 'support.html'));
 });
 
+app.get('/petcrew/terms', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'petcrew', 'terms.html'));
+});
+
 // For React SPA - serve index.html for all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
