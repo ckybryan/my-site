@@ -1,29 +1,24 @@
-import { LanguageProvider } from './contexts/LanguageContext';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import About from './components/About';
+import PetCrewHero from './components/petcrew/PetCrewHero';
+import ProblemSolution from './components/petcrew/ProblemSolution';
+import FeaturesGrid from './components/petcrew/FeaturesGrid';
+import Testimonials from './components/petcrew/Testimonials';
+import Pricing from './components/petcrew/Pricing';
+import FAQ from './components/petcrew/FAQ';
+import FinalCTA from './components/petcrew/FinalCTA';
 
 function App() {
   return (
-    <LanguageProvider>
-      <div className="min-h-screen bg-white">
-        <Header />
-        <main>
-          <Hero />
-          <About/>
-          <Skills />
-          <Projects />
-          <Experience />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    </LanguageProvider>
+    <div className="min-h-screen bg-white">
+      <main>
+        <PetCrewHero />
+        <ProblemSolution />
+        <FeaturesGrid />
+        <Testimonials />
+        <Pricing />
+        <FAQ />
+        <FinalCTA />
+      </main>
+    </div>
   );
 }
 
