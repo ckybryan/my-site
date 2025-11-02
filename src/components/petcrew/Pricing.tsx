@@ -28,7 +28,7 @@ export default function Pricing() {
     },
     {
       name: 'Premium',
-      price: '$2.99',
+      price: '$1.99',
       period: 'per month',
       description: 'Best for families and multi-pet homes',
       features: [

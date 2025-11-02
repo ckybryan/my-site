@@ -148,23 +148,16 @@ export default function Testimonials() {
           </button>
         </div>
 
-        {/* Stats */}
+        {/* Trust indicators */}
         <motion.div
-          className="mt-16 grid gap-8 md:grid-cols-3"
+          className="mt-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          {[
-            { number: '10,000+', label: 'Happy Pet Parents' },
-            { number: '50,000+', label: 'Feedings Tracked' },
-            { number: '4.9★', label: 'App Store Rating' },
-          ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <p className="mb-2 text-4xl font-bold text-purple-600">{stat.number}</p>
-              <p className="text-gray-600">{stat.label}</p>
-            </div>
-          ))}
+          <p className="text-lg text-gray-600">
+            Join pet parents who never miss a feeding with PetCrew
+          </p>
         </motion.div>
       </div>
     </section>
