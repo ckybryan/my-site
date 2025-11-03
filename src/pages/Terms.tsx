@@ -30,7 +30,7 @@ export default function Terms() {
           </li>
           <li className="flex items-start">
             <span className="mr-3 text-xl">💬</span>
-            <span>Questions? Contact us at support@petcrew.app</span>
+            <span>Questions? Contact us at bryanstudio.dev@gmail.com</span>
           </li>
         </ul>
       </div>
@@ -313,8 +313,8 @@ export default function Terms() {
             <h4 className="mb-3 font-semibold text-gray-900">Informal Resolution</h4>
             <p className="mb-4">
               If you have a dispute with PetCrew, please contact us first at{' '}
-              <a href="mailto:legal@petcrew.app" className="text-purple-600 hover:text-purple-700">
-                legal@petcrew.app
+              <a href="mailto:bryanstudio.dev@gmail.com" className="text-purple-600 hover:text-purple-700">
+                bryanstudio.dev@gmail.com
               </a>{' '}
               to attempt an informal resolution.
             </p>
@@ -377,23 +377,13 @@ export default function Terms() {
               If you have questions about these Terms, please contact us:
             </p>
             <div className="rounded-lg bg-purple-50 p-6">
-              <p className="mb-2 font-semibold text-purple-900">General Inquiries</p>
+              <p className="mb-2 font-semibold text-purple-900">Contact Email</p>
               <p className="mb-4">
                 <a
-                  href="mailto:support@petcrew.app"
+                  href="mailto:bryanstudio.dev@gmail.com"
                   className="text-purple-600 hover:text-purple-700"
                 >
-                  support@petcrew.app
-                </a>
-              </p>
-
-              <p className="mb-2 font-semibold text-purple-900">Legal Questions</p>
-              <p className="mb-4">
-                <a
-                  href="mailto:legal@petcrew.app"
-                  className="text-purple-600 hover:text-purple-700"
-                >
-                  legal@petcrew.app
+                  bryanstudio.dev@gmail.com
                 </a>
               </p>
 

@@ -13,7 +13,7 @@ export default function Support() {
         <h2 className="mb-4 text-2xl font-bold text-purple-900">Quick Links</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <a
-            href="mailto:support@petcrew.app"
+            href="mailto:bryanstudio.dev@gmail.com"
             className="group flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm transition-all hover:shadow-md"
           >
             <span className="text-3xl">📧</span>
@@ -21,7 +21,7 @@ export default function Support() {
               <p className="font-semibold text-gray-900 group-hover:text-purple-600">
                 Email Support
               </p>
-              <p className="text-sm text-gray-600">support@petcrew.app</p>
+              <p className="text-sm text-gray-600">bryanstudio.dev@gmail.com</p>
             </div>
           </a>
           <a
@@ -255,7 +255,7 @@ export default function Support() {
                 </li>
               </ol>
               <p className="text-gray-600">
-                If issues persist, contact support@petcrew.app with details about when the crash
+                If issues persist, contact bryanstudio.dev@gmail.com with details about when the crash
                 occurs.
               </p>
             </div>
@@ -329,11 +329,11 @@ export default function Support() {
         </p>
         <div className="space-y-4">
           <a
-            href="mailto:support@petcrew.app"
+            href="mailto:bryanstudio.dev@gmail.com"
             className="block rounded-xl bg-white p-6 shadow-sm transition-all hover:shadow-md"
           >
             <h3 className="mb-2 font-semibold text-purple-900">Email Support</h3>
-            <p className="mb-2 text-gray-700">support@petcrew.app</p>
+            <p className="mb-2 text-gray-700">bryanstudio.dev@gmail.com</p>
             <p className="text-sm text-gray-600">
               Please include your iOS version, device model, and detailed description of the issue.
             </p>

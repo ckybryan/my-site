@@ -52,8 +52,8 @@ export default function PrivacyPolicy() {
             <p>
               By using PetCrew, you agree to the practices described in this Privacy Policy. If you
               have any questions, please contact us at{' '}
-              <a href="mailto:privacy@petcrew.app" className="text-purple-600 hover:text-purple-700">
-                privacy@petcrew.app
+              <a href="mailto:bryanstudio.dev@gmail.com" className="text-purple-600 hover:text-purple-700">
+                bryanstudio.dev@gmail.com
               </a>
             </p>
           </div>
@@ -271,8 +271,8 @@ export default function PrivacyPolicy() {
             <p>
               If you believe we have inadvertently collected information from a child under 13,
               please contact us immediately at{' '}
-              <a href="mailto:privacy@petcrew.app" className="text-purple-600 hover:text-purple-700">
-                privacy@petcrew.app
+              <a href="mailto:bryanstudio.dev@gmail.com" className="text-purple-600 hover:text-purple-700">
+                bryanstudio.dev@gmail.com
               </a>
             </p>
           </div>
@@ -323,20 +323,10 @@ export default function PrivacyPolicy() {
               <p className="mb-2 font-semibold text-purple-900">Email</p>
               <p className="mb-4">
                 <a
-                  href="mailto:privacy@petcrew.app"
+                  href="mailto:bryanstudio.dev@gmail.com"
                   className="text-purple-600 hover:text-purple-700"
                 >
-                  privacy@petcrew.app
-                </a>
-              </p>
-
-              <p className="mb-2 font-semibold text-purple-900">Support</p>
-              <p className="mb-4">
-                <a
-                  href="mailto:support@petcrew.app"
-                  className="text-purple-600 hover:text-purple-700"
-                >
-                  support@petcrew.app
+                  bryanstudio.dev@gmail.com
                 </a>
               </p>
 
