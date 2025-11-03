@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function FinalCTA() {
   const ref = useRef(null);
@@ -148,26 +149,26 @@ export default function FinalCTA() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            <a
-              href="/petcrew/privacy.html"
+            <Link
+              to="/petcrew/privacy"
               className="transition-colors hover:text-white"
             >
               Privacy Policy
-            </a>
+            </Link>
             <span>•</span>
-            <a
-              href="/petcrew/support.html"
+            <Link
+              to="/petcrew/support"
               className="transition-colors hover:text-white"
             >
               Support
-            </a>
+            </Link>
             <span>•</span>
-            <a
-              href="/petcrew/terms.html"
+            <Link
+              to="/petcrew/terms"
               className="transition-colors hover:text-white"
             >
               Terms of Service
-            </a>
+            </Link>
           </motion.div>
 
           {/* Copyright */}
