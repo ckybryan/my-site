@@ -67,7 +67,7 @@ export default function PetCrewHero() {
 
             {/* CTAs */}
             <motion.div
-              className="flex flex-col items-center gap-4 sm:flex-row lg:justify-start"
+              className="flex justify-center lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
@@ -87,29 +87,6 @@ export default function PetCrewHero() {
                 </svg>
                 Download on App Store
               </a>
-
-              <button className="inline-flex items-center gap-2 rounded-full border-2 border-white bg-white/10 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Watch Demo
-              </button>
             </motion.div>
 
             {/* Trust indicators */}
