@@ -16,7 +16,7 @@ export default function Pricing() {
         'Up to 2 pets',
         'One-tap quick logging',
         'iOS home screen widgets',
-        '7-day feeding history',
+        '30-day feeding history',
         'Smart reminders',
         'Works 100% offline',
         'Color-coded status',

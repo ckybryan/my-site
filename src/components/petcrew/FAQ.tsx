@@ -31,7 +31,7 @@ const faqs = [
   {
     question: 'What\'s included in the free version?',
     answer:
-      'Everything you need: Quick feed logging, iOS widgets, reminders, 7-day history, color-coded calendar, and smart notifications. No ads, ever.',
+      'Everything you need: Quick feed logging, iOS widgets, reminders, 30-day history, color-coded calendar, and smart notifications. No ads, ever.',
   },
   {
     question: 'How does household sync work?',
