@@ -1,24 +1,24 @@
-import PetCrewHero from './components/petcrew/PetCrewHero';
-import ProblemSolution from './components/petcrew/ProblemSolution';
-import FeaturesGrid from './components/petcrew/FeaturesGrid';
-import Testimonials from './components/petcrew/Testimonials';
-import Pricing from './components/petcrew/Pricing';
-import FAQ from './components/petcrew/FAQ';
-import FinalCTA from './components/petcrew/FinalCTA';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Portfolio from './pages/Portfolio';
+import PetCrewLanding from './pages/PetCrewLanding';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Support from './pages/Support';
+import Terms from './pages/Terms';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <main>
-        <PetCrewHero />
-        <ProblemSolution />
-        <FeaturesGrid />
-        <Testimonials />
-        <Pricing />
-        <FAQ />
-        <FinalCTA />
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Main portfolio page */}
+        <Route path="/" element={<Portfolio />} />
+
+        {/* PetCrew routes */}
+        <Route path="/petcrew" element={<PetCrewLanding />} />
+        <Route path="/petcrew/privacy" element={<PrivacyPolicy />} />
+        <Route path="/petcrew/support" element={<Support />} />
+        <Route path="/petcrew/terms" element={<Terms />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
