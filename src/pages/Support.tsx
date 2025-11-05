@@ -60,7 +60,7 @@ export default function Support() {
               </ol>
               <div className="mt-4 rounded-lg bg-blue-50 p-4">
                 <p className="text-sm text-blue-800">
-                  <strong>Note:</strong> Free users can add up to 3 pets. Upgrade to Premium for
+                  <strong>Note:</strong> Free users can add up to 2 pets. Upgrade to Premium for
                   unlimited pets!
                 </p>
               </div>
