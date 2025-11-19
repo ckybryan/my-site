@@ -126,7 +126,7 @@ export const en: Translation = {
     location: 'Location',
     whyWorkWithMe: 'Why Work With Me?',
     reasons: [
-      '7+ years of experience leading full-stack development at GoBolt',
+      '8+ years of experience leading full-stack development at GoBolt',
       'Proven track record of reducing boilerplate by 60% and optimizing performance',
       'Expert in TypeScript, React ecosystem, and modern development practices',
       'Strong leadership experience and passion for mentoring teams',
