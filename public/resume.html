@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bryan Chan - Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            background: white;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            font-size: 11px;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .contact-info a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #2563eb;
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+
+        .company {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .duration {
+            font-size: 11px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .section-header {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            font-size: 11px;
+            margin-bottom: 4px;
+            line-height: 1.5;
+        }
+
+        .summary {
+            font-size: 11px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .skills-section {
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .skill-category {
+            margin-bottom: 6px;
+        }
+
+        .skill-category strong {
+            color: #1a1a1a;
+        }
+
+        .technologies {
+            font-size: 10px;
+            color: #555;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .achievements {
+            font-size: 11px;
+            margin-left: 20px;
+        }
+
+        .achievements li {
+            margin-bottom: 4px;
+        }
+
+        .education-item {
+            margin-bottom: 8px;
+        }
+
+        .degree {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .institution {
+            font-size: 11px;
+            color: #555;
+        }
+
+        @media print {
+            body {
+                padding: 20px;
+            }
+
+            @page {
+                margin: 0.5in;
+                size: letter;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BRYAN CHAN</h1>
+        <div class="subtitle">Lead Software Engineer</div>
+        <div class="contact-info">
+            📧 cky.bryan@gmail.com | 🌐 <a href="https://bryan.wtf">bryan.wtf</a> | 💼 <a href="https://linkedin.com/in/cky-bryanchan">linkedin.com/in/cky-bryanchan</a> | 🐙 <a href="https://github.com/ckybryan">github.com/ckybryan</a><br>
+            📍 Toronto, Ontario, Canada
+        </div>
+    </header>
+
+    <section>
+        <h2>Professional Summary</h2>
+        <div class="summary">
+            Full-stack software engineer with 8+ years of experience building enterprise logistics and warehouse management platforms. Currently leading technical initiatives at GoBolt, specializing in TypeScript/NestJS backend architecture, React frontends, and cloud-native deployments. Expert in designing scalable distributed systems, real-time applications, and warehouse operations software.
+            <br><br>
+            <strong>Core Expertise:</strong> TypeScript, NestJS, React, PostgreSQL, Kubernetes, Distributed Systems Architecture
+        </div>
+    </section>
+
+    <section>
+        <h2>Technical Skills</h2>
+        <div class="skills-section">
+            <div class="skill-category"><strong>Frontend:</strong> React 18, TypeScript, Recoil, React Query, Vite, Ant Design, styled-components, Storybook, Playwright, Vitest</div>
+            <div class="skill-category"><strong>Backend:</strong> NestJS, Node.js, Express, TypeORM, PostgreSQL, Socket.io, Background Jobs, Distributed Locking</div>
+            <div class="skill-category"><strong>Cloud & DevOps:</strong> Kubernetes, Docker, ArgoCD, Helm, AWS (Elastic Beanstalk, Lambda), SOPS/KMS, GitOps, DataDog APM</div>
+            <div class="skill-category"><strong>Architecture:</strong> Domain-Driven Design, Microservices, Event-Driven Architecture, Message Queues, State Machines</div>
+            <div class="skill-category"><strong>Testing:</strong> Playwright, Vitest, Jest, FactoryBot, ESLint, Prettier, TypeScript Strict Mode</div>
+            <div class="skill-category"><strong>Tools:</strong> Git, LaunchDarkly, Sentry, Swagger/OpenAPI, DataDog APM</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Professional Experience</h2>
+
+        <div class="job-header">
+            <h3>Lead Software Engineer</h3>
+            <span class="duration">October 2021 - Present (4 years)</span>
+        </div>
+        <div class="company">GoBolt (formerly Bolt Logistics) | Toronto, Ontario, Canada</div>
+
+        <div class="section-header">Enterprise Warehouse Management System Architecture</div>
+        <ul>
+            <li>Architected and maintain enterprise warehouse management backend with <strong>136+ modules</strong> using NestJS, TypeORM, and PostgreSQL, processing thousands of daily warehouse operations across receiving, picking, packing, returns, and carrier transfer workflows</li>
+            <li>Designed domain-driven architecture with standardized module patterns, custom decorators for authentication/permissions, and comprehensive Swagger API documentation</li>
+            <li>Implemented <strong>Generic Inflator Pattern</strong> for background processing with distributed locking, supporting picksheet inflation, work orders, and asynchronous task execution with automatic retry and stale item cleanup</li>
+            <li>Built <strong>Signal Emitter Pattern</strong> with two-table design for reliable HTTP request queuing to Core API with automatic retries and comprehensive event tracking</li>
+            <li>Migrated from Redis-based distributed locking to PostgreSQL-based Generic Lock Service, eliminating Redis dependency and simplifying infrastructure</li>
+        </ul>
+
+        <div class="section-header">Frontend Development & Real-Time Systems</div>
+        <ul>
+            <li>Led development of React 18 warehouse management frontend with <strong>130+ routes</strong> across 35+ feature areas using TypeScript, Vite, Ant Design, and Recoil state management</li>
+            <li>Architected scanner-first mobile-optimized interface for warehouse floor operations with auto-focus input handling and Command+K fuzzy search navigation</li>
+            <li>Implemented WebSocket integration for real-time packing operations with live status updates</li>
+            <li>Built multi-step picking/packing wizards, ASN processing flows, inventory management, and special projects interfaces</li>
+            <li>Designed state management architecture using Recoil for global state, React Query for server-side caching, and URL params for shareable flow state</li>
+        </ul>
+
+        <div class="section-header">Cloud Infrastructure & DevOps</div>
+        <ul>
+            <li>Managed Kubernetes deployments across <strong>8 environments</strong> (prod, preprod, meta, air, escape, mini, tide, tri) using Helm charts and ArgoCD GitOps workflows</li>
+            <li>Implemented secrets management with SOPS encryption and KMS integration for secure configuration across environments</li>
+            <li>Built Docker containerization strategies with multi-stage builds, health check endpoints, and optimized caching</li>
+            <li>Integrated DataDog APM with custom decorators for performance monitoring and error tracking across all services</li>
+        </ul>
+
+        <div class="section-header">Testing & Code Quality</div>
+        <ul>
+            <li>Established testing patterns: Unit tests with FactoryBot, integration tests with database fixtures, E2E tests with Playwright</li>
+            <li>Implemented Storybook for component documentation and visual regression testing</li>
+            <li>Maintained test coverage with Vitest and Jest across all services</li>
+            <li>Enforced code quality standards with ESLint, Prettier, and TypeScript strict mode</li>
+        </ul>
+
+        <div class="technologies"><strong>Technologies:</strong> TypeScript, NestJS, React 18, PostgreSQL, Socket.io, Kubernetes, Docker, ArgoCD, Helm, TypeORM, Recoil, React Query, Ant Design, Vite, Playwright, Vitest, DataDog, LaunchDarkly, SOPS</div>
+
+        <div class="job-header" style="margin-top: 20px;">
+            <h3>Full Stack Engineer, Senior Software Developer, Team Lead</h3>
+            <span class="duration">November 2020 - October 2021 (1 year)</span>
+        </div>
+        <div class="company">Bolt Logistics | Toronto, Ontario, Canada</div>
+        <ul>
+            <li>Built a new app with NestJS (TypeScript backend framework) for warehouse inventory management system</li>
+            <li>Deployed the app on Amazon Elastic Beanstalk with proper health checks and monitoring</li>
+            <li>Designed database architecture and entity relationships for warehouse operations</li>
+            <li>Built a new ReactJS frontend interface for warehouse system</li>
+            <li>Built serverless AWS Lambda functions to query secondary database</li>
+            <li>Handled concurrency issues with distributed locks</li>
+            <li>Built an access management app allowing team leads to grant feature access to team members</li>
+        </ul>
+
+        <div class="job-header" style="margin-top: 20px;">
+            <h3>Lead Frontend Developer</h3>
+            <span class="duration">December 2018 - November 2021 (3 years)</span>
+        </div>
+        <div class="company">Bolt Logistics | Toronto, Canada Area</div>
+        <ul>
+            <li>Introduced React hooks and formalized them into the codebase</li>
+            <li>Introduced TypeScript into the codebase</li>
+            <li>Introduced styled-components and replaced SASS from the codebase</li>
+            <li>Introduced npm packages for both web (React) and mobile (React Native) components</li>
+            <li>Introduced react-query into the codebase</li>
+            <li>Built a React app for vehicle routing system with Google Maps API</li>
+            <li>Introduced RecoilJS into the system and replaced Redux, reducing 60% of boilerplate code</li>
+        </ul>
+
+        <div class="job-header" style="margin-top: 20px;">
+            <h3>Frontend Developer</h3>
+            <span class="duration">January 2018 - December 2018 (1 year)</span>
+        </div>
+        <div class="company">Bolt Logistics | Toronto, Ontario, Canada</div>
+        <ul>
+            <li>Introduced Redux into main site and solved the prop drilling problem</li>
+            <li>Implemented progressive data loading on management tool to improve performance</li>
+            <li>Introduced SASS into the codebase</li>
+            <li>Built and deployed first React Native app for operations team</li>
+            <li>Built business site from scratch with React</li>
+        </ul>
+
+        <div class="job-header" style="margin-top: 20px;">
+            <h3>Frontend Developer (Intern)</h3>
+            <span class="duration">November 2017 - December 2017 (2 months)</span>
+        </div>
+        <div class="company">Bolt Logistics | Toronto, Ontario, Canada</div>
+        <ul>
+            <li>Updated site footer on main site</li>
+            <li>Implemented Stripe Element with React on the site</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Personal Projects</h2>
+
+        <div class="job-header">
+            <h3>BryanStudio.dev - Personal Portfolio Website</h3>
+            <span class="duration">2025</span>
+        </div>
+        <ul>
+            <li>Built modern portfolio website using React 19, TypeScript, Vite, and Tailwind CSS</li>
+            <li>Implemented Framer Motion animations and glassmorphism design aesthetics</li>
+            <li>Deployed on Railway with Docker containerization and Express server</li>
+            <li>Features multilingual support and responsive mobile-first design</li>
+        </ul>
+        <div class="technologies"><strong>Technologies:</strong> React 19, TypeScript, Vite, Tailwind CSS, Framer Motion, Docker, Railway</div>
+
+        <div class="job-header" style="margin-top: 15px;">
+            <h3>AI Career Chat Agent</h3>
+            <span class="duration">2025</span>
+        </div>
+        <ul>
+            <li>Developed AI-powered chat agent using OpenAI GPT-4 with custom function calling and structured outputs</li>
+            <li>Implemented PDF profile parsing for context injection and personalized career guidance</li>
+            <li>Built modern ChatGPT-style interface with real-time streaming responses</li>
+            <li>Integrated push notifications via Pushover and deployed on Railway</li>
+        </ul>
+        <div class="technologies"><strong>Technologies:</strong> TypeScript, OpenAI GPT-4, Express, React, PDF parsing, Railway</div>
+
+        <div class="job-header" style="margin-top: 15px;">
+            <h3>PetCrew - iOS Pet Management App</h3>
+            <span class="duration">2025</span>
+        </div>
+        <ul>
+            <li>Developed privacy-first iOS app for pet care management using SwiftUI</li>
+            <li>Implemented local-first architecture with household sharing capabilities</li>
+            <li>Designed with zero analytics and telemetry for maximum user privacy</li>
+            <li>Published to App Store with full legal compliance (Privacy Policy, Terms, Support)</li>
+        </ul>
+        <div class="technologies"><strong>Technologies:</strong> SwiftUI, iOS, Local-first architecture</div>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <div class="education-item">
+            <div class="degree">Bachelor of Applied Science (BASc), Computer Engineering</div>
+            <div class="institution">University of Toronto</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Key Achievements</h2>
+        <ul class="achievements">
+            <li>Built and architected enterprise warehouse management system with 136+ modules</li>
+            <li>Led React frontend development with 130+ routes and real-time WebSocket features</li>
+            <li>Managed Kubernetes/ArgoCD deployments across 8 environments</li>
+            <li>Designed distributed systems patterns (Generic Inflator, Signal Emitter, Distributed Locking)</li>
+            <li>Implemented comprehensive testing strategies and code quality standards</li>
+            <li>8+ years at GoBolt showing loyalty, growth, and technical leadership</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Languages</h2>
+        <div class="summary">English (Fluent) • Mandarin Chinese (Fluent) • Cantonese (Fluent)</div>
+    </section>
+</body>
+</html>

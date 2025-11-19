@@ -1,4 +1,4 @@
-import { ArrowDown, Github, Linkedin } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Download } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Hero: React.FC = () => {
@@ -40,8 +40,16 @@ const Hero: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
+              href="/Bryan_Chan_Resume.pdf"
+              download="Bryan_Chan_Resume.pdf"
+              className="px-8 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-medium flex items-center gap-2"
+            >
+              <Download size={20} />
+              Download Resume
+            </a>
+            <a
               href="#contact"
-              className="px-8 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-medium"
+              className="px-8 py-3 border-2 border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors duration-200 font-medium"
             >
               {t.hero.getInTouch}
             </a>
