@@ -1,26 +1,32 @@
+import { useEffect } from 'react';
 import { LanguageProvider } from '../contexts/LanguageContext';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
-import Skills from '../components/Skills';
-import Projects from '../components/Projects';
-import IndieApps from '../components/IndieApps';
-import Experience from '../components/Experience';
+import Work from '../components/IndieApps';
+import Studio from '../components/About';
+import Craft from '../components/Skills';
+import TrackRecord from '../components/Experience';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
-import About from '../components/About';
 
 export default function Portfolio() {
+  useEffect(() => {
+    console.log(
+      '%cHi. This site was designed, built, and iterated with Claude Code. — bryan',
+      'font-family: ui-monospace, monospace; color: #2A2620; background: #F5F1E8; padding: 8px 14px; border: 1px solid #B8B09B;'
+    );
+  }, []);
+
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-ink-950 text-fg">
         <Header />
         <main>
           <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <IndieApps />
-          <Experience />
+          <Work />
+          <Studio />
+          <Craft />
+          <TrackRecord />
           <Contact />
         </main>
         <Footer />

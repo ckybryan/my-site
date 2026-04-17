@@ -1,71 +1,59 @@
-import { ArrowDown, Github, Linkedin, Download } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Hero: React.FC = () => {
-  const { t, language } = useLanguage();
-  
-  const displayName = (language === 'zh-CN' || language === 'zh-TW') && t.hero.chineseName 
-    ? t.hero.chineseName 
-    : t.hero.title;
-  
+  const { t } = useLanguage();
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white pt-16">
-      <div className="max-w-7xl mx-auto section-padding text-center">
-        <div className="animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-            {t.hero.greeting} <span className="gradient-text">{displayName}</span>
+    <section
+      id="top"
+      className="min-h-screen flex items-center px-6 md:px-8 pt-20"
+    >
+      <div className="max-w-6xl mx-auto w-full grid grid-cols-12 gap-6">
+        <div className="col-span-12 md:col-span-10 animate-fade-in">
+          <p className="mono-caps text-xs text-fg-mute mb-10">
+            {t.hero.kicker}
+          </p>
+          <h1 className="display text-5xl md:text-[84px] leading-[0.95] mb-8">
+            {t.hero.titleLine1}
+            <br />
+            <span className="font-light text-fg-dim">{t.hero.titleLine2}</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-fg-dim max-w-2xl leading-relaxed mb-14">
             {t.hero.description}
           </p>
-          
-          <div className="flex justify-center space-x-6 mb-12">
-            <a
-              href="https://github.com/ckybryan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors duration-200"
-            >
-              <Github size={24} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/cky-bryanchan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors duration-200"
-            >
-              <Linkedin size={24} />
-            </a>
+
+          <div className="grid grid-cols-3 gap-px bg-ink-800 border border-ink-800 max-w-2xl mb-14">
+            <div className="bg-ink-950 p-5">
+              <div className="mono text-2xl md:text-3xl text-fg mb-1">8+</div>
+              <div className="mono-caps text-[10px] text-fg-mute">
+                {t.hero.stats.yearsAtGoBolt}
+              </div>
+            </div>
+            <div className="bg-ink-950 p-5">
+              <div className="mono text-2xl md:text-3xl text-fg mb-1">2</div>
+              <div className="mono-caps text-[10px] text-fg-mute">
+                {t.hero.stats.appsLive}
+              </div>
+            </div>
+            <div className="bg-ink-950 p-5">
+              <div className="mono text-2xl md:text-3xl text-fg mb-1">AI</div>
+              <div className="mono-caps text-[10px] text-fg-mute">
+                {t.hero.stats.nativeDev}
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="/Bryan_Chan_Resume.pdf"
-              download="Bryan_Chan_Resume.pdf"
-              className="px-8 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 font-medium flex items-center gap-2"
-            >
-              <Download size={20} />
-              Download Resume
+          <div className="flex items-center gap-8 mono text-sm">
+            <a href="#work" className="link-sweep text-fg">
+              → {t.hero.seeWork}
             </a>
             <a
               href="#contact"
-              className="px-8 py-3 border-2 border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors duration-200 font-medium"
+              className="link-sweep text-fg-dim hover:text-fg transition-colors"
             >
-              {t.hero.getInTouch}
-            </a>
-            <a
-              href="#projects"
-              className="px-8 py-3 border-2 border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 transition-colors duration-200 font-medium"
-            >
-              {t.hero.viewWork}
+              → {t.hero.getInTouch}
             </a>
           </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <a href="#about">
-            <ArrowDown size={24} className="text-gray-400" />
-          </a>
         </div>
       </div>
     </section>

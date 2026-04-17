@@ -1,92 +1,57 @@
-import { Code, Coffee, Lightbulb } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const About: React.FC = () => {
+const Studio: React.FC = () => {
   const { t } = useLanguage();
 
+  const facts: { label: string; value: string }[] = [
+    { label: t.studio.facts.basedLabel, value: t.studio.facts.basedValue },
+    { label: t.studio.facts.dayJobLabel, value: t.studio.facts.dayJobValue },
+    { label: t.studio.facts.studioLabel, value: t.studio.facts.studioValue },
+    {
+      label: t.studio.facts.educationLabel,
+      value: t.studio.facts.educationValue,
+    },
+    {
+      label: t.studio.facts.offKeysLabel,
+      value: t.studio.facts.offKeysValue,
+    },
+  ];
+
   return (
-    <section id="about" className="bg-white section-padding">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t.about.title}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t.about.description}
-          </p>
+    <section id="studio" className="section-padding border-t border-ink-800">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
+          <p className="mono-caps text-xs text-fg-mute">02 / {t.nav.studio}</p>
+          <p className="mono text-xs text-fg-mute">{t.studio.kicker}</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              {t.about.journey}
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {t.about.journeyText1}
+        <div className="grid md:grid-cols-12 gap-12">
+          <div className="md:col-span-7">
+            <p className="display text-3xl md:text-4xl leading-[1.2] text-fg mb-8">
+              <span className="text-fg-mute">"</span>
+              {t.studio.pullQuote}
+              <span className="text-fg-mute">"</span>
             </p>
-            <p className="text-gray-600 mb-6">
-              {t.about.journeyText2}
+            <p className="text-fg-dim leading-relaxed text-[17px] max-w-prose">
+              {t.studio.bio}
             </p>
-            <div className="flex flex-wrap gap-4">
-              <span className="px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium">
-                {t.about.tags.fullStackLeader}
-              </span>
-              <span className="px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium">
-                {t.about.tags.typescriptExpert}
-              </span>
-              <span className="px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium">
-                {t.about.tags.performanceOptimizer}
-              </span>
-            </div>
-            
-            <div className="mt-12">
-              <h4 className="text-lg font-medium text-gray-900 mb-4">
-                {t.about.education}
-              </h4>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h5 className="font-medium text-gray-900">{t.about.degree}</h5>
-                <p className="text-gray-600">{t.about.major}</p>
-                <p className="text-gray-500 text-sm">{t.about.university}</p>
-              </div>
-            </div>
           </div>
-
-          <div className="grid gap-6">
-            <div className="p-6 bg-gray-50 rounded-lg">
-              <div className="flex items-center mb-4">
-                <Code className="text-primary-600 mr-3" size={24} />
-                <h4 className="text-lg font-semibold text-gray-900">
-                  {t.about.cleanCode}
-                </h4>
-              </div>
-              <p className="text-gray-600">
-                {t.about.cleanCodeDesc}
-              </p>
-            </div>
-
-            <div className="p-6 bg-gray-50 rounded-lg">
-              <div className="flex items-center mb-4">
-                <Lightbulb className="text-primary-600 mr-3" size={24} />
-                <h4 className="text-lg font-semibold text-gray-900">
-                  {t.about.innovation}
-                </h4>
-              </div>
-              <p className="text-gray-600">
-                {t.about.innovationDesc}
-              </p>
-            </div>
-
-            <div className="p-6 bg-gray-50 rounded-lg">
-              <div className="flex items-center mb-4">
-                <Coffee className="text-primary-600 mr-3" size={24} />
-                <h4 className="text-lg font-semibold text-gray-900">
-                  {t.about.collaboration}
-                </h4>
-              </div>
-              <p className="text-gray-600">
-                {t.about.collaborationDesc}
-              </p>
-            </div>
+          <div className="md:col-span-5 mono text-[13px]">
+            <dl className="space-y-3">
+              {facts.map((fact, i) => (
+                <div
+                  key={fact.label}
+                  className={`flex gap-6 ${
+                    i < facts.length - 1 ? 'border-b border-ink-800 pb-3' : ''
+                  }`}
+                >
+                  <dt className="text-fg-mute w-28 shrink-0 uppercase">
+                    {fact.label}
+                  </dt>
+                  <dd className="text-fg">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </div>
@@ -94,4 +59,4 @@ const About: React.FC = () => {
   );
 };
 
-export default About;
+export default Studio;

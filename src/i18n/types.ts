@@ -1,73 +1,82 @@
 export interface Translation {
   nav: {
     home: string;
-    about: string;
-    skills: string;
-    projects: string;
-    experience: string;
+    work: string;
+    studio: string;
+    craft: string;
+    track: string;
     contact: string;
   };
   hero: {
-    greeting: string;
-    title: string;
-    chineseName?: string;
+    kicker: string;
+    titleLine1: string;
+    titleLine2: string;
     description: string;
+    seeWork: string;
     getInTouch: string;
-    viewWork: string;
+    stats: {
+      yearsAtGoBolt: string;
+      appsLive: string;
+      nativeDev: string;
+    };
+    chineseName?: string;
   };
-  about: {
-    title: string;
-    description: string;
-    journey: string;
-    journeyText1: string;
-    journeyText2: string;
-    tags: {
-      fullStackLeader: string;
-      typescriptExpert: string;
-      performanceOptimizer: string;
+  work: {
+    kicker: string;
+    titleLine1: string;
+    titleLine2: string;
+    live: string;
+    builtWith: string;
+    moreAt: string;
+    snapsell: {
+      tagline: string;
+      description: string;
     };
-    education: string;
-    degree: string;
-    major: string;
-    university: string;
-    cleanCode: string;
-    cleanCodeDesc: string;
-    innovation: string;
-    innovationDesc: string;
-    collaboration: string;
-    collaborationDesc: string;
+    petcrew: {
+      tagline: string;
+      description: string;
+    };
   };
-  skills: {
-    title: string;
-    description: string;
-    frontend: string;
-    backendMobile: string;
-    toolsDevops: string;
-    alwaysLearning: string;
+  studio: {
+    kicker: string;
+    pullQuote: string;
+    bio: string;
+    facts: {
+      basedLabel: string;
+      basedValue: string;
+      dayJobLabel: string;
+      dayJobValue: string;
+      studioLabel: string;
+      studioValue: string;
+      educationLabel: string;
+      educationValue: string;
+      offKeysLabel: string;
+      offKeysValue: string;
+    };
   };
-  projects: {
-    title: string;
-    description: string;
-    vehicleRouting: {
-      title: string;
-      description: string;
+  craft: {
+    kicker: string;
+    aiTitle: string;
+    aiIntro: string;
+    ai: {
+      claudeCode: string;
+      subagents: string;
+      agentTeams: string;
+      skills: string;
+      mcp: string;
+      slashCommands: string;
+      anthropicSdk: string;
     };
-    warehouseManagement: {
-      title: string;
-      description: string;
+    categories: {
+      frontend: string;
+      backend: string;
+      infra: string;
     };
-    careerConversation: {
-      title: string;
-      description: string;
-    };
-    mobileApp: {
-      title: string;
-      description: string;
-    };
+  };
+  track: {
+    kicker: string;
   };
   experience: {
-    title: string;
-    description: string;
     positions: {
       leadEngineer: {
         title: string;
@@ -94,22 +103,10 @@ export interface Translation {
   contact: {
     title: string;
     description: string;
-    startConversation: string;
-    email: string;
-    phone: string;
-    location: string;
-    whyWorkWithMe: string;
-    reasons: string[];
-    connectLinkedIn: string;
-    linkedInDescription: string;
-    visitLinkedIn: string;
+    status: string;
   };
   footer: {
-    description: string;
-    quickLinks: string;
-    getInTouch: string;
-    letsWorkTogether: string;
-    allRightsReserved: string;
-    madeWith: string;
+    builtWith: string;
+    backToTop: string;
   };
 }

@@ -1,95 +1,78 @@
 import { useLanguage } from '../contexts/LanguageContext';
 
-const Skills: React.FC = () => {
+const Craft: React.FC = () => {
   const { t } = useLanguage();
-  
-  const skillCategories = [
-    {
-      title: t.skills.frontend,
-      skills: [
-        { name: 'React.js', level: 95 },
-        { name: 'TypeScript', level: 95 },
-        { name: 'React Hooks', level: 90 },
-        { name: 'Styled-Components', level: 85 },
-        { name: 'Redux/RecoilJS', level: 85 },
-        { name: 'React-Query', level: 80 },
-      ],
-    },
-    {
-      title: t.skills.backendMobile,
-      skills: [
-        { name: 'NestJS', level: 90 },
-        { name: 'AWS Lambda', level: 85 },
-        { name: 'React Native', level: 80 },
-        { name: 'Amazon Elastic Beanstalk', level: 75 },
-        { name: 'REST APIs', level: 90 },
-        { name: 'Database Design', level: 80 },
-      ],
-    },
-    {
-      title: t.skills.toolsDevops,
-      skills: [
-        { name: 'Git', level: 95 },
-        { name: 'AWS', level: 85 },
-        { name: 'Google Maps API', level: 85 },
-        { name: 'npm packages', level: 90 },
-        { name: 'Progressive Data Loading', level: 85 },
-        { name: 'Team Leadership', level: 90 },
-      ],
-    },
+
+  const ai: { label: string; body: string }[] = [
+    { label: 'claude code', body: t.craft.ai.claudeCode },
+    { label: 'subagents', body: t.craft.ai.subagents },
+    { label: 'agent teams', body: t.craft.ai.agentTeams },
+    { label: 'custom skills', body: t.craft.ai.skills },
+    { label: 'mcp integrations', body: t.craft.ai.mcp },
+    { label: 'slash commands', body: t.craft.ai.slashCommands },
+    { label: 'anthropic sdk', body: t.craft.ai.anthropicSdk },
   ];
 
   return (
-    <section id="skills" className="bg-gray-50 section-padding">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t.skills.title}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t.skills.description}
-          </p>
+    <section id="craft" className="section-padding border-t border-ink-800">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
+          <p className="mono-caps text-xs text-fg-mute">03 / {t.nav.craft}</p>
+          <p className="mono text-xs text-fg-mute">{t.craft.kicker}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
-                {category.title}
-              </h3>
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-700 font-medium">{skill.name}</span>
-                      <span className="text-gray-500 text-sm">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div
-                        className="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+        <div className="border border-ink-800 bg-ink-900/50 mb-16 overflow-hidden">
+          <div className="mono text-xs text-fg-mute px-5 py-3 border-b border-ink-800 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-ink-700" />
+            <span className="w-2 h-2 rounded-full bg-ink-700" />
+            <span className="w-2 h-2 rounded-full bg-ink-700" />
+            <span className="ml-3">~ bryan.wtf / craft</span>
+          </div>
+          <div className="p-8 md:p-12">
+            <h2 className="display text-4xl md:text-5xl mb-3">
+              {t.craft.aiTitle}
+            </h2>
+            <p className="text-fg-dim mb-10 max-w-2xl text-[17px] leading-relaxed">
+              {t.craft.aiIntro}
+            </p>
+
+            <ul className="mono text-sm space-y-3">
+              {ai.map((item) => (
+                <li key={item.label} className="flex flex-col md:flex-row md:gap-6">
+                  <span className="text-accent-500 md:w-44 shrink-0">
+                    {item.label}
+                  </span>
+                  <span className="text-fg-dim">{item.body}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">
-            {t.skills.alwaysLearning}
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {['Kubernetes', 'Docker', 'Microservices', 'WebRTC', 'Serverless', 'Machine Learning', 'Large Language Models', 'AI Integration', 'Google Cloud GCP'].map((tech) => (
-              <span
-                key={tech}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-primary-100 hover:text-primary-800 transition-colors duration-200"
-              >
-                {tech}
-              </span>
-            ))}
+        <div className="grid md:grid-cols-3 gap-10 mono text-[13px]">
+          <div>
+            <p className="mono-caps text-xs text-fg-mute mb-4">
+              {t.craft.categories.frontend}
+            </p>
+            <p className="text-fg-dim leading-[2]">
+              react · typescript · next.js · react native · tailwind · react query · redux · styled-components
+            </p>
+          </div>
+          <div>
+            <p className="mono-caps text-xs text-fg-mute mb-4">
+              {t.craft.categories.backend}
+            </p>
+            <p className="text-fg-dim leading-[2]">
+              node.js · nestjs · express · rest apis · postgres · drizzle · aws lambda · swift
+            </p>
+          </div>
+          <div>
+            <p className="mono-caps text-xs text-fg-mute mb-4">
+              {t.craft.categories.infra}
+            </p>
+            <p className="text-fg-dim leading-[2]">
+              git · aws · railway · vercel · cloudflare · ci/cd · observability · team leadership
+            </p>
           </div>
         </div>
       </div>
@@ -97,4 +80,4 @@ const Skills: React.FC = () => {
   );
 };
 
-export default Skills;
+export default Craft;

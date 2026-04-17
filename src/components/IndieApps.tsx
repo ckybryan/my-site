@@ -1,108 +1,131 @@
-import { ExternalLink, Sparkles } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 type App = {
+  num: string;
   name: string;
-  emoji: string;
   tagline: string;
   description: string;
-  stack: string[];
+  platform: string;
+  year: string;
+  stack: string;
   href: string;
-  ctaLabel: string;
+  linkLabel: string;
+  brandColor: string;
 };
 
-const apps: App[] = [
-  {
-    name: 'PetCrew',
-    emoji: '🐾',
-    tagline: 'Pet care, shared with family',
-    description:
-      'Smart pet care companion for tracking feeding schedules and sharing care with the whole family.',
-    stack: ['iOS', 'Swift', 'Firebase'],
-    href: 'https://bryanstudio.dev/petcrew',
-    ctaLabel: 'Explore PetCrew',
-  },
-  {
-    name: 'SnapSell',
-    emoji: '📸',
-    tagline: 'Snap a photo, sell it',
-    description:
-      'AI-generated marketplace listings tailored for Facebook, eBay, Etsy, and Amazon — in seconds.',
-    stack: ['Next.js', 'TypeScript', 'Postgres'],
-    href: 'https://snap-sell.com',
-    ctaLabel: 'Try SnapSell',
-  },
-];
+const Work: React.FC = () => {
+  const { t } = useLanguage();
 
-const IndieApps: React.FC = () => {
+  const apps: App[] = [
+    {
+      num: '— 01',
+      name: 'SnapSell',
+      tagline: t.work.snapsell.tagline,
+      description: t.work.snapsell.description,
+      platform: 'WEB',
+      year: '2026',
+      stack: 'next.js · typescript · postgres · cloudflare workers ai',
+      href: 'https://snap-sell.com',
+      linkLabel: 'snap-sell.com',
+      brandColor: '#21A593',
+    },
+    {
+      num: '— 02',
+      name: 'PetCrew',
+      tagline: t.work.petcrew.tagline,
+      description: t.work.petcrew.description,
+      platform: 'iOS',
+      year: '2025',
+      stack: 'swift · swiftui · firebase',
+      href: 'https://www.bryanstudio.dev/petcrew',
+      linkLabel: 'www.bryanstudio.dev/petcrew',
+      brandColor: '#7c5cd9',
+    },
+  ];
+
   return (
-    <section id="indie-apps" className="bg-white section-padding">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            <Sparkles className="w-4 h-4" />
-            Indie Development
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Building Apps for Real People
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Beyond my day job, I run{' '}
-            <span className="font-semibold text-primary-600">Bryan Studio</span> — crafting
-            delightful apps across iOS and the web that solve everyday problems.
-          </p>
+    <section id="work" className="section-padding border-t border-ink-800">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
+          <p className="mono-caps text-xs text-fg-mute">01 / {t.nav.work}</p>
+          <p className="mono text-xs text-fg-mute">{t.work.kicker}</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <h2 className="display text-4xl md:text-6xl mb-16 md:mb-20 max-w-3xl">
+          {t.work.titleLine1}{' '}
+          <span className="font-light text-fg-dim">{t.work.titleLine2}</span>
+        </h2>
+
+        <div className="divide-y divide-ink-800">
           {apps.map((app) => (
-            <div
+            <a
               key={app.name}
-              className="group flex flex-col bg-white border border-gray-200 rounded-2xl p-8 hover:border-primary-300 hover:shadow-md transition-all duration-300"
+              href={app.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block py-12 md:py-16 grid grid-cols-12 gap-6 md:gap-10 hover:bg-ink-900/50 transition-colors duration-300 -mx-4 px-4 md:-mx-6 md:px-6"
             >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-gray-50 text-3xl border border-gray-100">
-                  {app.emoji}
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900">{app.name}</h3>
-                  <p className="text-sm text-gray-500">{app.tagline}</p>
-                </div>
-              </div>
-
-              <p className="text-gray-600 mb-6 flex-1">{app.description}</p>
-
-              <div className="flex flex-wrap gap-2 mb-6">
-                {app.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium"
-                  >
-                    {tech}
+              <div className="col-span-12 md:col-span-3">
+                <p className="mono text-fg-mute text-sm mb-3">{app.num}</p>
+                <div className="mono text-[11px] text-fg-mute flex items-center gap-2 flex-wrap">
+                  <span>{app.platform}</span>
+                  <span>·</span>
+                  <span>{app.year}</span>
+                  <span>·</span>
+                  <span className="text-live flex items-center gap-1.5">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-live" />{' '}
+                    {t.work.live}
                   </span>
-                ))}
+                </div>
+                <div className="mt-4 inline-flex items-center gap-2 mono text-[10px] text-fg-mute border border-ink-700 px-2 py-1">
+                  <span className="inline-block w-1.5 h-1.5 bg-accent-500" />
+                  {t.work.builtWith}
+                </div>
               </div>
 
-              <a
-                href={app.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-primary-600 font-semibold group-hover:gap-3 transition-all"
-              >
-                <span>{app.ctaLabel}</span>
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
+              <div className="col-span-12 md:col-span-9">
+                <div className="flex items-baseline gap-5 mb-4 flex-wrap">
+                  <h3
+                    className="display text-4xl md:text-6xl tracking-tight text-fg transition-colors"
+                    style={
+                      {
+                        // hover target handled via group-hover below
+                      }
+                    }
+                  >
+                    <span
+                      className="group-hover:text-[var(--brand)] transition-colors"
+                      style={{ ['--brand' as string]: app.brandColor }}
+                    >
+                      {app.name}
+                    </span>
+                  </h3>
+                  <span className="text-fg-dim text-lg md:text-xl font-light">
+                    {app.tagline}
+                  </span>
+                </div>
+                <p className="text-fg-dim leading-relaxed text-lg max-w-2xl mb-6">
+                  {app.description}
+                </p>
+                <div className="flex items-center justify-between gap-6 flex-wrap">
+                  <p className="mono text-xs text-fg-mute">{app.stack}</p>
+                  <span className="mono text-sm text-fg link-sweep">
+                    {app.linkLabel} →
+                  </span>
+                </div>
+              </div>
+            </a>
           ))}
         </div>
 
         <div className="mt-12 text-center">
           <a
-            href="https://bryanstudio.dev"
+            href="https://www.bryanstudio.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors"
+            className="mono text-sm text-fg-mute link-sweep"
           >
-            <span>Visit Bryan Studio</span>
-            <ExternalLink className="w-4 h-4" />
+            {t.work.moreAt} www.bryanstudio.dev →
           </a>
         </div>
       </div>
@@ -110,4 +133,4 @@ const IndieApps: React.FC = () => {
   );
 };
 
-export default IndieApps;
+export default Work;

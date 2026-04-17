@@ -1,109 +1,80 @@
-import { Calendar, MapPin, Building } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const Experience: React.FC = () => {
+const TrackRecord: React.FC = () => {
   const { t } = useLanguage();
-  const experiences = [
+
+  const roles = [
     {
+      range: '2021 — NOW',
       title: t.experience.positions.leadEngineer.title,
-      company: 'GoBolt',
-      location: 'Toronto, ON',
-      period: 'Oct 2021 - Present',
-      description: t.experience.positions.leadEngineer.responsibilities,
-      technologies: ['TypeScript', 'React', 'NestJS', 'AWS', 'React Native', 'Database Design'],
+      bullets: t.experience.positions.leadEngineer.responsibilities,
+      tech: 'typescript · react · nestjs · aws · react native',
+      active: true,
     },
     {
+      range: '2018 — 2021',
       title: t.experience.positions.leadFrontend.title,
-      company: 'GoBolt',
-      location: 'Toronto, ON',
-      period: 'Dec 2018 - Nov 2021',
-      description: t.experience.positions.leadFrontend.responsibilities,
-      technologies: ['TypeScript', 'React', 'Styled-Components', 'React-Query', 'RecoilJS', 'Google Maps API'],
+      bullets: t.experience.positions.leadFrontend.responsibilities,
+      tech: 'typescript · react · styled-components · react-query · google maps api',
     },
     {
+      range: '2020 — 2021',
       title: t.experience.positions.fullStackLead.title,
-      company: 'GoBolt',
-      location: 'Toronto, ON',
-      period: 'Nov 2020 - Oct 2021',
-      description: t.experience.positions.fullStackLead.responsibilities,
-      technologies: ['NestJS', 'React', 'AWS', 'TypeScript', 'Database Design', 'Team Leadership'],
+      bullets: t.experience.positions.fullStackLead.responsibilities,
+      tech: 'nestjs · react · aws · typescript',
     },
     {
+      range: '2018',
       title: t.experience.positions.frontendDev.title,
-      company: 'GoBolt',
-      location: 'Toronto, ON',
-      period: 'Jan 2018 - Dec 2018',
-      description: t.experience.positions.frontendDev.responsibilities,
-      technologies: ['React', 'Redux', 'SASS', 'React Native', 'Progressive Data Loading'],
+      bullets: t.experience.positions.frontendDev.responsibilities,
+      tech: 'react · redux · sass · react native',
     },
     {
+      range: '2017',
       title: t.experience.positions.intern.title,
-      company: 'GoBolt',
-      location: 'Toronto, ON',
-      period: 'Nov 2017 - Dec 2017',
-      description: t.experience.positions.intern.responsibilities,
-      technologies: ['React', 'JavaScript', 'Stripe API', 'UI/UX'],
+      bullets: t.experience.positions.intern.responsibilities,
+      tech: 'react · javascript · stripe api',
     },
   ];
 
   return (
-    <section id="experience" className="bg-gray-50 section-padding">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            {t.experience.title}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {t.experience.description}
+    <section id="track" className="section-padding border-t border-ink-800">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
+          <p className="mono-caps text-xs text-fg-mute">
+            04 / {t.nav.track}
           </p>
+          <p className="mono text-xs text-fg-mute">{t.track.kicker}</p>
         </div>
 
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <div
-              key={index}
-              className="bg-white p-6 md:p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
-            >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    {exp.title}
-                  </h3>
-                  <div className="flex items-center text-primary-600 mb-2">
-                    <Building size={16} className="mr-2" />
-                    <span className="font-medium">{exp.company}</span>
-                  </div>
-                </div>
-                <div className="flex flex-col md:items-end text-gray-600">
-                  <div className="flex items-center mb-1">
-                    <Calendar size={16} className="mr-2" />
-                    <span>{exp.period}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <MapPin size={16} className="mr-2" />
-                    <span>{exp.location}</span>
-                  </div>
-                </div>
-              </div>
+        <h2 className="display text-4xl md:text-5xl mb-12">
+          GoBolt.{' '}
+          <span className="font-light text-fg-dim">2017 — now.</span>
+        </h2>
 
-              <ul className="text-gray-600 mb-6 space-y-2">
-                {exp.description.map((item, itemIndex) => (
-                  <li key={itemIndex} className="flex items-start">
-                    <span className="text-primary-600 mr-2 mt-1.5">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="flex flex-wrap gap-2">
-                {exp.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium"
-                  >
-                    {tech}
-                  </span>
-                ))}
+        <div className="relative pl-8 md:pl-12 border-l border-ink-700 space-y-10">
+          {roles.map((role) => (
+            <div key={role.range + role.title} className="relative">
+              <span
+                className={`absolute -left-[calc(2rem+5px)] md:-left-[calc(3rem+5px)] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-ink-950 ${
+                  role.active ? 'bg-accent-500' : 'bg-ink-700'
+                }`}
+              />
+              <div className="flex flex-col md:flex-row md:gap-12">
+                <p className="mono text-xs text-fg-mute md:w-32 shrink-0 mb-2 md:mb-0 md:pt-1">
+                  {role.range}
+                </p>
+                <div className="flex-1">
+                  <h3 className="text-xl mb-3">{role.title}</h3>
+                  <ul className="text-fg-dim text-[15px] space-y-2 leading-relaxed max-w-2xl">
+                    {role.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                  <p className="mono text-[11px] text-fg-mute mt-4">
+                    {role.tech}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
@@ -113,4 +84,4 @@ const Experience: React.FC = () => {
   );
 };
 
-export default Experience;
+export default TrackRecord;

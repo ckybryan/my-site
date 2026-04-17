@@ -3,144 +3,142 @@ import { Translation } from './types';
 export const en: Translation = {
   nav: {
     home: 'Home',
-    about: 'About',
-    skills: 'Skills',
-    projects: 'Projects',
-    experience: 'Experience',
+    work: 'Work',
+    studio: 'Studio',
+    craft: 'Craft',
+    track: 'Track Record',
     contact: 'Contact',
   },
   hero: {
-    greeting: "Hi, I'm",
-    title: 'Bryan Chan',
-    description: 'Lead Software Engineer specializing in TypeScript full-stack development. I build performant, scalable web and mobile applications with modern JavaScript frameworks.',
-    getInTouch: 'Get In Touch',
-    viewWork: 'View My Work',
+    kicker: 'Bryan Chan — Toronto — 2026',
+    titleLine1: 'Lead engineer at GoBolt.',
+    titleLine2: 'Indie studio of one.',
+    description:
+      'Eight years shipping production systems. Now shipping apps end-to-end with Claude Code.',
+    seeWork: 'see the work',
+    getInTouch: 'get in touch',
+    stats: {
+      yearsAtGoBolt: 'yrs @ GoBolt',
+      appsLive: 'apps live',
+      nativeDev: 'native dev',
+    },
   },
-  about: {
-    title: 'About Me',
-    description: "I'm a TypeScript full-stack developer who loves cats, badminton, and snowboarding. I specialize in building performant, scalable web and mobile applications with modern JavaScript frameworks.",
-    journey: 'My Journey',
-    journeyText1: "Currently serving as Lead Software Engineer at GoBolt, I've been architecting and developing both frontend and backend systems since 2017. My work blends strong technical architecture with practical, user-focused design.",
-    journeyText2: "From introducing TypeScript and React Hooks to building complete warehouse inventory management systems, I'm passionate about creating solutions that not only work well but also provide exceptional developer and user experiences. I've led teams, reduced boilerplate code by 60%, and consistently delivered scalable applications.",
-    tags: {
-      fullStackLeader: 'Full-Stack Leader',
-      typescriptExpert: 'TypeScript Expert',
-      performanceOptimizer: 'Performance Optimizer',
+  work: {
+    kicker: 'shipped, not shelved',
+    titleLine1: 'Two apps. Both live.',
+    titleLine2: 'Both solo.',
+    live: 'LIVE',
+    builtWith: 'BUILT WITH CLAUDE CODE',
+    moreAt: 'More at',
+    snapsell: {
+      tagline: 'snap a photo, sell it',
+      description:
+        'AI turns a single photo into a polished marketplace listing — tailored for Facebook Marketplace, eBay, Etsy, and Amazon in seconds.',
     },
-    education: 'Education',
-    degree: 'Bachelor of Applied Science (BASc)',
-    major: 'Computer Engineering',
-    university: 'University of Toronto',
-    cleanCode: 'Clean Code',
-    cleanCodeDesc: 'I believe in writing clean, maintainable code that follows best practices and industry standards.',
-    innovation: 'Innovation',
-    innovationDesc: 'Always exploring new technologies and methodologies to solve problems in creative and efficient ways.',
-    collaboration: 'Collaboration',
-    collaborationDesc: 'Strong believer in teamwork and communication to deliver successful projects that exceed expectations.',
+    petcrew: {
+      tagline: 'pet care, shared with family',
+      description:
+        'Smart pet care companion for tracking feeding schedules, logging care, and sharing responsibility with the whole family.',
+    },
   },
-  skills: {
-    title: 'Skills & Technologies',
-    description: 'Here are the technologies and tools I work with to bring ideas to life.',
-    frontend: 'Frontend',
-    backendMobile: 'Backend & Mobile',
-    toolsDevops: 'Tools & DevOps',
-    alwaysLearning: 'Always Learning',
+  studio: {
+    kicker: 'the operator',
+    pullQuote:
+      'I build the thing, then I build the thing that builds the thing.',
+    bio: 'Toronto-based engineer working across the full stack. Day job: leading architecture and frontend systems at GoBolt. Side work: Bryan Studio, an indie shop shipping iOS and web apps. I write TypeScript, ship with Claude Code, and care about the boring parts — error handling, observability, clear APIs — more than most.',
+    facts: {
+      basedLabel: 'Based',
+      basedValue: 'Toronto, Canada',
+      dayJobLabel: 'Day job',
+      dayJobValue: 'Lead SWE, GoBolt (2017—)',
+      studioLabel: 'Studio',
+      studioValue: 'Bryan Studio — indie',
+      educationLabel: 'Education',
+      educationValue: 'BASc Computer Eng, U of T',
+      offKeysLabel: 'Off-keys',
+      offKeysValue: 'Cats, badminton, snowboarding',
+    },
   },
-  projects: {
-    title: 'Featured Projects',
-    description: 'Key projects I\'ve architected and developed, showcasing my expertise in full-stack development, AI integration, and system optimization.',
-    vehicleRouting: {
-      title: 'Vehicle Routing System',
-      description: 'Comprehensive vehicle routing application built with React and Google Maps API. Features real-time tracking, route optimization, and performance analytics for delivery operations.',
+  craft: {
+    kicker: 'how i work',
+    aiTitle: 'AI-native development.',
+    aiIntro:
+      'Claude Code is my daily driver — from spec to ship. Not a typeahead; a teammate.',
+    ai: {
+      claudeCode: 'daily driver. spec → plan → implement → ship.',
+      subagents:
+        'parallel specialists; multi-model routing across opus/sonnet/haiku.',
+      agentTeams:
+        'orchestrated pr-review team: lead + reviewer + auto-approver.',
+      skills:
+        'codified workflows — linear → worktree → PR in one command.',
+      mcp: 'linear, datadog, production dbs (read-only).',
+      slashCommands:
+        '13+ domain-specific commands for k8s, releases, triage.',
+      anthropicSdk:
+        'tool use, prompt caching, streaming responses.',
     },
-    warehouseManagement: {
-      title: 'Warehouse Inventory Management',
-      description: 'Full-stack warehouse inventory management system with NestJS backend and React frontend. Includes real-time inventory tracking, automated reporting, and AWS integration.',
+    categories: {
+      frontend: 'frontend',
+      backend: 'backend & mobile',
+      infra: 'tools & infra',
     },
-    careerConversation: {
-      title: 'Career Conversation AI Chatbot',
-      description: 'TypeScript-powered AI career conversation chatbot with intelligent responses. Features tool integration, push notifications, PDF parsing, and clean web interface built with Express.js.',
-    },
-    mobileApp: {
-      title: 'React Native Mobile App',
-      description: 'Cross-platform mobile application for delivery management with real-time updates, GPS tracking, and offline capability. Built using React Native and modern mobile development patterns.',
-    },
+  },
+  track: {
+    kicker: 'ten-year receipt',
   },
   experience: {
-    title: 'Work Experience',
-    description: 'My professional journey at GoBolt, where I\'ve grown from an intern to Lead Software Engineer, consistently driving innovation and technical excellence.',
     positions: {
       leadEngineer: {
         title: 'Lead Software Engineer',
         responsibilities: [
-          'Lead architecture and development of frontend and backend systems',
-          'Optimize workflows and replace legacy solutions with modern technologies',
-          'Mentor team members and establish best practices for scalable development',
-          'Drive technical decisions and architectural improvements across the platform',
+          'Lead architecture across frontend and backend systems.',
+          'Modernize legacy stacks; mentor team on scalable patterns.',
+          'Drive technical decisions and architectural improvements.',
         ],
       },
       leadFrontend: {
         title: 'Lead Frontend Developer',
         responsibilities: [
-          'Introduced TypeScript, React Hooks, Styled-Components, React-Query, and RecoilJS',
-          'Built a comprehensive vehicle routing system using Google Maps API',
-          'Reduced frontend boilerplate code by 60% through architectural improvements',
-          'Led frontend team and established modern development workflows',
+          'Introduced TypeScript, React Hooks, Styled-Components, React-Query, RecoilJS.',
+          'Built a comprehensive vehicle routing system using Google Maps API.',
+          'Reduced frontend boilerplate by 60% through architectural cleanup.',
         ],
       },
       fullStackLead: {
-        title: 'Full Stack Engineer / Senior Software Developer / Team Lead',
+        title: 'Full Stack Engineer / Team Lead',
         responsibilities: [
-          'Designed and deployed a new NestJS-based warehouse inventory management application',
-          'Integrated systems with AWS cloud infrastructure for scalability',
-          'Developed responsive ReactJS frontend with modern UX patterns',
-          'Led cross-functional team development and technical implementation',
+          'Designed and deployed a NestJS-based warehouse inventory system.',
+          'Integrated AWS cloud infrastructure for scalability.',
+          'Led cross-functional team on technical implementation.',
         ],
       },
       frontendDev: {
         title: 'Frontend Developer',
         responsibilities: [
-          'Introduced Redux and SASS for improved state management and styling',
-          'Implemented progressive data loading for enhanced performance',
-          'Built the company\'s first React Native mobile application',
-          'Developed the main business website from scratch using modern React patterns',
+          'Introduced Redux and SASS for state management and styling.',
+          'Built the company\'s first React Native mobile application.',
+          'Developed the main business site from scratch.',
         ],
       },
       intern: {
         title: 'Frontend Developer Intern',
         responsibilities: [
-          'Updated and modernized UI components for better user experience',
-          'Integrated Stripe payment processing with React frontend',
-          'Collaborated with senior developers to learn best practices',
-          'Contributed to codebase improvements and bug fixes',
+          'Modernized UI components for better UX.',
+          'Integrated Stripe payment processing with React frontend.',
         ],
       },
     },
   },
   contact: {
-    title: 'Get In Touch',
-    description: "I'm always interested in new opportunities and exciting projects. Let's connect and discuss how we can work together.",
-    startConversation: "Let's Start a Conversation",
-    email: 'Email',
-    phone: 'Phone',
-    location: 'Location',
-    whyWorkWithMe: 'Why Work With Me?',
-    reasons: [
-      '8+ years of experience leading full-stack development at GoBolt',
-      'Proven track record of reducing boilerplate by 60% and optimizing performance',
-      'Expert in TypeScript, React ecosystem, and modern development practices',
-      'Strong leadership experience and passion for mentoring teams',
-    ],
-    connectLinkedIn: 'Connect with me on LinkedIn',
-    linkedInDescription: 'Let\'s connect and discuss opportunities, collaborations, or just chat about technology and development.',
-    visitLinkedIn: 'Visit My LinkedIn Profile',
+    title: "Let's talk.",
+    description:
+      'Open to advising, indie-dev contracts, and interesting problems. Not looking for full-time.',
+    status:
+      'Currently: open to advising & indie-dev contracts · not looking FT',
   },
   footer: {
-    description: 'Lead Software Engineer specializing in TypeScript full-stack development. Building performant, scalable web and mobile applications with modern JavaScript frameworks.',
-    quickLinks: 'Quick Links',
-    getInTouch: 'Get In Touch',
-    letsWorkTogether: "Let's Work Together",
-    allRightsReserved: 'All rights reserved.',
-    madeWith: 'Made with',
+    builtWith: 'built with claude code',
+    backToTop: 'back to top',
   },
 };

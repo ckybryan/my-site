@@ -1,74 +1,80 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { t } = useLanguage();
+const sections = [
+  { id: 'work', num: '01' },
+  { id: 'studio', num: '02' },
+  { id: 'craft', num: '03' },
+  { id: 'track', num: '04' },
+  { id: 'contact', num: '05' },
+];
 
-  const navItems = [
-    { href: '#home', label: t.nav.home },
-    { href: '#about', label: t.nav.about },
-    { href: '#skills', label: t.nav.skills },
-    { href: '#projects', label: t.nav.projects },
-    { href: '#experience', label: t.nav.experience },
-    { href: '#contact', label: t.nav.contact },
-  ];
+const Header: React.FC = () => {
+  const { t } = useLanguage();
+  const [active, setActive] = useState('');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+    );
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const labels: Record<string, string> = {
+    work: t.nav.work,
+    studio: t.nav.studio,
+    craft: t.nav.craft,
+    track: t.nav.track,
+    contact: t.nav.contact,
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-b border-gray-200 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          <div className="text-2xl font-bold gradient-text">
-            Bryan Chan
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <nav className="flex space-x-8">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="text-gray-700 hover:text-primary-600 transition-colors duration-200"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-            <LanguageSwitcher />
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-ink-950/80 border-b border-ink-800">
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-14 gap-4">
+        <a href="#top" className="mono text-sm text-fg shrink-0">
+          bryan.wtf
+        </a>
+        <nav className="hidden md:flex items-center gap-6 mono text-xs overflow-x-auto">
+          {sections.map(({ id, num }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`whitespace-nowrap transition-colors ${
+                active === id ? 'text-fg' : 'text-fg-mute hover:text-fg'
+              }`}
+            >
+              {num} / {labels[id]}
+            </a>
+          ))}
+        </nav>
+        <div className="flex items-center gap-4 shrink-0">
+          <LanguageSwitcher />
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <nav className="space-y-2">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="block py-2 text-gray-700 hover:text-primary-600 transition-colors duration-200"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-            <div className="mt-4 pt-4 border-t border-gray-200">
-              <LanguageSwitcher />
-            </div>
-          </div>
-        )}
+      </div>
+      <div className="md:hidden px-6 pb-3 overflow-x-auto">
+        <nav className="flex items-center gap-5 mono text-[11px] whitespace-nowrap">
+          {sections.map(({ id, num }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`transition-colors ${
+                active === id ? 'text-fg' : 'text-fg-mute'
+              }`}
+            >
+              {num} / {labels[id]}
+            </a>
+          ))}
+        </nav>
       </div>
     </header>
   );

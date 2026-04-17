@@ -7,25 +7,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+        ink: {
+          950: '#F5F1E8',
+          900: '#EDE8DC',
+          800: '#DED7C4',
+          700: '#B8B09B',
         },
+        fg: {
+          DEFAULT: '#2A2620',
+          dim: '#5D574C',
+          mute: '#8F887A',
+        },
+        accent: {
+          500: '#3A2E1E',
+        },
+        live: '#2F8F52',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Geist', 'system-ui', 'sans-serif'],
+        mono: ['Geist Mono', 'ui-monospace', 'monospace'],
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.5s ease-out',
+        'fade-in': 'fadeIn 0.6s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
       },
     },
   },
