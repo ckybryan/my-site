@@ -26,8 +26,8 @@ export const zhCN: Translation = {
   },
   work: {
     kicker: '已上线，未搁置',
-    titleLine1: '两款应用。都已上线。',
-    titleLine2: '都是独立完成。',
+    titleLine1: '三款应用。全部上线。',
+    titleLine2: '全部独立完成。',
     live: '在线',
     builtWith: '使用 CLAUDE CODE 构建',
     moreAt: '更多作品：',
@@ -40,6 +40,11 @@ export const zhCN: Translation = {
       tagline: '宠物照护，家人共享',
       description:
         '智能宠物照护伙伴，用于跟踪喂食时间、记录照护情况，并与家人共同分担责任。',
+    },
+    candlepost: {
+      tagline: '从此不再错过任何一个生日',
+      description:
+        'AI 根据你写下的小笔记，为每位亲友量身拟好生日邮件，再从你自己的 Gmail 寄出 — 每一封都温暖、准时，无疑是出自你之手。',
     },
   },
   studio: {

@@ -26,8 +26,8 @@ export const zhTW: Translation = {
   },
   work: {
     kicker: '已上線，未擱置',
-    titleLine1: '兩款應用。都已上線。',
-    titleLine2: '都是獨立完成。',
+    titleLine1: '三款應用。全部上線。',
+    titleLine2: '全部獨立完成。',
     live: '在線',
     builtWith: '使用 CLAUDE CODE 建構',
     moreAt: '更多作品：',
@@ -40,6 +40,11 @@ export const zhTW: Translation = {
       tagline: '寵物照護，家人共享',
       description:
         '智慧寵物照護夥伴，用於追蹤餵食時間、記錄照護情況，並與家人共同分擔責任。',
+    },
+    candlepost: {
+      tagline: '從此不再錯過任何一個生日',
+      description:
+        'AI 根據你寫下的小筆記，為每位親友量身擬好生日訊息，再從你自己的 Gmail 寄出 — 每一封都溫暖、準時，無疑是出自你之手。',
     },
   },
   studio: {

@@ -25,8 +25,8 @@ export const en: Translation = {
   },
   work: {
     kicker: 'shipped, not shelved',
-    titleLine1: 'Two apps. Both live.',
-    titleLine2: 'Both solo.',
+    titleLine1: 'Three apps. All live.',
+    titleLine2: 'All solo.',
     live: 'LIVE',
     builtWith: 'BUILT WITH CLAUDE CODE',
     moreAt: 'More at',
@@ -39,6 +39,11 @@ export const en: Translation = {
       tagline: 'pet care, shared with family',
       description:
         'Smart pet care companion for tracking feeding schedules, logging care, and sharing responsibility with the whole family.',
+    },
+    candlepost: {
+      tagline: 'never miss a birthday again',
+      description:
+        'AI-personalized birthday emails, drafted from your own notes and sent from your Gmail — so every message lands warm, on time, and unmistakably from you.',
     },
   },
   studio: {

@@ -19,6 +19,18 @@ const Work: React.FC = () => {
   const apps: App[] = [
     {
       num: '— 01',
+      name: 'Candlepost',
+      tagline: t.work.candlepost.tagline,
+      description: t.work.candlepost.description,
+      platform: 'WEB',
+      year: '2026',
+      stack: 'next.js · typescript · postgres · gmail oauth · claude haiku',
+      href: 'https://candlepost.bryanstudio.dev',
+      linkLabel: 'candlepost.bryanstudio.dev',
+      brandColor: '#4A7A3D',
+    },
+    {
+      num: '— 02',
       name: 'SnapSell',
       tagline: t.work.snapsell.tagline,
       description: t.work.snapsell.description,
@@ -30,7 +42,7 @@ const Work: React.FC = () => {
       brandColor: '#21A593',
     },
     {
-      num: '— 02',
+      num: '— 03',
       name: 'PetCrew',
       tagline: t.work.petcrew.tagline,
       description: t.work.petcrew.description,

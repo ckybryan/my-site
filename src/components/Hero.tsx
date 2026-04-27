@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
             <div className="bg-ink-950 p-5">
-              <div className="mono text-2xl md:text-3xl text-fg mb-1">2</div>
+              <div className="mono text-2xl md:text-3xl text-fg mb-1">3</div>
               <div className="mono-caps text-[10px] text-fg-mute">
                 {t.hero.stats.appsLive}
               </div>

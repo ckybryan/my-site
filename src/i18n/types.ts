@@ -36,6 +36,10 @@ export interface Translation {
       tagline: string;
       description: string;
     };
+    candlepost: {
+      tagline: string;
+      description: string;
+    };
   };
   studio: {
     kicker: string;
