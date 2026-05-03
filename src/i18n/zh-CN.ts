@@ -3,7 +3,7 @@ import { Translation } from './types';
 export const zhCN: Translation = {
   nav: {
     home: '首页',
-    work: '作品',
+    about: '关于',
     studio: '工作室',
     craft: '技艺',
     track: '履历',
@@ -25,27 +25,12 @@ export const zhCN: Translation = {
     },
   },
   work: {
-    kicker: '已上线，未搁置',
-    titleLine1: '三款应用。全部上线。',
-    titleLine2: '全部独立完成。',
-    live: '在线',
-    builtWith: '使用 CLAUDE CODE 构建',
-    moreAt: '更多作品：',
-    snapsell: {
-      tagline: '一拍即售',
-      description:
-        'AI将一张照片转换为精美的市场上架信息 — 为Facebook Marketplace、eBay、Etsy和Amazon量身定制，仅需几秒。',
-    },
-    petcrew: {
-      tagline: '宠物照护，家人共享',
-      description:
-        '智能宠物照护伙伴，用于跟踪喂食时间、记录照护情况，并与家人共同分担责任。',
-    },
-    candlepost: {
-      tagline: '从此不再错过任何一个生日',
-      description:
-        'AI 根据你写下的小笔记，为每位亲友量身拟好生日邮件，再从你自己的 Gmail 寄出 — 每一封都温暖、准时，无疑是出自你之手。',
-    },
+    kicker: '侧面佐证',
+    titleLine1: '持续交付，',
+    titleLine2: '从头到尾。',
+    blurb:
+      '独立打造的 iOS 与 Web 应用 — 让实战肌肉持续在线。完整作品集都在工作室。',
+    cta: 'www.bryanstudio.dev',
   },
   studio: {
     kicker: '幕后操盘手',

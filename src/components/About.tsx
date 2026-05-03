@@ -18,10 +18,10 @@ const Studio: React.FC = () => {
   ];
 
   return (
-    <section id="studio" className="section-padding border-t border-ink-800">
+    <section id="about" className="section-padding border-t border-ink-800">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
-          <p className="mono-caps text-xs text-fg-mute">02 / {t.nav.studio}</p>
+          <p className="mono-caps text-xs text-fg-mute">01 / {t.nav.about}</p>
           <p className="mono text-xs text-fg-mute">{t.studio.kicker}</p>
         </div>
 

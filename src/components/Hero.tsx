@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-8 mono text-sm">
-            <a href="#work" className="link-sweep text-fg">
+            <a href="#track" className="link-sweep text-fg">
               → {t.hero.seeWork}
             </a>
             <a

@@ -3,10 +3,10 @@ import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const sections = [
-  { id: 'work', num: '01' },
-  { id: 'studio', num: '02' },
+  { id: 'about', num: '01' },
+  { id: 'track', num: '02' },
   { id: 'craft', num: '03' },
-  { id: 'track', num: '04' },
+  { id: 'studio', num: '04' },
   { id: 'contact', num: '05' },
 ];
 
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
   }, []);
 
   const labels: Record<string, string> = {
-    work: t.nav.work,
+    about: t.nav.about,
     studio: t.nav.studio,
     craft: t.nav.craft,
     track: t.nav.track,

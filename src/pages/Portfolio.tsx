@@ -23,10 +23,10 @@ export default function Portfolio() {
         <Header />
         <main>
           <Hero />
-          <Work />
           <Studio />
-          <Craft />
           <TrackRecord />
+          <Craft />
+          <Work />
           <Contact />
         </main>
         <Footer />

@@ -3,7 +3,7 @@ import { Translation } from './types';
 export const en: Translation = {
   nav: {
     home: 'Home',
-    work: 'Work',
+    about: 'About',
     studio: 'Studio',
     craft: 'Craft',
     track: 'Track Record',
@@ -24,27 +24,12 @@ export const en: Translation = {
     },
   },
   work: {
-    kicker: 'shipped, not shelved',
-    titleLine1: 'Three apps. All live.',
-    titleLine2: 'All solo.',
-    live: 'LIVE',
-    builtWith: 'BUILT WITH CLAUDE CODE',
-    moreAt: 'More at',
-    snapsell: {
-      tagline: 'snap a photo, sell it',
-      description:
-        'AI turns a single photo into a polished marketplace listing — tailored for Facebook Marketplace, eBay, Etsy, and Amazon in seconds.',
-    },
-    petcrew: {
-      tagline: 'pet care, shared with family',
-      description:
-        'Smart pet care companion for tracking feeding schedules, logging care, and sharing responsibility with the whole family.',
-    },
-    candlepost: {
-      tagline: 'never miss a birthday again',
-      description:
-        'AI-personalized birthday emails, drafted from your own notes and sent from your Gmail — so every message lands warm, on time, and unmistakably from you.',
-    },
+    kicker: 'side proof',
+    titleLine1: 'Still shipping,',
+    titleLine2: 'end-to-end.',
+    blurb:
+      'Solo apps on iOS and web — built to keep the production muscle honest. Full catalog at the studio.',
+    cta: 'www.bryanstudio.dev',
   },
   studio: {
     kicker: 'the operator',

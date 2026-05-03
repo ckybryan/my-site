@@ -1,7 +1,7 @@
 export interface Translation {
   nav: {
     home: string;
-    work: string;
+    about: string;
     studio: string;
     craft: string;
     track: string;
@@ -25,21 +25,8 @@ export interface Translation {
     kicker: string;
     titleLine1: string;
     titleLine2: string;
-    live: string;
-    builtWith: string;
-    moreAt: string;
-    snapsell: {
-      tagline: string;
-      description: string;
-    };
-    petcrew: {
-      tagline: string;
-      description: string;
-    };
-    candlepost: {
-      tagline: string;
-      description: string;
-    };
+    blurb: string;
+    cta: string;
   };
   studio: {
     kicker: string;
