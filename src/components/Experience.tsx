@@ -8,7 +8,7 @@ const TrackRecord: React.FC = () => {
       range: '2021 — NOW',
       title: t.experience.positions.leadEngineer.title,
       bullets: t.experience.positions.leadEngineer.responsibilities,
-      tech: 'typescript · react · nestjs · aws · react native',
+      tech: 'typescript · nestjs · react 18 · postgresql · kubernetes · argocd · claude api',
       active: true,
     },
     {

@@ -77,9 +77,12 @@ export const zhTW: Translation = {
       leadEngineer: {
         title: '首席軟體工程師',
         responsibilities: [
-          '主導前端和後端系統的架構設計。',
-          '現代化遺留技術棧；指導團隊推行可擴展的模式。',
-          '推動技術決策與架構改進。',
+          '建立並營運多個生產環境 AI agents（基於共用內部工具）— 涵蓋 PR 審查與批准、文件維護、發佈自動化。',
+          '推出公司首個 LLM 功能，並建立可重用的多供應商 LLM 整合層。',
+          '將 agentic AI 融入核心交付流程 — AI 驅動的測試、發佈及程式碼審查。',
+          '設計並維護 NestJS/PostgreSQL 後端（136+ 模組），支援 10 個倉庫的日常營運。',
+          '主導 React 18 前端開發（130+ 路由）：掃描優先的倉庫操作介面，支援即時更新。',
+          '以 GitOps（Helm、ArgoCD）管理 8 個環境的 Kubernetes 部署。',
         ],
       },
       leadFrontend: {

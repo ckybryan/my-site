@@ -77,9 +77,12 @@ export const zhCN: Translation = {
       leadEngineer: {
         title: '首席软件工程师',
         responsibilities: [
-          '主导前端和后端系统的架构设计。',
-          '现代化遗留技术栈；指导团队推行可扩展的模式。',
-          '推动技术决策与架构改进。',
+          '建立并运营多个生产环境 AI agents（基于共用内部工具）— 涵盖 PR 审查与批准、文档维护、发布自动化。',
+          '推出公司首个 LLM 功能，并建立可重用的多供应商 LLM 集成层。',
+          '将 agentic AI 融入核心交付流程 — AI 驱动的测试、发布及代码审查。',
+          '设计并维护 NestJS/PostgreSQL 后端（136+ 模块），支撑 10 个仓库的日常运营。',
+          '主导 React 18 前端开发（130+ 路由）：扫描优先的仓库操作界面，支持实时更新。',
+          '以 GitOps（Helm、ArgoCD）管理 8 个环境的 Kubernetes 部署。',
         ],
       },
       leadFrontend: {
