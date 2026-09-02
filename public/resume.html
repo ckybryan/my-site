@@ -85,6 +85,7 @@
         }
 
         .section-header {
+            break-after: avoid;
             font-weight: 600;
             color: #1a1a1a;
             margin-top: 12px;
@@ -98,6 +99,7 @@
         }
 
         li {
+            break-inside: avoid;
             font-size: 11px;
             margin-bottom: 4px;
             line-height: 1.5;
@@ -168,7 +170,7 @@
 <body>
     <header>
         <h1>BRYAN CHAN</h1>
-        <div class="subtitle">Lead Software Engineer</div>
+        <div class="subtitle">Lead AI Platform Engineer</div>
         <div class="contact-info">
             📧 cky.bryan@gmail.com | 🌐 <a href="https://bryan.wtf">bryan.wtf</a> | 💼 <a href="https://linkedin.com/in/cky-bryanchan">linkedin.com/in/cky-bryanchan</a> | 🐙 <a href="https://github.com/ckybryan">github.com/ckybryan</a><br>
             📍 Toronto, Ontario, Canada
@@ -200,33 +202,61 @@
         <h2>Professional Experience</h2>
 
         <div class="job-header">
-            <h3>Lead Software Engineer</h3>
-            <span class="duration">October 2021 - Present</span>
+            <h3>Lead AI Platform Engineer</h3>
+            <span class="duration">September 2026 - Present</span>
         </div>
         <div class="company">GoBolt (formerly Bolt Logistics) | Toronto, Ontario, Canada</div>
-
-        <div class="section-header">AI-Augmented Engineering (2025 - Present)</div>
         <ul>
             <li>Built and operate a <strong>fleet of production AI agents</strong> on shared internal tooling — PR review and approval, documentation maintenance, release automation</li>
             <li>Shipped the company's first LLM-powered feature in the warehouse management system, with a reusable multi-provider LLM integration layer</li>
             <li>Created an agent-maintained engineering knowledge base that keeps itself up to date from releases and team discussions</li>
             <li>Made agentic AI the core delivery workflow — AI-driven testing, releases, and code review</li>
+            <li>Led engineering-wide enablement on AI-assisted development: presented GoBolt's AI development workflow and trained engineers on Claude Code, agent workflows, and internal tooling</li>
         </ul>
+        <div class="technologies"><strong>Technologies:</strong> TypeScript, NestJS, Claude API, Gemini/Vertex AI, Anthropic SDK, MCP, Playwright, Kubernetes, DataDog</div>
 
-        <div class="section-header">Enterprise Warehouse Management System</div>
+        <div class="job-header" style="margin-top: 20px;">
+            <h3>Lead Software Engineer</h3>
+            <span class="duration">October 2021 - August 2026 (5 years)</span>
+        </div>
+        <div class="company">GoBolt (formerly Bolt Logistics) | Toronto, Ontario, Canada</div>
+
+        <div class="section-header">Enterprise Warehouse Management System Architecture</div>
         <ul>
-            <li>Architected and maintain a NestJS/PostgreSQL backend (<strong>136+ modules</strong>) powering daily operations across 10 warehouses</li>
+            <li>Architected and maintain enterprise warehouse management backend with <strong>136+ modules</strong> using NestJS, TypeORM, and PostgreSQL, processing thousands of daily warehouse operations across receiving, picking, packing, returns, and carrier transfer workflows</li>
+            <li>Designed domain-driven architecture with standardized module patterns, custom decorators for authentication/permissions, and comprehensive Swagger API documentation</li>
+            <li>Implemented <strong>Generic Inflator Pattern</strong> for background processing with distributed locking, supporting picksheet inflation, work orders, and asynchronous task execution with automatic retry and stale item cleanup</li>
+            <li>Built <strong>Signal Emitter Pattern</strong> with two-table design for reliable HTTP request queuing to Core API with automatic retries and comprehensive event tracking</li>
+            <li>Migrated from Redis-based distributed locking to PostgreSQL-based Generic Lock Service, eliminating Redis dependency and simplifying infrastructure</li>
             <li>Led a cross-team data-integrity project unifying product identity across systems, rolled out to production with zero incidents</li>
-            <li>Root-caused and fixed 10+ production data-integrity bugs through reproduce-first end-to-end testing</li>
         </ul>
 
-        <div class="section-header">Frontend & Infrastructure</div>
+        <div class="section-header">Frontend Development & Real-Time Systems</div>
         <ul>
-            <li>Led a React 18 frontend (<strong>130+ routes</strong>): scanner-first warehouse UI with real-time updates</li>
-            <li>Kubernetes deployments across <strong>8 environments</strong> with GitOps (Helm, ArgoCD)</li>
+            <li>Led development of React 18 warehouse management frontend with <strong>130+ routes</strong> across 35+ feature areas using TypeScript, Vite, Ant Design, and Recoil state management</li>
+            <li>Architected scanner-first mobile-optimized interface for warehouse floor operations with auto-focus input handling and Command+K fuzzy search navigation</li>
+            <li>Implemented WebSocket integration for real-time packing operations with live status updates</li>
+            <li>Built multi-step picking/packing wizards, ASN processing flows, inventory management, and special projects interfaces</li>
+            <li>Designed state management architecture using Recoil for global state, React Query for server-side caching, and URL params for shareable flow state</li>
         </ul>
 
-        <div class="technologies"><strong>Technologies:</strong> TypeScript, NestJS, React 18, PostgreSQL, Kubernetes, ArgoCD, Claude API, Gemini/Vertex AI, Playwright, DataDog</div>
+        <div class="section-header">Cloud Infrastructure & DevOps</div>
+        <ul>
+            <li>Managed Kubernetes deployments across <strong>8 environments</strong> (prod, preprod, meta, air, escape, mini, tide, tri) using Helm charts and ArgoCD GitOps workflows</li>
+            <li>Implemented secrets management with SOPS encryption and KMS integration for secure configuration across environments</li>
+            <li>Built Docker containerization strategies with multi-stage builds, health check endpoints, and optimized caching</li>
+            <li>Integrated DataDog APM with custom decorators for performance monitoring and error tracking across all services</li>
+        </ul>
+
+        <div class="section-header">Testing & Code Quality</div>
+        <ul>
+            <li>Established testing patterns: Unit tests with FactoryBot, integration tests with database fixtures, E2E tests with Playwright</li>
+            <li>Implemented Storybook for component documentation and visual regression testing</li>
+            <li>Maintained test coverage with Vitest and Jest across all services</li>
+            <li>Enforced code quality standards with ESLint, Prettier, and TypeScript strict mode</li>
+        </ul>
+
+        <div class="technologies"><strong>Technologies:</strong> TypeScript, NestJS, React 18, PostgreSQL, Socket.io, Kubernetes, Docker, ArgoCD, Helm, TypeORM, Recoil, React Query, Ant Design, Vite, Playwright, Vitest, DataDog, LaunchDarkly, SOPS</div>
 
         <div class="job-header" style="margin-top: 20px;">
             <h3>Full Stack Engineer, Senior Software Developer, Team Lead</h3>
@@ -335,9 +365,11 @@
         <ul class="achievements">
             <li>Built and operate a fleet of production AI agents — PR review, docs maintenance, release automation</li>
             <li>Shipped the company's first LLM-powered feature with a reusable multi-provider integration layer</li>
+            <li>Trained the engineering team on AI-assisted development and Claude Code adoption</li>
             <li>Architected enterprise warehouse management backend with 136+ modules across 10 warehouses</li>
             <li>Led React 18 frontend development with 130+ routes and real-time features</li>
             <li>Managed Kubernetes/ArgoCD deployments across 8 environments</li>
+            <li>Designed distributed systems patterns (Generic Inflator, Signal Emitter, Distributed Locking)</li>
             <li>8+ years at GoBolt showing loyalty, growth, and technical leadership</li>
         </ul>
     </section>

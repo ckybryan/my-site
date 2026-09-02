@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: 'Bryan Chan',
-  title: 'Bryan Chan - Lead Software Engineer',
+  title: 'Bryan Chan - Lead AI Platform Engineer',
   description: 'TypeScript full-stack developer specializing in building performant, scalable web and mobile applications with modern JavaScript frameworks.',
   url: 'https://bryanchan.dev',
   

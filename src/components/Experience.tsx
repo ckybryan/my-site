@@ -5,11 +5,17 @@ const TrackRecord: React.FC = () => {
 
   const roles = [
     {
-      range: '2021 — NOW',
+      range: '2026 — NOW',
+      title: t.experience.positions.leadAiPlatform.title,
+      bullets: t.experience.positions.leadAiPlatform.responsibilities,
+      tech: 'typescript · nestjs · claude api · gemini · mcp · playwright',
+      active: true,
+    },
+    {
+      range: '2021 — 2026',
       title: t.experience.positions.leadEngineer.title,
       bullets: t.experience.positions.leadEngineer.responsibilities,
-      tech: 'typescript · nestjs · react 18 · postgresql · kubernetes · argocd · claude api',
-      active: true,
+      tech: 'typescript · nestjs · react 18 · postgresql · kubernetes · argocd',
     },
     {
       range: '2018 — 2021',

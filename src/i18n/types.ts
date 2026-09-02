@@ -69,6 +69,10 @@ export interface Translation {
   };
   experience: {
     positions: {
+      leadAiPlatform: {
+        title: string;
+        responsibilities: string[];
+      };
       leadEngineer: {
         title: string;
         responsibilities: string[];

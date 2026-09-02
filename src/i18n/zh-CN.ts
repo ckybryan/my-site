@@ -74,12 +74,18 @@ export const zhCN: Translation = {
   },
   experience: {
     positions: {
-      leadEngineer: {
-        title: '首席软件工程师',
+      leadAiPlatform: {
+        title: '首席 AI 平台工程师',
         responsibilities: [
           '建立并运营多个生产环境 AI agents（基于共用内部工具）— 涵盖 PR 审查与批准、文档维护、发布自动化。',
           '推出公司首个 LLM 功能，并建立可重用的多供应商 LLM 集成层。',
           '将 agentic AI 融入核心交付流程 — AI 驱动的测试、发布及代码审查。',
+          '培训工程团队 AI 辅助开发：讲解 GoBolt 的 AI 开发流程，并带领工程师上手 Claude Code。',
+        ],
+      },
+      leadEngineer: {
+        title: '首席软件工程师',
+        responsibilities: [
           '设计并维护 NestJS/PostgreSQL 后端（136+ 模块），支撑 10 个仓库的日常运营。',
           '主导 React 18 前端开发（130+ 路由）：扫描优先的仓库操作界面，支持实时更新。',
           '以 GitOps（Helm、ArgoCD）管理 8 个环境的 Kubernetes 部署。',

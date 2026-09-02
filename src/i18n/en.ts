@@ -79,12 +79,18 @@ export const en: Translation = {
   },
   experience: {
     positions: {
-      leadEngineer: {
-        title: 'Lead Software Engineer',
+      leadAiPlatform: {
+        title: 'Lead AI Platform Engineer',
         responsibilities: [
           'Built and operate a fleet of production AI agents on shared internal tooling — PR review and approval, documentation maintenance, release automation.',
           'Shipped the company\'s first LLM-powered feature, with a reusable multi-provider LLM integration layer.',
           'Made agentic AI the core delivery workflow — AI-driven testing, releases, and code review.',
+          'Trained the engineering team on AI-assisted development: presented GoBolt\'s AI workflow and onboarded engineers to Claude Code.',
+        ],
+      },
+      leadEngineer: {
+        title: 'Lead Software Engineer',
+        responsibilities: [
           'Architected a NestJS/PostgreSQL backend (136+ modules) powering daily operations across 10 warehouses.',
           'Led a React 18 frontend (130+ routes): scanner-first warehouse UI with real-time updates.',
           'Kubernetes deployments across 8 environments with GitOps (Helm, ArgoCD).',
