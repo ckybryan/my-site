@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bryan.wtf — redesign preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ink: {
+                950: '#F5F1E8',
+                900: '#EDE8DC',
+                800: '#DED7C4',
+                700: '#B8B09B',
+              },
+              fg: {
+                DEFAULT: '#2A2620',
+                dim: '#5D574C',
+                mute: '#8F887A',
+              },
+              accent: { 500: '#3A2E1E' },
+              live: '#2F8F52',
+            },
+            fontFamily: {
+              sans: ['Geist', 'system-ui', 'sans-serif'],
+              mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Geist', system-ui, sans-serif;
+        background: #f5f1e8;
+        color: #2a2620;
+        font-feature-settings: 'ss01', 'cv11';
+      }
+      .mono {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        letter-spacing: 0.02em;
+      }
+      .mono-caps {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .display {
+        font-family: 'Geist', system-ui, sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.035em;
+      }
+      .link-sweep {
+        position: relative;
+      }
+      .link-sweep::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        height: 1px;
+        width: 100%;
+        background: #3a2e1e;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+      }
+      .link-sweep:hover::after {
+        transform: scaleX(1);
+      }
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #2f8f52;
+        box-shadow: 0 0 0 2px rgba(47, 143, 82, 0.2);
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body class="bg-ink-950 text-fg antialiased">
+    <!-- Anchor ribbon -->
+    <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-ink-950/70 border-b border-ink-800">
+      <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
+        <a href="#top" class="mono text-sm text-fg">bryan.wtf</a>
+        <nav class="hidden md:flex items-center gap-6 mono text-xs text-fg-dim">
+          <a href="#work" class="hover:text-fg transition-colors">01 / work</a>
+          <a href="#studio" class="hover:text-fg transition-colors">02 / studio</a>
+          <a href="#craft" class="hover:text-fg transition-colors">03 / craft</a>
+          <a href="#track" class="hover:text-fg transition-colors">04 / track</a>
+          <a href="#contact" class="hover:text-fg transition-colors">05 / contact</a>
+        </nav>
+        <a href="#contact" class="mono text-xs text-fg-dim hover:text-fg">→ contact</a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="top" class="min-h-screen flex items-center px-6 pt-20">
+      <div class="max-w-6xl mx-auto w-full grid grid-cols-12 gap-6">
+        <div class="col-span-12 md:col-span-10">
+          <p class="mono-caps text-xs text-fg-mute mb-10">Bryan Chan — Toronto — 2026</p>
+          <h1 class="display text-5xl md:text-[84px] leading-[0.95] mb-8">
+            Lead engineer at GoBolt.<br />
+            <span class="font-light text-fg-dim">Indie studio of one.</span>
+          </h1>
+          <p class="text-lg md:text-xl text-fg-dim max-w-2xl leading-relaxed mb-14">
+            Eight years shipping production systems. Now shipping apps end-to-end with
+            Claude Code.
+          </p>
+
+          <!-- Stat cards -->
+          <div class="grid grid-cols-3 gap-px bg-ink-800 border border-ink-800 max-w-2xl mb-14">
+            <div class="bg-ink-950 p-5">
+              <div class="mono text-2xl md:text-3xl text-fg mb-1">8+</div>
+              <div class="mono-caps text-[10px] text-fg-mute">yrs @ GoBolt</div>
+            </div>
+            <div class="bg-ink-950 p-5">
+              <div class="mono text-2xl md:text-3xl text-fg mb-1">2</div>
+              <div class="mono-caps text-[10px] text-fg-mute">apps live</div>
+            </div>
+            <div class="bg-ink-950 p-5">
+              <div class="mono text-2xl md:text-3xl text-fg mb-1">AI</div>
+              <div class="mono-caps text-[10px] text-fg-mute">native dev</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-8 mono text-sm">
+            <a href="#work" class="link-sweep text-fg">→ see the work</a>
+            <a href="#contact" class="link-sweep text-fg-dim hover:text-fg">→ get in touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work" class="px-6 py-32 border-t border-ink-800">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
+          <p class="mono-caps text-xs text-fg-mute">01 / work</p>
+          <p class="mono text-xs text-fg-mute">shipped, not shelved</p>
+        </div>
+
+        <h2 class="display text-4xl md:text-6xl mb-20 max-w-3xl">
+          Two apps. Both live. <span class="font-light text-fg-dim">Both solo.</span>
+        </h2>
+
+        <div class="divide-y divide-ink-800">
+          <!-- SnapSell entry -->
+          <a
+            href="https://snap-sell.com"
+            target="_blank"
+            class="group block py-12 md:py-16 grid grid-cols-12 gap-6 md:gap-10 hover:bg-ink-900/50 transition-colors duration-300 -mx-4 px-4 md:-mx-6 md:px-6"
+          >
+            <div class="col-span-12 md:col-span-3">
+              <p class="mono text-fg-mute text-sm mb-3">— 01</p>
+              <div class="mono text-[11px] text-fg-mute flex items-center gap-2 flex-wrap">
+                <span>WEB</span>
+                <span>·</span>
+                <span>2026</span>
+                <span>·</span>
+                <span class="text-live flex items-center gap-1.5">
+                  <span class="live-dot"></span> LIVE
+                </span>
+              </div>
+              <div class="mt-4 inline-flex items-center gap-2 mono text-[10px] text-fg-mute border border-ink-700 px-2 py-1">
+                <span class="inline-block w-1.5 h-1.5 bg-accent-500"></span>
+                BUILT WITH CLAUDE CODE
+              </div>
+            </div>
+
+            <div class="col-span-12 md:col-span-9">
+              <div class="flex items-baseline gap-5 mb-4 flex-wrap">
+                <h3 class="display text-4xl md:text-6xl tracking-tight text-fg group-hover:text-[#21A593] transition-colors">
+                  SnapSell
+                </h3>
+                <span class="text-fg-dim text-lg md:text-xl font-light">
+                  snap a photo, sell it
+                </span>
+              </div>
+              <p class="text-fg-dim leading-relaxed text-lg max-w-2xl mb-6">
+                AI turns a single photo into a polished marketplace listing — tailored
+                for Facebook Marketplace, eBay, Etsy, and Amazon in seconds.
+              </p>
+              <div class="flex items-center justify-between gap-6 flex-wrap">
+                <p class="mono text-xs text-fg-mute">
+                  next.js · typescript · postgres · cloudflare workers ai
+                </p>
+                <span class="mono text-sm text-fg link-sweep">
+                  snap-sell.com →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- PetCrew entry -->
+          <a
+            href="https://www.bryanstudio.dev/petcrew"
+            target="_blank"
+            class="group block py-12 md:py-16 grid grid-cols-12 gap-6 md:gap-10 hover:bg-ink-900/50 transition-colors duration-300 -mx-4 px-4 md:-mx-6 md:px-6"
+          >
+            <div class="col-span-12 md:col-span-3">
+              <p class="mono text-fg-mute text-sm mb-3">— 02</p>
+              <div class="mono text-[11px] text-fg-mute flex items-center gap-2 flex-wrap">
+                <span>iOS</span>
+                <span>·</span>
+                <span>2025</span>
+                <span>·</span>
+                <span class="text-live flex items-center gap-1.5">
+                  <span class="live-dot"></span> LIVE
+                </span>
+              </div>
+              <div class="mt-4 inline-flex items-center gap-2 mono text-[10px] text-fg-mute border border-ink-700 px-2 py-1">
+                <span class="inline-block w-1.5 h-1.5 bg-accent-500"></span>
+                BUILT WITH CLAUDE CODE
+              </div>
+            </div>
+
+            <div class="col-span-12 md:col-span-9">
+              <div class="flex items-baseline gap-5 mb-4 flex-wrap">
+                <h3 class="display text-4xl md:text-6xl tracking-tight text-fg group-hover:text-[#7c5cd9] transition-colors">
+                  PetCrew
+                </h3>
+                <span class="text-fg-dim text-lg md:text-xl font-light">
+                  pet care, shared with family
+                </span>
+              </div>
+              <p class="text-fg-dim leading-relaxed text-lg max-w-2xl mb-6">
+                Smart pet care companion for tracking feeding schedules, logging care,
+                and sharing responsibility with the whole family.
+              </p>
+              <div class="flex items-center justify-between gap-6 flex-wrap">
+                <p class="mono text-xs text-fg-mute">swift · swiftui · firebase</p>
+                <span class="mono text-sm text-fg link-sweep">
+                  www.bryanstudio.dev/petcrew →
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio (About) -->
+    <section id="studio" class="px-6 py-32 border-t border-ink-800">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
+          <p class="mono-caps text-xs text-fg-mute">02 / studio</p>
+          <p class="mono text-xs text-fg-mute">the operator</p>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-12">
+          <div class="md:col-span-7">
+            <p class="display text-3xl md:text-4xl leading-[1.2] text-fg mb-8">
+              <span class="text-fg-mute">"</span>I build the thing, then I build
+              the thing that builds the thing.<span class="text-fg-mute">"</span>
+            </p>
+            <p class="text-fg-dim leading-relaxed text-[17px] max-w-prose">
+              Toronto-based engineer working across the full stack. Day job: leading
+              architecture and frontend systems at GoBolt. Side work: Bryan Studio, an
+              indie shop shipping iOS and web apps. I write TypeScript, ship with
+              Claude Code, and care about the boring parts — error handling, observability,
+              clear APIs — more than most.
+            </p>
+          </div>
+          <div class="md:col-span-5 mono text-[13px]">
+            <dl class="space-y-3">
+              <div class="flex gap-6 border-b border-ink-800 pb-3">
+                <dt class="text-fg-mute w-28 shrink-0">BASED</dt>
+                <dd class="text-fg">Toronto, Canada</dd>
+              </div>
+              <div class="flex gap-6 border-b border-ink-800 pb-3">
+                <dt class="text-fg-mute w-28 shrink-0">DAY JOB</dt>
+                <dd class="text-fg">Lead SWE, GoBolt (2017—)</dd>
+              </div>
+              <div class="flex gap-6 border-b border-ink-800 pb-3">
+                <dt class="text-fg-mute w-28 shrink-0">STUDIO</dt>
+                <dd class="text-fg">Bryan Studio — indie</dd>
+              </div>
+              <div class="flex gap-6 border-b border-ink-800 pb-3">
+                <dt class="text-fg-mute w-28 shrink-0">EDUCATION</dt>
+                <dd class="text-fg">BASc Computer Eng, U of T</dd>
+              </div>
+              <div class="flex gap-6">
+                <dt class="text-fg-mute w-28 shrink-0">OFF-KEYS</dt>
+                <dd class="text-fg">Cats, badminton, snowboarding</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Craft -->
+    <section id="craft" class="px-6 py-32 border-t border-ink-800">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
+          <p class="mono-caps text-xs text-fg-mute">03 / craft</p>
+          <p class="mono text-xs text-fg-mute">how i work</p>
+        </div>
+
+        <!-- Featured AI block -->
+        <div class="border border-ink-800 bg-ink-900/40 mb-16 overflow-hidden">
+          <div
+            class="mono text-xs text-fg-mute px-5 py-3 border-b border-ink-800 flex items-center gap-2"
+          >
+            <span class="w-2 h-2 rounded-full bg-ink-700"></span>
+            <span class="w-2 h-2 rounded-full bg-ink-700"></span>
+            <span class="w-2 h-2 rounded-full bg-ink-700"></span>
+            <span class="ml-3">~ bryan.wtf / craft</span>
+          </div>
+          <div class="p-8 md:p-12">
+            <h2 class="display text-4xl md:text-5xl mb-3">AI-native development.</h2>
+            <p class="text-fg-dim mb-10 max-w-2xl text-[17px] leading-relaxed">
+              Claude Code is my daily driver — from spec to ship. Not a typeahead; a
+              teammate.
+            </p>
+
+            <ul class="mono text-sm space-y-3">
+              <li class="flex gap-6">
+                <span class="text-accent-500 w-44 shrink-0">claude code</span>
+                <span class="text-fg-dim">
+                  daily driver. spec → plan → implement → ship.
+                </span>
+              </li>
+              <li class="flex gap-6">
+                <span class="text-accent-500 w-44 shrink-0">subagents</span>
+                <span class="text-fg-dim">
+                  parallel specialists; multi-model routing across opus/sonnet/haiku.
+                </span>
+              </li>
+              <li class="flex gap-6">
+                <span class="text-accent-500 w-44 shrink-0">agent teams</span>
+                <span class="text-fg-dim">
+                  orchestrated pr-review team: lead + reviewer + auto-approver.
+                </span>
+              </li>
+              <li class="flex gap-6">
+                <span class="text-accent-500 w-44 shrink-0">custom skills</span>
+                <span class="text-fg-dim">
+                  codified workflows — linear → worktree → PR in one command.
+                </span>
+              </li>
+              <li class="flex gap-6">
+                <span class="text-accent-500 w-44 shrink-0">mcp integrations</span>
+                <span class="text-fg-dim">linear, datadog, production dbs (read-only).</span>
+              </li>
+              <li class="flex gap-6">
+                <span class="text-accent-500 w-44 shrink-0">slash commands</span>
+                <span class="text-fg-dim">
+                  13+ domain-specific commands for k8s, releases, triage.
+                </span>
+              </li>
+              <li class="flex gap-6">
+                <span class="text-accent-500 w-44 shrink-0">anthropic sdk</span>
+                <span class="text-fg-dim">tool use, prompt caching, streaming responses.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Secondary categories -->
+        <div class="grid md:grid-cols-3 gap-10 mono text-[13px]">
+          <div>
+            <p class="mono-caps text-xs text-fg-mute mb-4">frontend</p>
+            <p class="text-fg-dim leading-[2]">
+              react · typescript · next.js · react native · tailwind · react query ·
+              redux · styled-components
+            </p>
+          </div>
+          <div>
+            <p class="mono-caps text-xs text-fg-mute mb-4">backend & mobile</p>
+            <p class="text-fg-dim leading-[2]">
+              node.js · nestjs · express · rest apis · postgres · drizzle · aws lambda ·
+              swift
+            </p>
+          </div>
+          <div>
+            <p class="mono-caps text-xs text-fg-mute mb-4">tools & infra</p>
+            <p class="text-fg-dim leading-[2]">
+              git · aws · railway · vercel · cloudflare · ci/cd · observability · team
+              leadership
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Track record -->
+    <section id="track" class="px-6 py-32 border-t border-ink-800">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
+          <p class="mono-caps text-xs text-fg-mute">04 / track record</p>
+          <p class="mono text-xs text-fg-mute">ten-year receipt</p>
+        </div>
+
+        <h2 class="display text-4xl md:text-5xl mb-12">
+          GoBolt. <span class="font-light text-fg-dim">2017 — now.</span>
+        </h2>
+
+        <div class="relative pl-8 md:pl-12 border-l border-ink-700 space-y-10">
+          <div class="relative">
+            <span
+              class="absolute -left-[calc(2rem+5px)] md:-left-[calc(3rem+5px)] top-1.5 w-2.5 h-2.5 rounded-full bg-accent-500 border-2 border-ink-950"
+            ></span>
+            <div class="flex flex-col md:flex-row md:gap-12">
+              <p class="mono text-xs text-fg-mute md:w-32 shrink-0 mb-2 md:mb-0 md:pt-1">
+                2021 — NOW
+              </p>
+              <div class="flex-1">
+                <h3 class="text-xl mb-3">Lead Software Engineer</h3>
+                <ul class="text-fg-dim text-[15px] space-y-2 leading-relaxed max-w-2xl">
+                  <li>Lead architecture across frontend and backend systems.</li>
+                  <li>Modernize legacy stacks; mentor team on scalable patterns.</li>
+                </ul>
+                <p class="mono text-[11px] text-fg-mute mt-4">
+                  typescript · react · nestjs · aws · react native
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <span
+              class="absolute -left-[calc(2rem+5px)] md:-left-[calc(3rem+5px)] top-1.5 w-2.5 h-2.5 rounded-full bg-ink-700 border-2 border-ink-950"
+            ></span>
+            <div class="flex flex-col md:flex-row md:gap-12">
+              <p class="mono text-xs text-fg-mute md:w-32 shrink-0 mb-2 md:mb-0 md:pt-1">
+                2018 — 2021
+              </p>
+              <div class="flex-1">
+                <h3 class="text-xl mb-3">Lead Frontend Developer</h3>
+                <ul class="text-fg-dim text-[15px] space-y-2 leading-relaxed max-w-2xl">
+                  <li>
+                    Introduced TypeScript, React Hooks, Styled-Components, React-Query,
+                    RecoilJS.
+                  </li>
+                  <li>Reduced frontend boilerplate by 60% through architectural cleanup.</li>
+                </ul>
+                <p class="mono text-[11px] text-fg-mute mt-4">
+                  typescript · react · google maps api
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <span
+              class="absolute -left-[calc(2rem+5px)] md:-left-[calc(3rem+5px)] top-1.5 w-2.5 h-2.5 rounded-full bg-ink-700 border-2 border-ink-950"
+            ></span>
+            <div class="flex flex-col md:flex-row md:gap-12">
+              <p class="mono text-xs text-fg-mute md:w-32 shrink-0 mb-2 md:mb-0 md:pt-1">
+                2017 — 2018
+              </p>
+              <div class="flex-1">
+                <h3 class="text-xl mb-3">Frontend Developer → Intern</h3>
+                <ul class="text-fg-dim text-[15px] space-y-2 leading-relaxed max-w-2xl">
+                  <li>Introduced Redux and SASS; built the first React Native app.</li>
+                  <li>Stripe integration; developed the main business site from scratch.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="px-6 py-32 border-t border-ink-800">
+      <div class="max-w-xl mx-auto text-center">
+        <p class="mono-caps text-xs text-fg-mute mb-10">05 / contact</p>
+        <h2 class="display text-5xl md:text-6xl mb-6">Let's talk.</h2>
+        <p class="text-fg-dim mb-12 leading-relaxed">
+          Open to advising, indie-dev contracts, and interesting problems. Not looking
+          for full-time.
+        </p>
+        <a
+          href="mailto:bryan@bryan.wtf"
+          class="mono text-xl md:text-2xl link-sweep text-fg inline-block mb-10"
+        >
+          bryan@bryan.wtf →
+        </a>
+        <div class="flex items-center justify-center gap-6 mono text-xs text-fg-mute">
+          <a href="https://github.com/ckybryan" class="hover:text-fg transition-colors">github</a>
+          <span>·</span>
+          <a
+            href="https://www.linkedin.com/in/cky-bryanchan"
+            class="hover:text-fg transition-colors"
+          >
+            linkedin
+          </a>
+          <span>·</span>
+          <a href="/Bryan_Chan_Resume.pdf" class="hover:text-fg transition-colors">resume.pdf</a>
+        </div>
+        <div class="mt-12 inline-flex items-center gap-2 mono text-[11px] text-fg-mute">
+          <span class="live-dot"></span>
+          Currently: open to advising &amp; indie-dev contracts · not looking FT
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-ink-800 px-6 py-10">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 mono text-xs text-fg-mute">
+        <p>bryan.wtf · built with claude code · 2026</p>
+        <div class="flex items-center gap-4">
+          <span>EN</span>
+          <span>·</span>
+          <span>中</span>
+          <span>·</span>
+          <span>繁</span>
+        </div>
+        <a href="#top" class="hover:text-fg transition-colors">↑ back to top</a>
+      </div>
+    </footer>
+
+    <script>
+      console.log(
+        '%cHi. This site was designed, built, and iterated with Claude Code. — bryan',
+        'font-family: ui-monospace, monospace; color: #2A2620; background: #F5F1E8; padding: 8px 14px; border: 1px solid #B8B09B;'
+      );
+    </script>
+  </body>
+</html>

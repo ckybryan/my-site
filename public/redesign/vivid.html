@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bryan.wtf — vivid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              night: '#100C1D',
+              card: '#1B1530',
+              line: '#2E2650',
+              snow: '#F2EEFA',
+              dim: '#B3A8D6',
+              mute: '#7A6FA6',
+              violet: '#8B5CF6',
+              pink: '#F472B6',
+              amber: '#FBBF24',
+              lime: '#A3E635',
+              cyan: '#22D3EE',
+            },
+            fontFamily: {
+              sans: ['Geist', 'system-ui', 'sans-serif'],
+              mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Geist', system-ui, sans-serif;
+        background: #100c1d;
+        color: #f2eefa;
+        -webkit-font-smoothing: antialiased;
+      }
+      ::selection {
+        background: #f472b6;
+        color: #100c1d;
+      }
+      .glow-hero {
+        background:
+          radial-gradient(ellipse 55% 45% at 20% 0%, rgba(139, 92, 246, 0.22), transparent 70%),
+          radial-gradient(ellipse 45% 40% at 85% 10%, rgba(244, 114, 182, 0.14), transparent 70%);
+      }
+      .glow-foot {
+        background:
+          radial-gradient(ellipse 50% 45% at 80% 100%, rgba(34, 211, 238, 0.1), transparent 70%),
+          radial-gradient(ellipse 45% 40% at 10% 100%, rgba(251, 191, 36, 0.08), transparent 70%);
+      }
+      .grad-text {
+        background: linear-gradient(95deg, #8b5cf6 0%, #f472b6 45%, #fbbf24 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .grad-btn {
+        background: linear-gradient(95deg, #8b5cf6, #f472b6);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .grad-btn:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+      }
+      .lift {
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      .lift:hover {
+        transform: translateY(-4px);
+      }
+      .lift-violet:hover { border-color: rgba(139, 92, 246, 0.6); box-shadow: 0 12px 40px -12px rgba(139, 92, 246, 0.35); }
+      .lift-pink:hover   { border-color: rgba(244, 114, 182, 0.6); box-shadow: 0 12px 40px -12px rgba(244, 114, 182, 0.35); }
+      .lift-amber:hover  { border-color: rgba(251, 191, 36, 0.6);  box-shadow: 0 12px 40px -12px rgba(251, 191, 36, 0.3); }
+      .lift-lime:hover   { border-color: rgba(163, 230, 53, 0.55); box-shadow: 0 12px 40px -12px rgba(163, 230, 53, 0.3); }
+      .lift-cyan:hover   { border-color: rgba(34, 211, 238, 0.55); box-shadow: 0 12px 40px -12px rgba(34, 211, 238, 0.3); }
+      .pulse-dot {
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.35; }
+      }
+      .mono-caps {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+    </style>
+  </head>
+  <body class="bg-night text-snow font-sans">
+    <!-- floating pill nav -->
+    <header class="fixed top-4 inset-x-0 z-50 flex justify-center px-4">
+      <div class="flex items-center gap-1 bg-card/80 backdrop-blur-md border border-line rounded-full pl-5 pr-2 py-2 shadow-lg shadow-black/40">
+        <a href="#top" class="font-mono text-sm mr-3 no-underline text-snow">bryan<span class="text-pink">.wtf</span></a>
+        <nav class="hidden md:flex items-center gap-1 text-[13px]">
+          <a href="#about" class="px-3 py-1.5 rounded-full text-dim hover:text-snow hover:bg-line/50 no-underline transition-colors">About</a>
+          <a href="#track" class="px-3 py-1.5 rounded-full text-dim hover:text-snow hover:bg-line/50 no-underline transition-colors">Record</a>
+          <a href="#craft" class="px-3 py-1.5 rounded-full text-dim hover:text-snow hover:bg-line/50 no-underline transition-colors">Craft</a>
+          <a href="#work" class="px-3 py-1.5 rounded-full text-dim hover:text-snow hover:bg-line/50 no-underline transition-colors">Work</a>
+        </nav>
+        <a href="#contact" class="ml-2 px-4 py-1.5 rounded-full grad-btn text-night text-[13px] font-semibold no-underline">
+          Contact
+        </a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============ HERO ============ -->
+      <section class="relative glow-hero pt-36 md:pt-44 pb-20 md:pb-28 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="inline-flex items-center gap-2 border border-line bg-card/60 rounded-full px-4 py-1.5 mb-8">
+            <span class="w-2 h-2 rounded-full bg-lime pulse-dot"></span>
+            <span class="mono-caps text-[11px] text-dim">Toronto — shipping since 2017</span>
+          </div>
+          <h1 class="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.02] mb-6">
+            Lead engineer at GoBolt.<br />
+            <span class="grad-text">Indie studio of one.</span>
+          </h1>
+          <p class="text-lg md:text-xl text-dim max-w-xl mx-auto leading-relaxed mb-10">
+            Eight years shipping production systems. Now shipping apps
+            end-to-end with Claude Code.
+          </p>
+          <div class="flex items-center justify-center gap-4 mb-16">
+            <a href="#work" class="px-6 py-3 rounded-full grad-btn text-night font-semibold no-underline">
+              See the work
+            </a>
+            <a href="#contact" class="px-6 py-3 rounded-full border border-line text-snow no-underline hover:border-pink/60 hover:text-pink transition-colors">
+              Get in touch
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto">
+            <div class="bg-card border border-line rounded-2xl p-5 md:p-6 lift lift-violet">
+              <div class="text-3xl md:text-4xl font-semibold text-violet">8+</div>
+              <div class="mono-caps text-[10px] text-mute mt-1">yrs @ GoBolt</div>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-5 md:p-6 lift lift-pink">
+              <div class="text-3xl md:text-4xl font-semibold text-pink">3</div>
+              <div class="mono-caps text-[10px] text-mute mt-1">apps live</div>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-5 md:p-6 lift lift-amber">
+              <div class="text-3xl md:text-4xl font-semibold text-amber">AI</div>
+              <div class="mono-caps text-[10px] text-mute mt-1">native dev</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ABOUT ============ -->
+      <section id="about" class="px-6 py-20 md:py-28 scroll-mt-24">
+        <div class="max-w-5xl mx-auto">
+          <p class="mono-caps text-[11px] mb-10"><span class="text-violet">●</span> <span class="text-violet">01 — About</span></p>
+          <div class="grid md:grid-cols-12 gap-10">
+            <div class="md:col-span-7">
+              <blockquote class="text-3xl md:text-4xl font-medium leading-[1.15] tracking-tight mb-8">
+                "I build the thing, then I build the thing that
+                <span class="grad-text">builds the thing</span>."
+              </blockquote>
+              <p class="text-dim leading-relaxed text-[17px] max-w-prose">
+                Toronto-based engineer working across the full stack. Day job:
+                leading architecture and frontend systems at GoBolt. Side work:
+                Bryan Studio, an indie shop shipping iOS and web apps. I write
+                TypeScript, ship with Claude Code, and care about the boring
+                parts — error handling, observability, clear APIs — more than
+                most.
+              </p>
+            </div>
+            <div class="md:col-span-5">
+              <div class="bg-card border border-line rounded-2xl p-6 space-y-4 lift lift-violet">
+                <div class="flex items-center justify-between gap-4 text-sm">
+                  <span class="flex items-center gap-2 text-mute"><span class="w-1.5 h-1.5 rounded-full bg-violet"></span>Based</span>
+                  <span>Toronto, Canada</span>
+                </div>
+                <div class="h-px bg-line"></div>
+                <div class="flex items-center justify-between gap-4 text-sm">
+                  <span class="flex items-center gap-2 text-mute"><span class="w-1.5 h-1.5 rounded-full bg-pink"></span>Day job</span>
+                  <span>Lead SWE, GoBolt</span>
+                </div>
+                <div class="h-px bg-line"></div>
+                <div class="flex items-center justify-between gap-4 text-sm">
+                  <span class="flex items-center gap-2 text-mute"><span class="w-1.5 h-1.5 rounded-full bg-amber"></span>Studio</span>
+                  <span>Bryan Studio — indie</span>
+                </div>
+                <div class="h-px bg-line"></div>
+                <div class="flex items-center justify-between gap-4 text-sm">
+                  <span class="flex items-center gap-2 text-mute"><span class="w-1.5 h-1.5 rounded-full bg-lime"></span>Education</span>
+                  <span>BASc Comp Eng, U of T</span>
+                </div>
+                <div class="h-px bg-line"></div>
+                <div class="flex items-center justify-between gap-4 text-sm">
+                  <span class="flex items-center gap-2 text-mute"><span class="w-1.5 h-1.5 rounded-full bg-cyan"></span>Off-keys</span>
+                  <span class="text-right">Cats, badminton, snowboarding</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ TRACK RECORD ============ -->
+      <section id="track" class="px-6 py-20 md:py-28 scroll-mt-24">
+        <div class="max-w-3xl mx-auto">
+          <p class="mono-caps text-[11px] mb-4"><span class="text-pink">●</span> <span class="text-pink">02 — Track record</span></p>
+          <h2 class="text-4xl md:text-5xl font-semibold tracking-tight mb-14">
+            GoBolt. <span class="text-dim font-light">2017 — now.</span>
+          </h2>
+
+          <div class="relative pl-8 border-l border-line space-y-10">
+            <div class="relative">
+              <span class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-pink ring-4 ring-night"></span>
+              <p class="mono-caps text-[10px] text-pink mb-1">2021 — now</p>
+              <h3 class="text-xl font-semibold mb-2">Lead Software Engineer</h3>
+              <p class="text-dim text-[15px] leading-relaxed">
+                Architecture across frontend and backend. Legacy modernization,
+                mentoring, technical direction.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="px-3 py-1 rounded-full bg-violet/10 border border-violet/30 text-[11px] text-violet">typescript</span>
+                <span class="px-3 py-1 rounded-full bg-cyan/10 border border-cyan/30 text-[11px] text-cyan">react</span>
+                <span class="px-3 py-1 rounded-full bg-lime/10 border border-lime/30 text-[11px] text-lime">nestjs</span>
+                <span class="px-3 py-1 rounded-full bg-amber/10 border border-amber/30 text-[11px] text-amber">aws</span>
+              </div>
+            </div>
+            <div class="relative">
+              <span class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-violet ring-4 ring-night"></span>
+              <p class="mono-caps text-[10px] text-violet mb-1">2018 — 2021</p>
+              <h3 class="text-xl font-semibold mb-2">Lead Frontend Developer</h3>
+              <p class="text-dim text-[15px] leading-relaxed">
+                TypeScript, Hooks, React-Query adoption. Vehicle routing on
+                Google Maps API. 60% less boilerplate.
+              </p>
+            </div>
+            <div class="relative">
+              <span class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-cyan ring-4 ring-night"></span>
+              <p class="mono-caps text-[10px] text-cyan mb-1">2020 — 2021</p>
+              <h3 class="text-xl font-semibold mb-2">Full Stack Engineer / Team Lead</h3>
+              <p class="text-dim text-[15px] leading-relaxed">
+                NestJS warehouse inventory system on AWS. Led cross-functional
+                implementation.
+              </p>
+            </div>
+            <div class="relative">
+              <span class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-lime ring-4 ring-night"></span>
+              <p class="mono-caps text-[10px] text-lime mb-1">2018</p>
+              <h3 class="text-xl font-semibold mb-2">Frontend Developer</h3>
+              <p class="text-dim text-[15px] leading-relaxed">
+                Redux + SASS. First React Native app. Main business site from
+                scratch.
+              </p>
+            </div>
+            <div class="relative">
+              <span class="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full bg-amber ring-4 ring-night"></span>
+              <p class="mono-caps text-[10px] text-amber mb-1">2017</p>
+              <h3 class="text-xl font-semibold mb-2">Frontend Developer Intern</h3>
+              <p class="text-dim text-[15px] leading-relaxed">
+                UI modernization. Stripe payments integration.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CRAFT ============ -->
+      <section id="craft" class="px-6 py-20 md:py-28 scroll-mt-24">
+        <div class="max-w-5xl mx-auto">
+          <p class="mono-caps text-[11px] mb-4"><span class="text-cyan">●</span> <span class="text-cyan">03 — Craft</span></p>
+          <h2 class="text-4xl md:text-5xl font-semibold tracking-tight mb-4">
+            AI-native <span class="grad-text">development.</span>
+          </h2>
+          <p class="text-dim max-w-xl mb-12 text-[17px] leading-relaxed">
+            Claude Code is my daily driver — from spec to ship. Not a
+            typeahead; a teammate.
+          </p>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-violet">
+              <p class="font-mono text-xs text-violet mb-3">claude code</p>
+              <p class="text-dim text-sm leading-relaxed">daily driver — spec → plan → implement → ship</p>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-pink">
+              <p class="font-mono text-xs text-pink mb-3">subagents</p>
+              <p class="text-dim text-sm leading-relaxed">parallel specialists; multi-model routing</p>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-amber">
+              <p class="font-mono text-xs text-amber mb-3">agent teams</p>
+              <p class="text-dim text-sm leading-relaxed">pr-review team: lead + reviewer + approver</p>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-lime">
+              <p class="font-mono text-xs text-lime mb-3">custom skills</p>
+              <p class="text-dim text-sm leading-relaxed">codified workflows — ticket → worktree → PR</p>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-cyan">
+              <p class="font-mono text-xs text-cyan mb-3">mcp</p>
+              <p class="text-dim text-sm leading-relaxed">linear, datadog, production dbs (read-only)</p>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-violet">
+              <p class="font-mono text-xs text-violet mb-3">anthropic sdk</p>
+              <p class="text-dim text-sm leading-relaxed">tool use, prompt caching, streaming</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WORK ============ -->
+      <section id="work" class="px-6 py-20 md:py-28 scroll-mt-24 relative glow-foot">
+        <div class="max-w-5xl mx-auto">
+          <p class="mono-caps text-[11px] mb-4"><span class="text-amber">●</span> <span class="text-amber">04 — Studio</span></p>
+          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div>
+              <h2 class="text-4xl md:text-5xl font-semibold tracking-tight mb-4">
+                Still shipping, <span class="grad-text">end-to-end.</span>
+              </h2>
+              <p class="text-dim max-w-xl text-[17px] leading-relaxed">
+                Solo apps on iOS and web — built to keep the production muscle
+                honest.
+              </p>
+            </div>
+            <a
+              href="https://www.bryanstudio.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 px-5 py-2.5 rounded-full border border-line text-sm no-underline text-snow hover:border-amber/60 hover:text-amber transition-colors"
+            >
+              www.bryanstudio.dev →
+            </a>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-violet">
+              <div class="w-11 h-11 rounded-xl bg-violet/15 border border-violet/40 flex items-center justify-center mb-8">
+                <span class="text-violet font-mono text-sm font-semibold">P</span>
+              </div>
+              <p class="text-lg font-semibold mb-1">PetCrew</p>
+              <p class="text-dim text-sm">iOS — live on the App Store</p>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-cyan">
+              <div class="w-11 h-11 rounded-xl bg-cyan/15 border border-cyan/40 flex items-center justify-center mb-8">
+                <span class="text-cyan font-mono text-sm font-semibold">G</span>
+              </div>
+              <p class="text-lg font-semibold mb-1">GraceNotes</p>
+              <p class="text-dim text-sm">indie catalog</p>
+            </div>
+            <div class="bg-card border border-line rounded-2xl p-6 lift lift-amber">
+              <div class="w-11 h-11 rounded-xl bg-amber/15 border border-amber/40 flex items-center justify-center mb-8">
+                <span class="text-amber font-mono text-sm font-semibold">C</span>
+              </div>
+              <p class="text-lg font-semibold mb-1">CandlePost</p>
+              <p class="text-dim text-sm">indie catalog</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section id="contact" class="px-6 py-24 md:py-36 text-center relative glow-hero scroll-mt-24">
+        <div class="max-w-2xl mx-auto">
+          <p class="mono-caps text-[11px] mb-6"><span class="text-lime">●</span> <span class="text-lime">05 — Contact</span></p>
+          <h2 class="text-6xl md:text-8xl font-semibold tracking-tight mb-6">
+            Let's <span class="grad-text">talk.</span>
+          </h2>
+          <p class="text-dim leading-relaxed mb-10">
+            Open to advising, indie-dev contracts, and interesting problems.
+            Not looking for full-time.
+          </p>
+          <a
+            href="mailto:cky.bryan@gmail.com"
+            class="inline-block px-8 py-4 rounded-full grad-btn text-night font-semibold text-lg no-underline mb-8"
+          >
+            cky.bryan@gmail.com →
+          </a>
+          <div class="flex items-center justify-center gap-6 font-mono text-xs text-mute">
+            <a href="https://github.com/ckybryan" target="_blank" rel="noopener noreferrer" class="hover:text-snow transition-colors no-underline">github</a>
+            <span>·</span>
+            <a href="https://www.linkedin.com/in/cky-bryanchan" target="_blank" rel="noopener noreferrer" class="hover:text-snow transition-colors no-underline">linkedin</a>
+            <span>·</span>
+            <a href="/Bryan_Chan_Resume.pdf" class="hover:text-snow transition-colors no-underline">resume.pdf</a>
+          </div>
+          <div class="mt-10 inline-flex items-center gap-2 border border-line bg-card/60 rounded-full px-4 py-1.5">
+            <span class="w-2 h-2 rounded-full bg-lime pulse-dot"></span>
+            <span class="text-[11px] text-dim">open to advising &amp; indie-dev contracts</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-line px-6 py-6">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 font-mono text-[11px] text-mute">
+        <span>bryan.wtf — built with claude code</span>
+        <a href="./index.html" class="no-underline text-mute hover:text-snow transition-colors">sample 02 / vivid — all samples →</a>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bryan Studio — redesign preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              paper: '#FAFAF7',
+              'paper-2': '#F1F1EC',
+              rule: '#E4E4DE',
+              ink: '#0E0F12',
+              muted: '#6B6B66',
+              accent: '#2A6F5A',
+              petcrew: '#7C4DFF',
+              snapsell: '#21A593',
+            },
+            fontFamily: {
+              sans: ['Geist', 'system-ui', 'sans-serif'],
+              mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: 'Geist', system-ui, sans-serif;
+        background: #FAFAF7;
+        color: #0E0F12;
+        font-feature-settings: 'ss01', 'cv11';
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.55;
+      }
+      .mono {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        letter-spacing: 0.02em;
+      }
+      .mono-caps {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .display {
+        font-family: 'Geist', system-ui, sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+      }
+      .link-sweep { position: relative; display: inline-block; }
+      .link-sweep::after {
+        content: ''; position: absolute; left: 0; bottom: -2px;
+        height: 1px; width: 100%; background: currentColor;
+        transform: scaleX(0); transform-origin: left;
+        transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+      }
+      .link-sweep:hover::after { transform: scaleX(1); }
+
+      /* iPhone frame */
+      .phone {
+        width: 260px; aspect-ratio: 9/19.5;
+        border-radius: 44px;
+        background: #0E0F12;
+        padding: 8px;
+        box-shadow: 0 40px 80px -20px rgba(14,15,18,0.35), 0 20px 40px -10px rgba(14,15,18,0.2);
+      }
+      .phone-screen {
+        width: 100%; height: 100%;
+        border-radius: 36px;
+        overflow: hidden; position: relative;
+      }
+      .notch {
+        position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+        width: 80px; height: 24px;
+        background: #0E0F12; border-radius: 14px;
+        z-index: 2;
+      }
+
+      /* Browser frame */
+      .browser {
+        width: 100%; max-width: 460px;
+        border-radius: 12px;
+        background: #0E0F12;
+        box-shadow: 0 40px 80px -20px rgba(14,15,18,0.3), 0 20px 40px -10px rgba(14,15,18,0.18);
+        overflow: hidden;
+      }
+      .browser-bar {
+        display: flex; align-items: center; gap: 6px;
+        padding: 10px 14px;
+        background: #1a1c20;
+      }
+      .browser-bar .dot { width: 11px; height: 11px; border-radius: 999px; }
+      .browser-screen { background: white; padding: 22px; }
+
+      .app-store-badge {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: #0E0F12; color: white;
+        padding: 12px 20px; border-radius: 10px;
+        transition: transform 0.2s;
+      }
+      .app-store-badge:hover { transform: scale(1.02); }
+
+      .tile {
+        position: relative;
+        border-radius: 24px;
+        border: 1px solid #E4E4DE;
+        overflow: hidden;
+        transition: transform 0.4s cubic-bezier(0.2, 0.6, 0.2, 1), box-shadow 0.4s;
+      }
+      .tile:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 30px 60px -20px rgba(14,15,18,0.15);
+      }
+
+      .device-stage {
+        position: relative;
+        min-height: 440px;
+      }
+      .device-stage::after {
+        content: ''; position: absolute;
+        bottom: 0; left: 50%; transform: translateX(-50%);
+        width: 70%; height: 10%;
+        background: radial-gradient(ellipse, rgba(14,15,18,0.12) 0%, transparent 70%);
+        filter: blur(8px); z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nav -->
+    <header class="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-rule">
+      <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
+        <a href="#top" class="display text-[17px] flex items-center gap-2">
+          Bryan Studio
+          <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+        </a>
+        <nav class="flex items-center gap-6 mono text-xs text-muted">
+          <a href="#products" class="hover:text-ink transition-colors">Products</a>
+          <a href="#studio" class="hover:text-ink transition-colors">Studio</a>
+          <a href="#" class="hover:text-ink transition-colors">Support</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="top" class="px-6 py-28 md:py-40">
+      <div class="max-w-6xl mx-auto">
+        <p class="mono-caps text-[11px] text-muted mb-8">Now shipping — 2 products</p>
+        <h1 class="display text-5xl md:text-[72px] leading-[1.05] max-w-4xl mb-8">
+          Bryan Studio makes small, opinionated apps for everyday life.
+        </h1>
+        <p class="text-lg md:text-xl text-muted max-w-2xl leading-relaxed">
+          Based in Toronto. Two apps shipped. More in the oven.
+        </p>
+      </div>
+    </section>
+
+    <!-- Product grid -->
+    <section id="products" class="px-6 py-20 md:py-28 border-t border-rule">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-baseline justify-between mb-12 border-b border-rule pb-4">
+          <p class="mono-caps text-[11px] text-muted">Products</p>
+          <p class="mono text-xs text-muted">2 live · more coming</p>
+        </div>
+
+        <div class="space-y-6">
+          <!-- PetCrew tile -->
+          <div class="tile" style="background: linear-gradient(135deg, #F4F0FF 0%, #EDE6FF 60%, #E5DAFF 100%);">
+            <div class="grid md:grid-cols-[1.1fr_1fr] gap-0">
+              <!-- LEFT: product info -->
+              <div class="p-8 md:p-12 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-start justify-between mb-8">
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 h-16 rounded-[18px] bg-petcrew overflow-hidden flex items-center justify-center shadow-lg ring-1 ring-black/5">
+                        <img src="/logos/petcrew.png" alt="" class="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <h3 class="display text-3xl leading-none mb-1.5">PetCrew</h3>
+                        <p class="text-sm text-muted">Pet care, shared with family</p>
+                      </div>
+                    </div>
+                    <span class="mono text-[10px] inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/90 backdrop-blur rounded-full border border-petcrew/20 shrink-0">
+                      <span class="w-1.5 h-1.5 rounded-full bg-petcrew"></span>
+                      LIVE
+                    </span>
+                  </div>
+
+                  <p class="display text-2xl md:text-[28px] leading-[1.25] mb-5">
+                    The whole household, on the same feeding schedule.
+                  </p>
+                  <p class="text-[15px] text-ink/75 leading-relaxed mb-8 max-w-md">
+                    Track meals, medications, and vet visits across every pet. Share with
+                    family so nothing gets logged twice — or forgotten.
+                  </p>
+
+                  <ul class="mono text-xs text-muted space-y-2 mb-8">
+                    <li class="flex gap-3"><span class="text-petcrew">·</span> Shared household, one tap</li>
+                    <li class="flex gap-3"><span class="text-petcrew">·</span> Feeding & medication reminders</li>
+                    <li class="flex gap-3"><span class="text-petcrew">·</span> Works offline, syncs when ready</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-4 mb-4 flex-wrap">
+                    <a href="#" class="app-store-badge mono text-xs">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                      Download on the App Store
+                    </a>
+                    <a href="#" class="mono text-xs text-petcrew link-sweep">Learn more →</a>
+                  </div>
+                  <p class="mono text-[10px] text-muted">iOS 17+ · FREE · MADE IN TORONTO</p>
+                </div>
+              </div>
+
+              <!-- RIGHT: device frame -->
+              <div class="device-stage flex items-center justify-center p-8 md:p-12 bg-gradient-to-bl from-transparent to-white/30">
+                <div class="phone relative z-10">
+                  <div class="phone-screen" style="background: linear-gradient(180deg, #7C4DFF 0%, #5B30D9 100%);">
+                    <div class="notch"></div>
+                    <div class="pt-14 px-4 text-white">
+                      <p class="mono text-[9px] opacity-70 mb-1">THIS MORNING</p>
+                      <p class="font-semibold text-[15px] mb-5">Good morning, Bryan ☀️</p>
+                      <div class="bg-white/15 backdrop-blur rounded-xl p-3 mb-2.5">
+                        <div class="flex items-center gap-2 mb-1.5">
+                          <div class="w-7 h-7 rounded-full bg-gradient-to-br from-orange-200 to-orange-400"></div>
+                          <div>
+                            <p class="text-[11px] font-semibold leading-tight">Miso · Cat</p>
+                            <p class="text-[9px] opacity-70 leading-tight">4 yrs · Siamese</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <p class="text-[10px] opacity-80">Fed at 7:42am by Dad</p>
+                          <span class="mono text-[8px] bg-white/20 px-1.5 py-0.5 rounded">DONE</span>
+                        </div>
+                      </div>
+                      <div class="bg-white/15 backdrop-blur rounded-xl p-3 mb-2.5">
+                        <div class="flex items-center gap-2 mb-1.5">
+                          <div class="w-7 h-7 rounded-full bg-gradient-to-br from-stone-200 to-stone-400"></div>
+                          <div>
+                            <p class="text-[11px] font-semibold leading-tight">Yuki · Cat</p>
+                            <p class="text-[9px] opacity-70 leading-tight">2 yrs · Ragdoll</p>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <p class="text-[10px] opacity-80">Due for feeding</p>
+                          <span class="mono text-[8px] bg-yellow-300/90 text-ink px-1.5 py-0.5 rounded">NOW</span>
+                        </div>
+                      </div>
+                      <div class="bg-white/10 backdrop-blur rounded-xl p-3 border border-dashed border-white/25">
+                        <p class="text-[10px] opacity-70 text-center">+ Add pet</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SnapSell tile -->
+          <div class="tile" style="background: linear-gradient(135deg, #EAF6F3 0%, #DCEEE9 60%, #CDE6DE 100%);">
+            <div class="grid md:grid-cols-[1.1fr_1fr] gap-0">
+              <!-- LEFT: product info -->
+              <div class="p-8 md:p-12 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-start justify-between mb-8">
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 h-16 rounded-[18px] bg-snapsell flex items-center justify-center shadow-lg ring-1 ring-black/5">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                      </div>
+                      <div>
+                        <h3 class="display text-3xl leading-none mb-1.5">SnapSell</h3>
+                        <p class="text-sm text-muted">Snap a photo, sell it</p>
+                      </div>
+                    </div>
+                    <span class="mono text-[10px] inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/90 backdrop-blur rounded-full border border-snapsell/20 shrink-0">
+                      <span class="w-1.5 h-1.5 rounded-full bg-snapsell"></span>
+                      LIVE
+                    </span>
+                  </div>
+
+                  <p class="display text-2xl md:text-[28px] leading-[1.25] mb-5">
+                    From one photo to four marketplace listings, in seconds.
+                  </p>
+                  <p class="text-[15px] text-ink/75 leading-relaxed mb-8 max-w-md">
+                    AI writes the title, description, price, and tags — tailored per
+                    platform. Paste straight into Facebook, eBay, Etsy, or Amazon.
+                  </p>
+
+                  <ul class="mono text-xs text-muted space-y-2 mb-8">
+                    <li class="flex gap-3"><span class="text-snapsell">·</span> Platform-specific optimization</li>
+                    <li class="flex gap-3"><span class="text-snapsell">·</span> Generated price suggestions</li>
+                    <li class="flex gap-3"><span class="text-snapsell">·</span> One-click copy to any marketplace</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div class="flex items-center gap-4 mb-4 flex-wrap">
+                    <a href="https://snap-sell.com" target="_blank" class="inline-flex items-center gap-2 bg-snapsell text-white mono text-xs px-5 py-3 rounded-lg hover:opacity-90 transition-opacity">
+                      Open SnapSell
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                    </a>
+                    <a href="#" class="mono text-xs text-snapsell link-sweep">Learn more →</a>
+                  </div>
+                  <p class="mono text-[10px] text-muted">WEB · FREEMIUM · LAUNCHED 2026</p>
+                </div>
+              </div>
+
+              <!-- RIGHT: browser frame -->
+              <div class="device-stage flex items-center justify-center p-8 md:p-12 bg-gradient-to-bl from-transparent to-white/30">
+                <div class="browser relative z-10">
+                  <div class="browser-bar">
+                    <span class="dot bg-[#FF5F57]"></span>
+                    <span class="dot bg-[#FEBC2E]"></span>
+                    <span class="dot bg-[#28C840]"></span>
+                    <div class="flex-1 ml-3 mono text-[10px] text-white/50 bg-black/30 rounded px-2.5 py-1">snap-sell.com</div>
+                  </div>
+                  <div class="browser-screen">
+                    <p class="mono text-[9px] text-snapsell mb-3">GENERATED LISTING · FACEBOOK MARKETPLACE</p>
+                    <div class="flex items-start gap-3 mb-4">
+                      <div class="w-20 h-20 rounded-lg bg-gradient-to-br from-amber-100 to-amber-200 border border-rule flex items-center justify-center flex-shrink-0">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.5"><path d="M20 14l-3-3-4 4-3-3-4 4m14 1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1h12"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="font-semibold text-[14px] mb-1 text-ink leading-tight">Vintage Leather Messenger Bag — Barely Used</p>
+                        <p class="text-[12px] text-muted leading-snug">Handsome brown leather bag in excellent condition. Perfect for daily carry or travel.</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 mb-4 flex-wrap">
+                      <span class="mono text-[10px] font-medium bg-snapsell/10 text-snapsell px-2 py-0.5 rounded">$85</span>
+                      <span class="mono text-[10px] bg-ink/5 text-ink/60 px-2 py-0.5 rounded">leather</span>
+                      <span class="mono text-[10px] bg-ink/5 text-ink/60 px-2 py-0.5 rounded">vintage</span>
+                      <span class="mono text-[10px] bg-ink/5 text-ink/60 px-2 py-0.5 rounded">accessories</span>
+                    </div>
+                    <div class="h-px bg-rule mb-4"></div>
+                    <p class="mono text-[9px] text-muted mb-2">ALSO READY FOR</p>
+                    <div class="grid grid-cols-3 gap-2">
+                      <div class="border border-rule rounded-lg p-2 text-center">
+                        <p class="mono text-[9px] text-ink/70">eBay</p>
+                      </div>
+                      <div class="border border-rule rounded-lg p-2 text-center">
+                        <p class="mono text-[9px] text-ink/70">Etsy</p>
+                      </div>
+                      <div class="border border-rule rounded-lg p-2 text-center">
+                        <p class="mono text-[9px] text-ink/70">Amazon</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio strip -->
+    <section id="studio" class="bg-paper-2 px-6 py-24 border-t border-b border-rule">
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="mono-caps text-[11px] text-muted mb-6">Studio</p>
+        <p class="text-xl md:text-2xl leading-relaxed text-ink mb-6">
+          Bryan Studio is a one-person app company. We build the kind of software we wanted to exist — small, careful, and paid for by the people who use it.
+        </p>
+        <a href="#" class="mono text-sm text-accent link-sweep inline-block">Read more →</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ink text-white/80 px-6 py-16">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-10">
+        <div>
+          <p class="display text-lg text-white flex items-center gap-2 mb-4">
+            Bryan Studio
+            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+          </p>
+          <p class="mono text-xs text-white/50 leading-relaxed">
+            Small, opinionated apps<br>made in Toronto.
+          </p>
+        </div>
+        <div>
+          <p class="mono-caps text-[10px] text-white/40 mb-4">Products</p>
+          <ul class="space-y-2 mono text-xs">
+            <li><a href="#" class="hover:text-white transition-colors">PetCrew</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">SnapSell</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mono-caps text-[10px] text-white/40 mb-4">Studio</p>
+          <ul class="space-y-2 mono text-xs">
+            <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mono-caps text-[10px] text-white/40 mb-4">Contact</p>
+          <ul class="space-y-2 mono text-xs">
+            <li><a href="mailto:info@bryanstudio.dev" class="hover:text-white transition-colors">info@bryanstudio.dev</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 mono text-[11px] text-white/40">
+        <p>© 2026 Bryan Studio</p>
+        <p>For personal work, see <a href="https://bryan.wtf" class="hover:text-white transition-colors link-sweep">bryan.wtf →</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

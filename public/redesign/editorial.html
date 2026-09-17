@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bryan.wtf — editorial, in color</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              paper: '#FAFAF7',
+              ink: {
+                DEFAULT: '#17140F',
+                dim: '#57503F',
+                mute: '#9A917C',
+              },
+              rule: '#E2DDCF',
+              cobalt: '#1E4FD8',
+              vermil: '#D9380A',
+              kelly: '#0E7A3C',
+            },
+            fontFamily: {
+              serif: ['Newsreader', 'Georgia', 'serif'],
+              mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Newsreader', Georgia, serif;
+        background: #fafaf7;
+        color: #17140f;
+        -webkit-font-smoothing: antialiased;
+      }
+      ::selection {
+        background: #1e4fd8;
+        color: #fafaf7;
+      }
+      .mono-caps {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.65rem;
+      }
+      .double-rule {
+        border-top: 1px solid #17140f;
+        position: relative;
+      }
+      .double-rule::before {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 0;
+        right: 0;
+        border-top: 1px solid #17140f;
+      }
+      .dropcap::first-letter {
+        float: left;
+        font-size: 3.4em;
+        line-height: 0.85;
+        padding-right: 0.12em;
+        padding-top: 0.05em;
+        font-weight: 500;
+        color: #d9380a;
+      }
+      a {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+        text-decoration-color: #e2ddcf;
+        transition: text-decoration-color 0.2s ease, color 0.2s ease;
+      }
+      a:hover {
+        color: #1e4fd8;
+        text-decoration-color: #1e4fd8;
+      }
+      /* each section flies its own ink */
+      .ink-blue { color: #1e4fd8; }
+      .ink-red { color: #d9380a; }
+      .ink-green { color: #0e7a3c; }
+      .rule-blue { border-color: #1e4fd8 !important; }
+      .rule-red { border-color: #d9380a !important; }
+      .rule-green { border-color: #0e7a3c !important; }
+    </style>
+  </head>
+  <body class="bg-paper text-ink font-serif">
+    <!-- masthead -->
+    <header class="border-b border-ink">
+      <div class="max-w-5xl mx-auto px-6 pt-5 pb-4">
+        <div class="flex items-baseline justify-between mono-caps text-ink-mute mb-4">
+          <span>Toronto, Canada</span>
+          <span class="hidden md:inline">Est. 2017</span>
+          <span><span class="ink-blue">■</span> <span class="ink-red">■</span> <span class="ink-green">■</span> Vol. IX — 2026</span>
+        </div>
+        <div class="double-rule pt-4 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+          <a href="#top" class="text-3xl md:text-4xl font-medium tracking-tight no-underline" style="font-variant: small-caps;">
+            Bryan Chan
+          </a>
+          <nav class="flex items-center gap-5 mono-caps text-ink-dim pb-1 overflow-x-auto">
+            <a href="#about" class="no-underline hover:text-vermil">About</a>
+            <a href="#track" class="no-underline hover:text-kelly">Record</a>
+            <a href="#craft" class="no-underline hover:text-cobalt">Craft</a>
+            <a href="#work" class="no-underline hover:text-vermil">Work</a>
+            <a href="#contact" class="no-underline hover:text-cobalt">Correspondence</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="top" class="max-w-5xl mx-auto px-6">
+      <!-- ============ HERO ============ -->
+      <section class="py-16 md:py-24 border-b border-rule">
+        <p class="mono-caps ink-blue mb-8">The daily work — lead engineer, indie maker</p>
+        <h1 class="text-5xl md:text-7xl font-light leading-[1.02] tracking-tight mb-8">
+          Lead engineer at GoBolt.<br />
+          <em class="font-normal ink-blue">Indie studio of one.</em>
+        </h1>
+        <p class="text-xl md:text-2xl text-ink-dim leading-relaxed max-w-2xl mb-12">
+          Eight years shipping production systems. Now shipping apps
+          end-to-end with Claude Code.
+        </p>
+
+        <!-- ruled stat table, printed in three inks -->
+        <div class="max-w-2xl">
+          <div class="border-t-2 border-ink"></div>
+          <div class="grid grid-cols-3 divide-x divide-rule border-y border-rule">
+            <div class="py-4 px-4 text-center">
+              <div class="text-3xl md:text-4xl font-light ink-blue">8+</div>
+              <div class="mono-caps text-ink-mute mt-1">yrs @ GoBolt</div>
+            </div>
+            <div class="py-4 px-4 text-center">
+              <div class="text-3xl md:text-4xl font-light ink-red">3</div>
+              <div class="mono-caps text-ink-mute mt-1">apps live</div>
+            </div>
+            <div class="py-4 px-4 text-center">
+              <div class="text-3xl md:text-4xl font-light italic ink-green">AI</div>
+              <div class="mono-caps text-ink-mute mt-1">native dev</div>
+            </div>
+          </div>
+          <div class="border-b-2 border-ink"></div>
+        </div>
+
+        <p class="mono-caps text-ink-mute mt-10">
+          <a href="#about" class="ink-blue">Continue reading ↓</a>
+        </p>
+      </section>
+
+      <!-- ============ ABOUT (red ink) ============ -->
+      <section id="about" class="py-16 md:py-20 border-b border-rule scroll-mt-10">
+        <div class="flex items-baseline justify-between mb-10">
+          <p class="mono-caps ink-red">№ 01 — About</p>
+          <p class="mono-caps text-ink-mute">The operator</p>
+        </div>
+
+        <blockquote class="text-3xl md:text-5xl font-light italic leading-[1.15] max-w-3xl mb-12">
+          <span class="ink-red not-italic">“</span>I build the thing, then
+          I build the thing that builds the thing.<span class="ink-red not-italic">”</span>
+        </blockquote>
+
+        <div class="grid md:grid-cols-12 gap-10">
+          <div class="md:col-span-7">
+            <p class="dropcap text-lg leading-[1.75] text-ink-dim">
+              Toronto-based engineer working across the full stack. Day job:
+              leading architecture and frontend systems at GoBolt. Side work:
+              Bryan Studio, an indie shop shipping iOS and web apps. I write
+              TypeScript, ship with Claude Code, and care about the boring
+              parts — error handling, observability, clear APIs — more than
+              most.
+            </p>
+          </div>
+          <aside class="md:col-span-4 md:col-start-9">
+            <p class="mono-caps ink-red border-t border-ink pt-3 mb-4">Filed under</p>
+            <dl class="text-[15px]">
+              <div class="flex justify-between gap-4 py-2 border-b border-rule">
+                <dt class="text-ink-mute italic">Based</dt>
+                <dd class="text-right">Toronto, Canada</dd>
+              </div>
+              <div class="flex justify-between gap-4 py-2 border-b border-rule">
+                <dt class="text-ink-mute italic">Day job</dt>
+                <dd class="text-right">Lead SWE, GoBolt</dd>
+              </div>
+              <div class="flex justify-between gap-4 py-2 border-b border-rule">
+                <dt class="text-ink-mute italic">Studio</dt>
+                <dd class="text-right">Bryan Studio — indie</dd>
+              </div>
+              <div class="flex justify-between gap-4 py-2 border-b border-rule">
+                <dt class="text-ink-mute italic">Education</dt>
+                <dd class="text-right">BASc Comp Eng, U of T</dd>
+              </div>
+              <div class="flex justify-between gap-4 py-2">
+                <dt class="text-ink-mute italic">Off-keys</dt>
+                <dd class="text-right">Cats, badminton, snowboarding</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ TRACK RECORD (green ink) ============ -->
+      <section id="track" class="py-16 md:py-20 border-b border-rule scroll-mt-10">
+        <div class="flex items-baseline justify-between mb-10">
+          <p class="mono-caps ink-green">№ 02 — Track record</p>
+          <p class="mono-caps text-ink-mute">From the archives</p>
+        </div>
+
+        <h2 class="text-4xl md:text-5xl font-light mb-12">
+          GoBolt. <em class="ink-green">2017 — present.</em>
+        </h2>
+
+        <div>
+          <article class="grid md:grid-cols-12 gap-3 md:gap-8 py-6 border-t-2 rule-green">
+            <p class="md:col-span-2 mono-caps ink-green pt-1">2021 — Now</p>
+            <div class="md:col-span-10">
+              <h3 class="text-2xl font-medium mb-2">Lead Software Engineer</h3>
+              <p class="text-ink-dim leading-relaxed">
+                Leads architecture across frontend and backend systems.
+                Modernizes legacy stacks, mentors the team on scalable
+                patterns, and drives technical direction.
+              </p>
+            </div>
+          </article>
+          <article class="grid md:grid-cols-12 gap-3 md:gap-8 py-6 border-t border-rule">
+            <p class="md:col-span-2 mono-caps text-ink-mute pt-1">2018 — 2021</p>
+            <div class="md:col-span-10">
+              <h3 class="text-2xl font-medium mb-2">Lead Frontend Developer</h3>
+              <p class="text-ink-dim leading-relaxed">
+                Introduced TypeScript, React Hooks, and React-Query. Built a
+                vehicle routing system on Google Maps API and cut frontend
+                boilerplate by sixty percent.
+              </p>
+            </div>
+          </article>
+          <article class="grid md:grid-cols-12 gap-3 md:gap-8 py-6 border-t border-rule">
+            <p class="md:col-span-2 mono-caps text-ink-mute pt-1">2020 — 2021</p>
+            <div class="md:col-span-10">
+              <h3 class="text-2xl font-medium mb-2">Full Stack Engineer / Team Lead</h3>
+              <p class="text-ink-dim leading-relaxed">
+                Designed and deployed a NestJS warehouse inventory system on
+                AWS, leading a cross-functional team through implementation.
+              </p>
+            </div>
+          </article>
+          <article class="grid md:grid-cols-12 gap-3 md:gap-8 py-6 border-t border-rule">
+            <p class="md:col-span-2 mono-caps text-ink-mute pt-1">2018</p>
+            <div class="md:col-span-10">
+              <h3 class="text-2xl font-medium mb-2">Frontend Developer</h3>
+              <p class="text-ink-dim leading-relaxed">
+                Introduced Redux and SASS. Built the company's first React
+                Native app and developed the main business site from scratch.
+              </p>
+            </div>
+          </article>
+          <article class="grid md:grid-cols-12 gap-3 md:gap-8 py-6 border-t border-b border-rule">
+            <p class="md:col-span-2 mono-caps text-ink-mute pt-1">2017</p>
+            <div class="md:col-span-10">
+              <h3 class="text-2xl font-medium mb-2">Frontend Developer Intern</h3>
+              <p class="text-ink-dim leading-relaxed">
+                Modernized UI components and integrated Stripe payment
+                processing with the React frontend.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ CRAFT (blue ink) ============ -->
+      <section id="craft" class="py-16 md:py-20 border-b border-rule scroll-mt-10">
+        <div class="flex items-baseline justify-between mb-10">
+          <p class="mono-caps ink-blue">№ 03 — Craft</p>
+          <p class="mono-caps text-ink-mute">How I work</p>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-10">
+          <div class="md:col-span-5">
+            <h2 class="text-4xl md:text-5xl font-light leading-[1.05] mb-6">
+              AI-native <em class="ink-blue">development.</em>
+            </h2>
+            <p class="text-lg text-ink-dim leading-relaxed">
+              Claude Code is my daily driver — from spec to ship. Not a
+              typeahead; a teammate.
+            </p>
+          </div>
+          <div class="md:col-span-6 md:col-start-7">
+            <ul class="text-[17px]">
+              <li class="py-3 border-b border-rule flex gap-4">
+                <span class="italic ink-blue w-36 shrink-0">Claude Code</span>
+                <span class="text-ink-dim">daily driver — spec → plan → implement → ship</span>
+              </li>
+              <li class="py-3 border-b border-rule flex gap-4">
+                <span class="italic ink-blue w-36 shrink-0">Subagents</span>
+                <span class="text-ink-dim">parallel specialists, multi-model routing</span>
+              </li>
+              <li class="py-3 border-b border-rule flex gap-4">
+                <span class="italic ink-blue w-36 shrink-0">Agent teams</span>
+                <span class="text-ink-dim">orchestrated PR-review: lead, reviewer, approver</span>
+              </li>
+              <li class="py-3 border-b border-rule flex gap-4">
+                <span class="italic ink-blue w-36 shrink-0">Custom skills</span>
+                <span class="text-ink-dim">codified workflows — ticket → worktree → PR</span>
+              </li>
+              <li class="py-3 border-b border-rule flex gap-4">
+                <span class="italic ink-blue w-36 shrink-0">MCP</span>
+                <span class="text-ink-dim">Linear, Datadog, production dbs (read-only)</span>
+              </li>
+              <li class="py-3 flex gap-4">
+                <span class="italic ink-blue w-36 shrink-0">Anthropic SDK</span>
+                <span class="text-ink-dim">tool use, prompt caching, streaming</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WORK (red ink) ============ -->
+      <section id="work" class="py-16 md:py-20 border-b border-rule scroll-mt-10">
+        <div class="flex items-baseline justify-between mb-10">
+          <p class="mono-caps ink-red">№ 04 — Studio</p>
+          <p class="mono-caps text-ink-mute">Side proof</p>
+        </div>
+
+        <h2 class="text-4xl md:text-6xl font-light leading-[1.05] max-w-3xl mb-8">
+          Still shipping, <em class="ink-red">end-to-end.</em>
+        </h2>
+        <p class="text-xl text-ink-dim leading-relaxed max-w-2xl mb-12">
+          Solo apps on iOS and web — built to keep the production muscle
+          honest. Full catalog at the studio.
+        </p>
+
+        <ol class="max-w-2xl">
+          <li class="flex items-baseline gap-6 py-4 border-t border-rule">
+            <span class="mono-caps ink-red">i.</span>
+            <span class="text-2xl font-medium">PetCrew</span>
+            <span class="ml-auto text-ink-mute italic">iOS — live</span>
+          </li>
+          <li class="flex items-baseline gap-6 py-4 border-t border-rule">
+            <span class="mono-caps ink-red">ii.</span>
+            <span class="text-2xl font-medium">GraceNotes</span>
+            <span class="ml-auto text-ink-mute italic">indie catalog</span>
+          </li>
+          <li class="flex items-baseline gap-6 py-4 border-t border-b border-rule">
+            <span class="mono-caps ink-red">iii.</span>
+            <span class="text-2xl font-medium">CandlePost</span>
+            <span class="ml-auto text-ink-mute italic">indie catalog</span>
+          </li>
+        </ol>
+
+        <p class="mono-caps mt-10">
+          <a href="https://www.bryanstudio.dev" target="_blank" rel="noopener noreferrer" class="ink-red">
+            www.bryanstudio.dev →
+          </a>
+        </p>
+      </section>
+
+      <!-- ============ CONTACT (blue ink) ============ -->
+      <section id="contact" class="py-20 md:py-28 text-center scroll-mt-10">
+        <p class="mono-caps ink-blue mb-8">№ 05 — Correspondence</p>
+        <h2 class="text-5xl md:text-7xl font-light italic mb-6">Let's <span class="ink-blue">talk.</span></h2>
+        <p class="text-lg text-ink-dim max-w-xl mx-auto mb-10 leading-relaxed">
+          Open to advising, indie-dev contracts, and interesting problems.
+          Not looking for full-time.
+        </p>
+        <p class="mb-8">
+          <a href="mailto:cky.bryan@gmail.com" class="text-2xl md:text-3xl italic ink-blue">
+            cky.bryan@gmail.com
+          </a>
+        </p>
+        <p class="mono-caps text-ink-mute">
+          <a href="https://github.com/ckybryan" target="_blank" rel="noopener noreferrer">GitHub</a>
+          &nbsp;·&nbsp;
+          <a href="https://www.linkedin.com/in/cky-bryanchan" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          &nbsp;·&nbsp;
+          <a href="/Bryan_Chan_Resume.pdf">Résumé</a>
+        </p>
+      </section>
+    </main>
+
+    <!-- colophon -->
+    <footer class="border-t border-ink">
+      <div class="max-w-5xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3 mono-caps text-ink-mute">
+        <span>Set in Newsreader &amp; Geist Mono</span>
+        <span>Printed in <span class="ink-blue">three</span> <span class="ink-red">extra</span> <span class="ink-green">inks</span> with Claude Code</span>
+        <a href="./index.html" class="no-underline hover:text-cobalt">sample 01 / editorial — index →</a>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -145,35 +145,25 @@ This project is open source and available under the [MIT License](LICENSE).
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/ckybryan/my-site/issues).
 
-## � Deployment
+## 🚀 Deployment
 
-### Railway Deployment
+This site is served by **Cloudflare Workers** as static assets — there is no server runtime, so
+`express`, `server.js` and the old Railway/Docker config are gone.
 
-This project is configured for easy deployment on Railway:
+```bash
+npm run build         # tsc && vite build  ->  dist/
+npx wrangler deploy   # uploads dist/ and binds the custom domains
+```
 
-1. **Connect GitHub Repository**:
-   - Go to [Railway.app](https://railway.app)
-   - Click "Start a New Project"
-   - Connect your GitHub account and select this repository
-
-2. **Automatic Configuration**:
-   - Railway will automatically detect the configuration from `railway.json`
-   - Build and deployment settings are pre-configured
-   - Node.js 18 environment is specified
-
-3. **Environment Variables**:
-   - No additional environment variables needed for basic deployment
-   - Railway will automatically set `PORT` for the application
-
-4. **Custom Domain** (Optional):
-   - Add your custom domain in Railway dashboard
-   - Update DNS settings as instructed
-
-### Alternative Deployment Options
-
-- **Docker**: Use the included `Dockerfile`
-- **Vercel**: Connect repository directly
-- **Netlify**: Deploy as static site
+- `wrangler.jsonc` declares the assets directory, the SPA fallback
+  (`not_found_handling: "single-page-application"`) and both custom domains, so a deploy is a single
+  command and needs no dashboard work.
+- `public/_headers` carries the cache policy: HTML is never cached, so a deploy is visible
+  immediately, while the fingerprinted bundles under `/assets/*` are cached for a year.
+- Deploying needs a Cloudflare API token with Workers Scripts and DNS edit permissions; Wrangler
+  reads it from the `CLOUDFLARE_API_TOKEN` environment variable.
+- `www.bryan.wtf` is canonical. The apex `bryan.wtf` is bound to the same Worker, and a zone-level
+  redirect rule sends it to www.
 
 ## �📞 Contact
 
