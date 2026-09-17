@@ -7,7 +7,8 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    // Off: a published .js.map ships the full source next to the bundle.
+    sourcemap: false,
   },
   server: {
     port: 3000,
