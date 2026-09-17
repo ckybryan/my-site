@@ -14,6 +14,11 @@
   // It refuses while a CNAME exists for the hostname - the old DNS-only record pointing at
   // y3i13gnl.up.railway.app was removed first (revert = recreate that CNAME).
   "routes": [
-    { "pattern": "www.bryan.wtf", "custom_domain": true }
+    { "pattern": "www.bryan.wtf", "custom_domain": true },
+    // Apex is bound too: the zone-level redirect rule fires before the Worker, so visitors still
+    // get the 301 to www, but the apex no longer depends on a record naming y3i13gnl.up.railway.app
+    // (a hostname that now returns "Application not found"). If the redirect rule is ever removed,
+    // the apex serves the site instead of an error.
+    { "pattern": "bryan.wtf", "custom_domain": true }
   ]
 }
