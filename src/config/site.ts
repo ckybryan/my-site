@@ -6,7 +6,7 @@ export const siteConfig = {
   
   social: {
     github: 'https://github.com/ckybryan',
-    linkedin: 'https://linkedin.com/in/bryanchan',
+    linkedin: 'https://linkedin.com/in/cky-bryanchan',
     email: 'bryan@example.com',
     phone: '+1 (555) 123-4567',
   },
