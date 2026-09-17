@@ -7,8 +7,10 @@ export const siteConfig = {
   social: {
     github: 'https://github.com/ckybryan',
     linkedin: 'https://linkedin.com/in/cky-bryanchan',
-    email: 'bryan@example.com',
-    phone: '+1 (555) 123-4567',
+    // Real address: the previous value was the scaffold's 'bryan@example.com', and a placeholder
+    // phone number sat beside it. Nothing imports this block today (no consumer of `siteConfig`
+    // `social` in src/), so it is only a trap for the next person who wires it up.
+    email: 'cky.bryan@gmail.com',
   },
   
   location: 'Toronto, Ontario, Canada',
