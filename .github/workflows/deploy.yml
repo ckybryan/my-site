@@ -1,0 +1,49 @@
+name: Deploy to Cloudflare Workers
+
+# Auto-deploy replacement for the Railway git integration: any push to main builds the site and
+# publishes it to the my-site Worker. Cloudflare's own Workers Builds could not get past
+# "Build initialization failed: unable to verify Worker" for this project, so the deploy runs here
+# instead - same command that works locally, in a GitHub runner.
+#
+# Secrets required (set on the repo):
+#   CLOUDFLARE_API_TOKEN    token with Workers Scripts:Edit
+#   CLOUDFLARE_ACCOUNT_ID   the account that owns the my-site Worker
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time; a newer push supersedes an in-flight run.
+concurrency:
+  group: deploy-main
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # .nvmrc is 24: wrangler 4 requires Node >= 22, and a stale 18 here silently breaks deploys.
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          # puppeteer is only needed by the local `generate-resume` script; without this the
+          # install downloads ~150 MB of Chromium on every run.
+          PUPPETEER_SKIP_DOWNLOAD: "true"
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        # Uses the wrangler version pinned in package.json rather than a floating latest.
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
