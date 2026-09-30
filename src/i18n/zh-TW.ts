@@ -77,7 +77,8 @@ export const zhTW: Translation = {
       leadAiPlatform: {
         title: '首席 AI 平台工程師',
         responsibilities: [
-          '推出首個 WMS MCP 伺服器 — 一組唯讀工具，開放即時倉庫資料查詢，並具備 OAuth 登入與按使用者的設施範圍控管。',
+          '推出首個 WMS MCP 伺服器，並擴展至商戶域：一組唯讀工具，開放即時倉庫與商戶域資料查詢，並具備 OAuth 登入與按使用者的範圍控管。',
+          '推出首個全自動 agentic 交付流程，產品經理可將功能從需求一路推進到上線。',
           '建立並營運多個生產環境 AI agents（基於共用內部工具）— 涵蓋 PR 審查與批准、文件維護、發佈自動化。',
           '推出公司首個 LLM 功能，並建立可重用的多供應商 LLM 整合層。',
           '將 agentic AI 融入核心交付流程 — AI 驅動的測試、發佈及程式碼審查。',

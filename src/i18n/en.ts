@@ -82,7 +82,8 @@ export const en: Translation = {
       leadAiPlatform: {
         title: 'Lead AI Platform Engineer',
         responsibilities: [
-          'Released the first WMS MCP server — read-only tools exposing live warehouse data, behind OAuth sign-in and per-user facility scoping.',
+          'Released the first WMS MCP server, extended to the merchant domain: read-only tools exposing live warehouse and merchant domain data, behind OAuth sign-in and per-user scoping.',
+          'Shipped the first fully automated agentic delivery flow, where a product manager takes a feature from request to shipped end to end.',
           'Built and operate a fleet of production AI agents on shared internal tooling — PR review and approval, documentation maintenance, release automation.',
           'Shipped the company\'s first LLM-powered feature, with a reusable multi-provider LLM integration layer.',
           'Made agentic AI the core delivery workflow — AI-driven testing, releases, and code review.',
