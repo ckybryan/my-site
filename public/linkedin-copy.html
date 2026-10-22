@@ -159,7 +159,7 @@
           <h2>Headline</h2>
           <button class="copy copy-all" type="button" aria-label="Copy the whole field">Copy whole field</button>
         </div>
-        <p class="sub">one line, search results show the first 70 characters. 1 blocks, 140 of 220 characters.</p>
+        <p class="sub">one line, search results show the first 70 characters. 1 block, 140 of 220 characters.</p>
         <article class="copy-block">
           <div class="block-head">
             <span class="label">1. 140 characters</span>
@@ -364,22 +364,39 @@
     </main>
     <script>
       (function () {
+        function legacyCopy(text) {
+          var area = document.createElement('textarea');
+          area.value = text;
+          area.setAttribute('readonly', '');
+          area.style.position = 'fixed';
+          area.style.top = '0';
+          area.style.opacity = '0';
+          document.body.appendChild(area);
+          area.focus();
+          area.select();
+          area.setSelectionRange(0, text.length);
+          var ok = false;
+          try {
+            ok = document.execCommand('copy');
+          } catch (error) {
+            ok = false;
+          }
+          document.body.removeChild(area);
+          return ok;
+        }
+
         function copyText(text) {
           if (navigator.clipboard && window.isSecureContext) {
-            return navigator.clipboard.writeText(text);
+            return navigator.clipboard.writeText(text).catch(function () {
+              if (!legacyCopy(text)) {
+                throw new Error('copy failed');
+              }
+            });
           }
-          return new Promise(function (resolve, reject) {
-            var area = document.createElement('textarea');
-            area.value = text;
-            area.setAttribute('readonly', '');
-            area.style.position = 'fixed';
-            area.style.opacity = '0';
-            document.body.appendChild(area);
-            area.select();
-            var ok = document.execCommand('copy');
-            document.body.removeChild(area);
-            ok ? resolve() : reject(new Error('copy failed'));
-          });
+          if (legacyCopy(text)) {
+            return Promise.resolve();
+          }
+          return Promise.reject(new Error('copy failed'));
         }
 
         function flash(button, text) {
