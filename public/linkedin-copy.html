@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>LinkedIn copy | Bryan Chan</title>
+    <meta
+      name="description"
+      content="Paste-ready LinkedIn profile text: headline and role descriptions, one copy button per block."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f5f1e8;
+        color: #2a2620;
+        font-family: 'Geist', system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      main {
+        max-width: 50rem;
+        margin: 0 auto;
+        padding: 4.5rem 1.5rem 6rem;
+      }
+      .label {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+        color: #6b6152;
+      }
+      h1 {
+        font-weight: 600;
+        letter-spacing: -0.035em;
+        font-size: clamp(1.9rem, 4vw, 2.6rem);
+        line-height: 1.1;
+        margin: 0.75rem 0 0;
+      }
+      .sub {
+        margin: 0.6rem 0 0;
+        color: #6b6152;
+        font-size: 0.95rem;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid #ddd5c6;
+        margin: 2.5rem 0;
+      }
+      .field {
+        margin-top: 2.75rem;
+      }
+      .field-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      h2 {
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        font-size: 1.22rem;
+        margin: 0;
+      }
+      .copy-block {
+        margin-top: 1.15rem;
+        padding: 0.9rem 1rem 1rem;
+        background: #fffdf8;
+        border: 1px solid #e3dbcb;
+        border-radius: 8px;
+      }
+      .block-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.55rem;
+      }
+      .block-head .label {
+        color: #8a7f6c;
+      }
+      .group {
+        margin: 0 0 0.45rem;
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #a2683a;
+      }
+      pre {
+        margin: 0;
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.83rem;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: #2a2620;
+      }
+      button.copy {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.03em;
+        padding: 0.28rem 0.7rem;
+        border: 1px solid #cdc2ad;
+        border-radius: 999px;
+        background: #f5f1e8;
+        color: #3a2e1e;
+        cursor: pointer;
+        transition: background 120ms ease, border-color 120ms ease;
+      }
+      button.copy:hover {
+        background: #ece5d6;
+        border-color: #b5a98f;
+      }
+      button.copy.done {
+        background: #2a2620;
+        border-color: #2a2620;
+        color: #f5f1e8;
+      }
+      footer {
+        margin-top: 3.5rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid #ddd5c6;
+      }
+      a {
+        color: #3a2e1e;
+        text-underline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="label">LinkedIn copy</p>
+      <h1>Paste-ready profile text</h1>
+      <p class="sub">
+        Every release as text you can paste straight into LinkedIn. Copy a single block, or copy the
+        whole field and replace the description in one paste. Blank lines between blocks are what keep
+        the bullets from merging, so keep them.
+      </p>
+
+      <hr />
+      <section class="field">
+        <div class="field-head">
+          <h2>Headline</h2>
+          <button class="copy copy-all" type="button" aria-label="Copy the whole field">Copy whole field</button>
+        </div>
+        <p class="sub">one line, search results show the first 70 characters. 1 blocks, 140 of 220 characters.</p>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">1. 140 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>Lead AI Platform Engineer at GoBolt | I build and run production AI agents - PR review, docs, releases | TypeScript, NestJS, LLM integration</pre>
+        </article>
+      </section>
+      <section class="field">
+        <div class="field-head">
+          <h2>Lead AI Platform Engineer</h2>
+          <button class="copy copy-all" type="button" aria-label="Copy the whole field">Copy whole field</button>
+        </div>
+        <p class="sub">GoBolt, September 2026 to present. 9 blocks, 1583 of 2000 characters.</p>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">1. 161 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Led engineering-wide enablement on AI-assisted development: presented GoBolt&#x27;s AI development workflow and trained engineers on Claude Code and agent workflows</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">2. 328 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Released the first WMS MCP server, extended to the merchant domain: read-only tools for warehouse locations, floor stock, product master data, ledger balances, inbound receiving and outbound work orders, plus merchant domain data, behind OAuth sign-in, per-user scoping, and self-serve setup for Claude Desktop and Claude Code</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">3. 153 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Built and operate a fleet of production AI agents on shared internal tooling: PR review and approval, documentation maintenance, and release automation</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">4. 138 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Shipped the company&#x27;s first LLM-powered feature in the warehouse management system, with a reusable multi-provider LLM integration layer</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">5. 148 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Created agent-maintained knowledge bases for the warehouse and merchant domains that keep themselves up to date from releases and team discussions</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">6. 90 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Made agentic AI the core delivery workflow: AI-driven testing, releases, and code review</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">7. pending paste / 251 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Built the team&#x27;s end-to-end testing engine for AI-generated code: one CLI brings up the warehouse, merchant and handheld apps against seeded local data, AI agents write and run the suites, and every release gets evidence it will not break production</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">8. 127 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Shipped the first fully automated agentic delivery flow: a product manager takes a feature from request to shipped end to end</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">9. 171 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Built and maintain the internal Claude Code toolkit: shared skills, slash commands, MCP integrations (Linear, Datadog, read-only production DBs), and multi-model routing</pre>
+        </article>
+      </section>
+      <section class="field">
+        <div class="field-head">
+          <h2>Lead Software Engineer</h2>
+          <button class="copy copy-all" type="button" aria-label="Copy the whole field">Copy whole field</button>
+        </div>
+        <p class="sub">GoBolt, October 2021 to September 2026. 16 blocks, 1903 of 2000 characters.</p>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">1. 223 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>Architected and maintain an enterprise warehouse management backend of 136+ modules (NestJS, TypeORM, PostgreSQL) that handles thousands of daily operations across receiving, picking, packing, returns and carrier transfers.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Architecture and backend</p><div class="block-head">
+            <span class="label">2. 123 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Domain-driven design with standardised module patterns, custom authentication/permission decorators and Swagger API docs.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Architecture and backend</p><div class="block-head">
+            <span class="label">3. 111 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Generic Inflator Pattern for background processing: distributed locking, automatic retry, stale item cleanup.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Architecture and backend</p><div class="block-head">
+            <span class="label">4. 117 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Signal Emitter Pattern (two-table design) for reliable HTTP request queuing to our Core API with automatic retries.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Architecture and backend</p><div class="block-head">
+            <span class="label">5. 116 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Migrated distributed locking from Redis to a PostgreSQL-based Generic Lock Service, removing the Redis dependency.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Architecture and backend</p><div class="block-head">
+            <span class="label">6. 112 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Led a cross-team data-integrity project unifying product identity across systems; shipped with zero incidents.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Frontend and real-time</p><div class="block-head">
+            <span class="label">7. 115 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Led the React 18 warehouse frontend: 130+ routes across 35+ feature areas (TypeScript, Vite, Ant Design, Recoil).</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Frontend and real-time</p><div class="block-head">
+            <span class="label">8. 131 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Architected the scanner-first mobile interface for warehouse floor operations: auto-focus input handling, Command+K fuzzy search.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Frontend and real-time</p><div class="block-head">
+            <span class="label">9. 83 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Implemented WebSocket integration for real-time packing with live status updates.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Frontend and real-time</p><div class="block-head">
+            <span class="label">10. 79 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Built multi-step picking/packing wizards, ASN processing and inventory flows.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Frontend and real-time</p><div class="block-head">
+            <span class="label">11. 118 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- State management: Recoil for global state, React Query for server-side caching, URL params for shareable flow state.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Cloud, delivery and quality</p><div class="block-head">
+            <span class="label">12. 82 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Kubernetes deployments across 8 environments with Helm charts and ArgoCD GitOps.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Cloud, delivery and quality</p><div class="block-head">
+            <span class="label">13. 62 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Secrets management with SOPS encryption and KMS integration.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Cloud, delivery and quality</p><div class="block-head">
+            <span class="label">14. 103 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- DataDog APM with custom decorators for performance monitoring and error tracking across all services.</pre>
+        </article>
+        <article class="copy-block">
+          <p class="group">Cloud, delivery and quality</p><div class="block-head">
+            <span class="label">15. 123 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>- Testing patterns: FactoryBot unit tests, database-fixture integration tests, Playwright E2E, Storybook visual regression.</pre>
+        </article>
+        <article class="copy-block">
+          <div class="block-head">
+            <span class="label">16. 175 characters</span>
+            <button class="copy" type="button" aria-label="Copy this block">Copy</button>
+          </div>
+          <pre>Technologies: TypeScript, NestJS, React 18, PostgreSQL, Socket.io, Kubernetes, Docker, ArgoCD, Helm, Recoil, React Query, Vite, Playwright, Vitest, DataDog, LaunchDarkly, SOPS</pre>
+        </article>
+      </section>
+
+      <footer>
+        <p class="label">Generated 2026-10-22 from the linkedin-profile drafts. A block marked "pending paste" is not on the profile yet.</p>
+      </footer>
+    </main>
+    <script>
+      (function () {
+        function copyText(text) {
+          if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+          }
+          return new Promise(function (resolve, reject) {
+            var area = document.createElement('textarea');
+            area.value = text;
+            area.setAttribute('readonly', '');
+            area.style.position = 'fixed';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(area);
+            ok ? resolve() : reject(new Error('copy failed'));
+          });
+        }
+
+        function flash(button, text) {
+          var original = button.dataset.original || button.textContent;
+          button.dataset.original = original;
+          button.textContent = text;
+          button.classList.add('done');
+          window.clearTimeout(button._timer);
+          button._timer = window.setTimeout(function () {
+            button.textContent = original;
+            button.classList.remove('done');
+          }, 1600);
+        }
+
+        document.querySelectorAll('button.copy').forEach(function (button) {
+          button.addEventListener('click', function () {
+            var scope = button.closest('.copy-block') || button.closest('.field');
+            var parts = [];
+            scope.querySelectorAll('pre').forEach(function (pre) {
+              parts.push(pre.textContent);
+            });
+            copyText(parts.join('\n\n')).then(
+              function () { flash(button, 'Copied'); },
+              function () { flash(button, 'Copy failed'); }
+            );
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
