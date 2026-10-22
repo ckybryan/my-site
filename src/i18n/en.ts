@@ -82,7 +82,7 @@ export const en: Translation = {
       leadAiPlatform: {
         title: 'Lead AI Platform Engineer',
         responsibilities: [
-          'Built gbe2e, the team\'s end-to-end testing engine: AI agents write and run tests against a seeded local stack, so every release carries evidence it will not break production.',
+          'Built the team\'s end-to-end testing engine: AI agents write and run tests against a seeded local stack, so every release carries evidence it will not break production.',
           'Released the first WMS MCP server, extended to the merchant domain: read-only tools exposing live warehouse and merchant domain data, behind OAuth sign-in and per-user scoping.',
           'Shipped the first fully automated agentic delivery flow, where a product manager takes a feature from request to shipped end to end.',
           'Built and operate a fleet of production AI agents on shared internal tooling — PR review and approval, documentation maintenance, release automation.',
