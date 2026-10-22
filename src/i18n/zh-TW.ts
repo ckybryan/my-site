@@ -77,6 +77,7 @@ export const zhTW: Translation = {
       leadAiPlatform: {
         title: '首席 AI 平台工程師',
         responsibilities: [
+          '打造 gbe2e：團隊的端到端測試引擎，AI agents 可在已完成資料初始化的本機環境撰寫並執行測試，讓每次發佈都帶有不會破壞生產環境的證據。',
           '推出首個 WMS MCP 伺服器，並擴展至商戶域：一組唯讀工具，開放即時倉庫與商戶域資料查詢，並具備 OAuth 登入與按使用者的範圍控管。',
           '推出首個全自動 agentic 交付流程，產品經理可將功能從需求一路推進到上線。',
           '建立並營運多個生產環境 AI agents（基於共用內部工具）— 涵蓋 PR 審查與批准、文件維護、發佈自動化。',
