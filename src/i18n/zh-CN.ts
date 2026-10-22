@@ -11,12 +11,12 @@ export const zhCN: Translation = {
     contact: '联系',
   },
   hero: {
-    kicker: '陈格仁 — 多伦多 — 2026',
+    kicker: '陈格仁 — 多伦多 — {year}',
     chineseName: '陈格仁',
     titleLine1: 'GoBolt首席工程师。',
-    titleLine2: '独立工作室一人作战。',
+    titleLine2: '生产环境的 agentic AI，不做演示。',
     description:
-      '八年生产级系统经验。如今使用Claude Code端到端交付产品。',
+      '{years} 年生产级系统经验。如今使用 Claude Code 端到端交付产品。',
     seeWork: '查看作品',
     getInTouch: '联系我',
     stats: {

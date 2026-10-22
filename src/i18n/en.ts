@@ -11,11 +11,11 @@ export const en: Translation = {
     contact: 'Contact',
   },
   hero: {
-    kicker: 'Bryan Chan — Toronto — 2026',
+    kicker: 'Bryan Chan — Toronto — {year}',
     titleLine1: 'Lead engineer at GoBolt.',
-    titleLine2: 'Indie studio of one.',
+    titleLine2: 'Agentic AI in production, not demos.',
     description:
-      'Eight years shipping production systems. Now shipping apps end-to-end with Claude Code.',
+      '{years} years shipping production systems. Now shipping apps end-to-end with Claude Code.',
     seeWork: 'see the work',
     getInTouch: 'get in touch',
     stats: {

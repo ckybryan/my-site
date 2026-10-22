@@ -11,12 +11,12 @@ export const zhTW: Translation = {
     contact: '聯絡',
   },
   hero: {
-    kicker: '陳格仁 — 多倫多 — 2026',
+    kicker: '陳格仁 — 多倫多 — {year}',
     chineseName: '陳格仁',
     titleLine1: 'GoBolt首席工程師。',
-    titleLine2: '獨立工作室一人作戰。',
+    titleLine2: '生產環境的 agentic AI，不做示範。',
     description:
-      '八年生產級系統經驗。如今使用Claude Code端到端交付產品。',
+      '{years} 年生產級系統經驗。如今使用 Claude Code 端到端交付產品。',
     seeWork: '查看作品',
     getInTouch: '聯絡我',
     stats: {
