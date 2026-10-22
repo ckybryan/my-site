@@ -5,6 +5,7 @@ export interface Translation {
     studio: string;
     craft: string;
     track: string;
+    roadmap: string;
     contact: string;
   };
   hero: {
@@ -66,6 +67,17 @@ export interface Translation {
   };
   track: {
     kicker: string;
+  };
+  roadmap: {
+    kicker: string;
+    titleLine1: string;
+    titleLine2: string;
+    intro: string;
+    items: {
+      date: string;
+      title: string;
+      detail: string;
+    }[];
   };
   experience: {
     positions: {

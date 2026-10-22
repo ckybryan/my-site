@@ -6,6 +6,7 @@ import Work from '../components/IndieApps';
 import Studio from '../components/About';
 import Craft from '../components/Skills';
 import TrackRecord from '../components/Experience';
+import Roadmap from '../components/Roadmap';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
@@ -25,6 +26,7 @@ export default function Portfolio() {
           <Hero />
           <Studio />
           <TrackRecord />
+          <Roadmap />
           <Craft />
           <Work />
           <Contact />

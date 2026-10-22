@@ -5,9 +5,10 @@ import LanguageSwitcher from './LanguageSwitcher';
 const sections = [
   { id: 'about', num: '01' },
   { id: 'track', num: '02' },
-  { id: 'craft', num: '03' },
-  { id: 'studio', num: '04' },
-  { id: 'contact', num: '05' },
+  { id: 'roadmap', num: '03' },
+  { id: 'craft', num: '04' },
+  { id: 'studio', num: '05' },
+  { id: 'contact', num: '06' },
 ];
 
 const Header: React.FC = () => {
@@ -35,6 +36,7 @@ const Header: React.FC = () => {
     studio: t.nav.studio,
     craft: t.nav.craft,
     track: t.nav.track,
+    roadmap: t.nav.roadmap,
     contact: t.nav.contact,
   };
 

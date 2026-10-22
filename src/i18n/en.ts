@@ -7,6 +7,7 @@ export const en: Translation = {
     studio: 'Studio',
     craft: 'Craft',
     track: 'Track Record',
+    roadmap: 'Roadmap',
     contact: 'Contact',
   },
   hero: {
@@ -76,6 +77,63 @@ export const en: Translation = {
   },
   track: {
     kicker: 'ten-year receipt',
+  },
+  roadmap: {
+    kicker: 'dated milestones',
+    titleLine1: 'Shipped,',
+    titleLine2: 'in order.',
+    intro:
+      'The releases and the role changes behind the track record, newest first. Every date is a real one from the work itself.',
+    items: [
+      {
+        date: '2026.10.22',
+        title: 'End-to-end testing engine for AI agents',
+        detail:
+          'One CLI stands up the warehouse, merchant and handheld apps on seeded local data, AI agents write and run the suites, and every release carries evidence it will not break production.',
+      },
+      {
+        date: '2026.09.30',
+        title: 'First fully automated agentic delivery flow',
+        detail:
+          'A product manager takes a feature from request to shipped end to end, with the engineering steps in between automated.',
+      },
+      {
+        date: '2026.09.30',
+        title: 'MCP server extended to the merchant domain',
+        detail:
+          'Read-only tools over live warehouse and merchant domain data, behind OAuth sign-in and per-user scoping, self-serve in Claude Desktop and Claude Code.',
+      },
+      {
+        date: '2026.09.17',
+        title: 'First warehouse MCP server',
+        detail:
+          'The first read-only MCP tools over live warehouse data, shipped self-serve to the engineering team.',
+      },
+      {
+        date: '2026.09',
+        title: 'Promoted to Lead AI Platform Engineer',
+        detail:
+          'Took the AI platform: production agents, the MCP servers, the first LLM feature, and engineer enablement.',
+      },
+      {
+        date: '2021.10',
+        title: 'Lead Software Engineer',
+        detail:
+          'Five years owning the enterprise warehouse management platform: the NestJS backend and the React frontend over it.',
+      },
+      {
+        date: '2018.12',
+        title: 'Lead Frontend Developer',
+        detail:
+          'Led the warehouse management frontend: scanner-first, mobile-ready, built for the warehouse floor.',
+      },
+      {
+        date: '2017.11',
+        title: 'Joined GoBolt as a frontend intern',
+        detail:
+          'Started on the warehouse product as an intern and grew into the platform work above.',
+      },
+    ],
   },
   experience: {
     positions: {

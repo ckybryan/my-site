@@ -10,7 +10,7 @@ const Contact: React.FC = () => {
     >
       <div className="max-w-xl mx-auto text-center">
         <p className="mono-caps text-xs text-fg-mute mb-10">
-          05 / {t.nav.contact}
+          06 / {t.nav.contact}
         </p>
         <h2 className="display text-5xl md:text-6xl mb-6">
           {t.contact.title}

@@ -7,6 +7,7 @@ export const zhCN: Translation = {
     studio: '工作室',
     craft: '技艺',
     track: '履历',
+    roadmap: '时间线',
     contact: '联系',
   },
   hero: {
@@ -71,6 +72,57 @@ export const zhCN: Translation = {
   },
   track: {
     kicker: '十年履历',
+  },
+  roadmap: {
+    kicker: '按日期排的里程碑',
+    titleLine1: '已经交付，',
+    titleLine2: '按顺序。',
+    intro: '履历背后的发布与晋升，最新的排在最前。每一条日期都来自真实发生的工作。',
+    items: [
+      {
+        date: '2026.10.22',
+        title: '为 AI agents 打造的端到端测试引擎',
+        detail:
+          '一条 CLI 在已播种数据的本地环境启动仓库、商户与手持端应用，由 agents 编写并执行测试，每次发布都带着不会破坏生产环境的证据。',
+      },
+      {
+        date: '2026.09.30',
+        title: '首个全自动 agentic 交付流程',
+        detail: '产品经理把功能从需求一路推进到上线，中间的工程步骤由 agents 完成。',
+      },
+      {
+        date: '2026.09.30',
+        title: 'MCP 服务器扩展至商户域',
+        detail:
+          '只读工具开放仓库与商户域的实时数据，OAuth 登录，按用户范围管控，支持在 Claude Desktop 与 Claude Code 中自助安装。',
+      },
+      {
+        date: '2026.09.17',
+        title: '首个仓库 MCP 服务器',
+        detail: '第一批只读 MCP 工具，直接查询仓库实时数据，自助开放给工程团队。',
+      },
+      {
+        date: '2026.09',
+        title: '晋升首席 AI 平台工程师',
+        detail:
+          '接手公司 AI 平台：生产环境 agents、MCP 服务器、首个 LLM 功能，以及工程团队赋能。',
+      },
+      {
+        date: '2021.10',
+        title: '首席软件工程师',
+        detail: '五年主导企业级仓库管理平台：NestJS 后端，以及其上的 React 前端。',
+      },
+      {
+        date: '2018.12',
+        title: '前端负责人',
+        detail: '主导仓库管理前端：扫描优先、适配移动端，为仓库现场而建。',
+      },
+      {
+        date: '2017.11',
+        title: '加入 GoBolt，前端实习生',
+        detail: '从仓库产品的实习开始，一路做到上面的平台工作。',
+      },
+    ],
   },
   experience: {
     positions: {

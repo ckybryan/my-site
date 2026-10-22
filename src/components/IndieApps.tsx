@@ -7,7 +7,7 @@ const Work: React.FC = () => {
     <section id="studio" className="section-padding border-t border-ink-800">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-baseline justify-between mb-16 border-b border-ink-800 pb-4">
-          <p className="mono-caps text-xs text-fg-mute">04 / {t.nav.studio}</p>
+          <p className="mono-caps text-xs text-fg-mute">05 / {t.nav.studio}</p>
           <p className="mono text-xs text-fg-mute">{t.work.kicker}</p>
         </div>
 
