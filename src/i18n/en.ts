@@ -87,9 +87,9 @@ export const en: Translation = {
     items: [
       {
         date: '2026.11.12',
-        title: 'Training videos generated from the demo panel',
+        title: 'AI agents film, cut and narrate training videos',
         detail:
-          'Any demo in the testing engine can be filmed, cut and narrated into a captioned training video, so operations teams and product managers learn a new feature without a live walkthrough.',
+          'AI agents shoot any demo in the testing engine, cut the loading, idle waits and dead footage, time the narration to every click and render a captioned training video, so operations teams and product managers learn a new feature without a live walkthrough.',
       },
       {
         date: '2026.10.22',
@@ -146,7 +146,7 @@ export const en: Translation = {
       leadAiPlatform: {
         title: 'Lead AI Platform Engineer',
         responsibilities: [
-          'Turned the demo panel into narrated training videos: the testing engine films a feature demo, cuts the dead footage and idle waits, syncs the voiceover to each click, and outputs a captioned video that operations teams and product managers learn from.',
+          'Put AI agents on video production: an agent shoots a feature demo, cuts the dead footage and idle waits, times the voiceover to each click and renders a captioned training video that operations teams and product managers learn from.',
           'Built the team\'s end-to-end testing engine: AI agents write and run tests against a seeded local stack, so every release carries evidence it will not break production.',
           'Released the first WMS MCP server, extended to the merchant domain: read-only tools exposing live warehouse and merchant domain data, behind OAuth sign-in and per-user scoping.',
           'Shipped the first fully automated agentic delivery flow, where a product manager takes a feature from request to shipped end to end.',
