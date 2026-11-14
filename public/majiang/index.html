@@ -297,7 +297,9 @@
   function tileCount(t) {
     let n = state.counts[t];
     for (const m of state.melds) {
-      const tiles = m.kind === 'chi' ? [m.t, m.t + 1, m.t + 2] : [m.t, m.t, m.t, m.t];
+      const tiles = m.kind === 'chi' ? [m.t, m.t + 1, m.t + 2]
+        : m.kind === 'pon' ? [m.t, m.t, m.t]
+        : [m.t, m.t, m.t, m.t];
       n += tiles.filter((x) => x === t).length;
     }
     return n;
@@ -403,7 +405,9 @@
       const d = document.createElement('div');
       d.className = 'meld';
       const label = m.kind === 'chi' ? '吃' : m.kind === 'pon' ? '碰' : m.kind === 'ankan' ? '暗杠' : '明杠';
-      const tiles = m.kind === 'chi' ? [m.t, m.t + 1, m.t + 2] : [m.t, m.t, m.t, m.t];
+      const tiles = m.kind === 'chi' ? [m.t, m.t + 1, m.t + 2]
+        : m.kind === 'pon' ? [m.t, m.t, m.t]
+        : [m.t, m.t, m.t, m.t];
       d.innerHTML = '<span class="tag">' + label + '</span>' + tiles.map((t) => face(t)).join('');
       d.onclick = () => { state.melds.splice(idx, 1); render(); };
       box.appendChild(d);
