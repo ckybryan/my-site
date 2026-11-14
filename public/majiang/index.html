@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>国标麻将算番器 · bryan.wtf</title>
+<meta name="description" content="Chinese Official (MCR) mahjong fan calculator. Enter your hand, see the fans." />
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#232b36; --ink:#e6edf3; --dim:#8b949e;
+    --accent:#3b82f6; --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+    --man:#e5484d; --pin:#3b82f6; --sou:#22a06b; --honor:#8b5cf6;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","Helvetica Neue",Arial,sans-serif}
+  body{padding:14px 14px calc(24px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
+  header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:4px 0 14px}
+  h1{font-size:17px;font-weight:600;margin:0;letter-spacing:.02em}
+  .sub{font-size:12px;color:var(--dim)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
+  .label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 8px}
+  .grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+  .tile{appearance:none;border:1px solid var(--line);background:#0f141b;border-radius:7px;
+    padding:5px 0 3px;color:var(--ink);display:flex;flex-direction:column;align-items:center;
+    gap:1px;font-family:inherit;cursor:pointer;transition:transform .06s,border-color .12s,background .12s}
+  .tile:active{transform:scale(.94)}
+  .tile .r{font-size:14px;font-weight:600;line-height:1.05}
+  .tile .s{font-size:10px;color:var(--dim);line-height:1}
+  .tile.m .r{color:var(--man)} .tile.p .r{color:var(--pin)} .tile.s3 .r{color:var(--sou)}
+  .tile.h .r{color:var(--honor);font-size:15px}
+  .tile.on{background:#1d2b3f;border-color:var(--accent)}
+  .tile:disabled{opacity:.5}
+  .hand{display:flex;flex-wrap:wrap;gap:6px;min-height:64px;align-items:flex-start}
+  .chip{position:relative;border:1px solid var(--line);background:#0f141b;border-radius:8px;
+    padding:6px 8px 4px;font-size:15px;font-weight:600;line-height:1.05;text-align:center;cursor:pointer}
+  .chip small{display:block;font-size:9px;font-weight:400;color:var(--dim);margin-top:2px}
+  .chip.m{color:var(--man)} .chip.p{color:var(--pin)} .chip.s3{color:var(--sou)} .chip.h{color:var(--honor)}
+  .chip.win{outline:2px solid var(--warn);outline-offset:1px}
+  .meld{display:flex;gap:4px;align-items:center;background:#111820;border:1px solid var(--line);
+    border-radius:9px;padding:5px 7px;font-size:13px}
+  .meld .tag{font-size:10px;color:var(--dim);margin-right:2px}
+  .meld .t{font-weight:600}
+  .row{display:flex;flex-wrap:wrap;gap:8px}
+  button.b{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--ink);
+    border-radius:9px;padding:9px 12px;font-size:13px;font-family:inherit;cursor:pointer}
+  button.b.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button.b.ghost{color:var(--dim)}
+  button.b:active{transform:scale(.97)}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:13px;padding:7px 10px;
+    border:1px solid var(--line);border-radius:9px;background:#0f141b;cursor:pointer}
+  .toggle input{appearance:none;width:16px;height:16px;border:1px solid #3d4757;border-radius:5px;margin:0;position:relative}
+  .toggle input:checked{background:var(--accent);border-color:var(--accent)}
+  .toggle input:checked::after{content:"";position:absolute;left:4.5px;top:1.5px;width:4px;height:8px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+  select{appearance:none;background:#0f141b;color:var(--ink);border:1px solid var(--line);
+    border-radius:9px;padding:9px 10px;font-size:13px;font-family:inherit}
+  .total{display:flex;align-items:baseline;gap:10px}
+  .total .n{font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1}
+  .total .u{font-size:13px;color:var(--dim)}
+  .verdict{font-size:12px;margin-top:6px}
+  .verdict.ok{color:var(--good)} .verdict.no{color:var(--warn)}
+  .fans{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:1fr auto;gap:6px 10px;font-size:13px}
+  .fans li{display:contents}
+  .fans .name{color:var(--ink)} .fans .val{color:var(--dim);text-align:right;font-variant-numeric:tabular-nums}
+  .hint{font-size:11.5px;color:var(--dim);line-height:1.5;margin:2px 0 0}
+  .count{font-size:11px;color:var(--dim)}
+  .stepper{display:flex;align-items:center;gap:8px}
+  .stepper button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:#0f141b;color:var(--ink);font-size:15px}
+  .modal{position:fixed;inset:0;background:rgba(3,6,10,.72);display:flex;align-items:flex-end;z-index:20}
+  .modal .sheet{width:100%;max-width:560px;margin:0 auto;background:var(--panel);
+    border:1px solid var(--line);border-radius:16px 16px 0 0;padding:14px 14px calc(18px + env(safe-area-inset-bottom))}
+  .modal h2{font-size:14px;margin:0 0 10px;font-weight:600}
+  .hidden{display:none}
+  footer{color:var(--dim);font-size:11px;text-align:center;margin-top:6px}
+  a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>国标麻将算番</h1>
+  <span class="sub">MCR · 8 番起和</span>
+</header>
+
+<section class="card">
+  <p class="label">牌</p>
+  <div id="palette"></div>
+</section>
+
+<section class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <p class="label" style="margin:0">手牌 <span class="count" id="count">0 / 14</span></p>
+    <div class="row" style="gap:6px">
+      <button class="b ghost" id="undo">撤回</button>
+      <button class="b ghost" id="clear">清空</button>
+    </div>
+  </div>
+  <div class="hand" id="hand"></div>
+  <div class="row" id="melds" style="margin-top:8px"></div>
+  <p class="hint" id="hint">点牌加入手牌。点手牌里的牌设为和牌张。</p>
+</section>
+
+<section class="card">
+  <p class="label">副露</p>
+  <div class="row">
+    <button class="b" data-meld="chi">吃</button>
+    <button class="b" data-meld="pon">碰</button>
+    <button class="b" data-meld="minkan">明杠</button>
+    <button class="b" data-meld="ankan">暗杠</button>
+  </div>
+</section>
+
+<section class="card">
+  <p class="label">条件</p>
+  <div class="row" style="margin-bottom:10px">
+    <label class="toggle"><input type="checkbox" id="selfDraw">自摸</label>
+    <label class="toggle"><input type="checkbox" id="afterKong">杠上开花</label>
+    <label class="toggle"><input type="checkbox" id="lastDiscard">海底捞月</label>
+    <label class="toggle"><input type="checkbox" id="lastCopy">和绝张</label>
+  </div>
+  <div class="row">
+    <select id="roundWind">
+      <option value="27">东风圈</option><option value="28">南风圈</option>
+      <option value="29">西风圈</option><option value="30">北风圈</option>
+    </select>
+    <select id="seatWind">
+      <option value="27">东风位</option><option value="28">南风位</option>
+      <option value="29">西风位</option><option value="30">北风位</option>
+    </select>
+    <label class="toggle"><input type="checkbox" id="flowersOn" checked>花牌</label>
+    <span class="stepper">
+      <button class="b" id="fminus">−</button><span id="fcount" class="count">0</span><button class="b" id="fplus">+</button>
+    </span>
+  </div>
+</section>
+
+<section class="card">
+  <p class="label">结果</p>
+  <div class="total"><span class="n" id="total">0</span><span class="u">番</span></div>
+  <div class="verdict" id="verdict"></div>
+  <ul class="fans" id="fans"></ul>
+</section>
+
+<footer>按 1998 年国标规则计算 · <a href="https://www.bryan.wtf">bryan.wtf</a></footer>
+
+<div class="modal hidden" id="modal">
+  <div class="sheet">
+    <h2 id="modalTitle"></h2>
+    <div id="modalBody"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="b ghost" id="modalCancel">取消</button>
+    </div>
+  </div>
+</div>
+
+<script src="./scorer.js"></script>
+<script>
+(function () {
+  const NAMES = MJ.NAMES;
+  const HAND_MAX = 14;
+
+  const state = {
+    counts: new Array(34).fill(0),
+    melds: [],
+    winTile: null,
+    flowers: 0,
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const cls = (t) => (t < 9 ? 'm' : t < 18 ? 'p' : t < 27 ? 's3' : 'h');
+  const rankChar = ['一','二','三','四','五','六','七','八','九'];
+  const honorChar = {27:'东',28:'南',29:'西',30:'北',31:'中',32:'發',33:'白'};
+  const suitChar = (t) => (t < 9 ? '万' : t < 18 ? '筒' : t < 27 ? '条' : '');
+
+  function tileFace(t) {
+    if (t >= 27) return { r: honorChar[t], s: '' };
+    return { r: rankChar[t % 9], s: suitChar(t) };
+  }
+
+  function totalTiles() {
+    let n = 0;
+    for (let i = 0; i < 34; i++) n += state.counts[i];
+    for (const m of state.melds) n += m.kind === 'kan' ? 4 : 3;
+    return n;
+  }
+
+  function tileCount(t) {
+    let n = state.counts[t];
+    for (const m of state.melds) {
+      const tiles = m.kind === 'chi' ? [m.t, m.t + 1, m.t + 2] : [m.t, m.t, m.t, m.t];
+      n += tiles.filter((x) => x === t).length;
+    }
+    return n;
+  }
+
+  function renderPalette() {
+    const pal = $('palette');
+    pal.innerHTML = '';
+    for (let row = 0; row < 4; row++) {
+      const g = document.createElement('div');
+      g.className = 'grid';
+      g.style.marginBottom = row < 3 ? '6px' : '0';
+      const from = row < 3 ? row * 9 : 27;
+      const to = row < 3 ? from + 9 : 34;
+      if (row === 3) g.style.gridTemplateColumns = 'repeat(7,1fr)';
+      if (row === 3) g.style.gap = '6px';
+      for (let t = from; t < to; t++) {
+        const b = document.createElement('button');
+        b.className = 'tile ' + cls(t);
+        const f = tileFace(t);
+        b.innerHTML = '<span class="r">' + f.r + '</span>' + (f.s ? '<span class="s">' + f.s + '</span>' : '');
+        b.dataset.t = t;
+        b.onclick = () => addTile(t);
+        g.appendChild(b);
+      }
+      pal.appendChild(g);
+    }
+    syncPalette();
+  }
+
+  function syncPalette() {
+    for (const b of document.querySelectorAll('#palette .tile')) {
+      const t = +b.dataset.t;
+      const used = tileCount(t);
+      b.classList.toggle('on', state.counts[t] > 0);
+      b.disabled = used >= 4 || totalTiles() >= HAND_MAX + 4 * state.melds.filter(m => m.kind === 'kan').length;
+    }
+    $('count').textContent = totalTiles() + ' / 14';
+  }
+
+  function addTile(t) {
+    if (tileCount(t) >= 4) return;
+    if (totalTiles() >= 14 + state.melds.filter((m) => m.kind === 'kan').length) return;
+    state.counts[t]++;
+    if (state.winTile === null) state.winTile = t;
+    render();
+  }
+
+  function renderHand() {
+    const hand = $('hand');
+    hand.innerHTML = '';
+    const tiles = [];
+    for (let t = 0; t < 34; t++) for (let i = 0; i < state.counts[t]; i++) tiles.push(t);
+    if (!tiles.length) {
+      hand.innerHTML = '<span class="hint">还没有牌。</span>';
+      return;
+    }
+    for (const t of tiles) {
+      const c = document.createElement('button');
+      c.className = 'chip ' + cls(t) + (state.winTile === t ? ' win' : '');
+      const f = tileFace(t);
+      c.innerHTML = f.r + (f.s ? '<small>' + f.s + '</small>' : '<small>&nbsp;</small>');
+      c.onclick = () => { state.winTile = t; render(); };
+      hand.appendChild(c);
+    }
+  }
+
+  function renderMelds() {
+    const box = $('melds');
+    box.innerHTML = '';
+    state.melds.forEach((m, idx) => {
+      const d = document.createElement('div');
+      d.className = 'meld';
+      const names = (m.kind === 'chi' ? [m.t, m.t + 1, m.t + 2] : [m.t, m.t, m.t]).map((x) => NAMES[x]).join('');
+      d.innerHTML = '<span class="tag">' + (m.kind === 'chi' ? '吃' : m.kind === 'pon' ? '碰' : m.kind === 'kan' ? (m.open ? '明杠' : '暗杠') : '') + '</span><span class="t">' + names + '</span>';
+      d.onclick = () => { state.melds.splice(idx, 1); render(); };
+      box.appendChild(d);
+    });
+    if (!state.melds.length) box.innerHTML = '<span class="hint">没有副露。点副露徽章可删除。</span>';
+  }
+
+  function renderResult() {
+    const melds = state.melds.map((m) => ({ kind: m.kind === 'ankan' ? 'kan' : m.kind === 'minkan' ? 'kan' : m.kind, t: m.t, open: m.kind !== 'ankan' }));
+    const res = MJ.score({
+      counts: state.counts,
+      melds,
+      winTile: state.winTile,
+      selfDraw: $('selfDraw').checked,
+      afterKong: $('afterKong').checked,
+      lastDiscard: $('lastDiscard').checked,
+      lastCopy: $('lastCopy').checked,
+      roundWind: +$('roundWind').value,
+      seatWind: +$('seatWind').value,
+      flowers: state.flowers,
+      flowersEnabled: $('flowersOn').checked,
+    });
+    $('total').textContent = res.total;
+    const v = $('verdict');
+    v.className = 'verdict ' + (res.valid ? 'ok' : 'no');
+    v.textContent = res.valid ? '可以和第 ' + res.total + ' 番' : (res.reason || '还不能和');
+    const list = $('fans');
+    list.innerHTML = '';
+    if (!res.fans.length) {
+      list.innerHTML = '<li class="hint">' + (res.reason || '输入 14 张牌后显示番种。') + '</li>';
+      return;
+    }
+    for (const f of res.fans) {
+      const li = document.createElement('li');
+      li.innerHTML = '<span class="name">' + f.name + '</span><span class="val">' + f.fan + '</span>';
+      list.appendChild(li);
+    }
+  }
+
+  function render() {
+    renderHand();
+    renderMelds();
+    syncPalette();
+    renderResult();
+  }
+
+  // ---------- meld picker ----------
+  let picker = null;
+  function openPicker(kind) {
+    picker = kind;
+    const title = { chi: '吃：选顺子最小的一张', pon: '碰：选刻子的牌', minkan: '明杠：选牌', ankan: '暗杠：选牌' }[kind];
+    $('modalTitle').textContent = title;
+    const body = $('modalBody');
+    body.innerHTML = '';
+    const g = document.createElement('div');
+    g.className = 'grid';
+    for (let t = 0; t < 34; t++) {
+      const ok = kind === 'chi' ? (t < 27 && (t % 9) <= 6) : true;
+      const b = document.createElement('button');
+      b.className = 'tile ' + cls(t);
+      const f = tileFace(t);
+      b.innerHTML = '<span class="r">' + f.r + '</span>' + (f.s ? '<span class="s">' + f.s + '</span>' : '');
+      b.disabled = !ok;
+      b.onclick = () => { closePicker(); applyMeld(kind, t); };
+      g.appendChild(b);
+    }
+    body.appendChild(g);
+    $('modal').classList.remove('hidden');
+  }
+  function closePicker() { $('modal').classList.add('hidden'); picker = null; }
+  $('modalCancel').onclick = closePicker;
+  $('modal').onclick = (e) => { if (e.target.id === 'modal') closePicker(); };
+
+  function applyMeld(kind, t) {
+    const need = kind === 'chi' ? [t, t + 1, t + 2] : [t, t, t, t];
+    const counts = state.counts.slice();
+    for (const x of need) counts[x] = (counts[x] || 0) + 1;
+    if (need.some((x) => counts[x] > 4)) { alert('牌不够了'); return; }
+    const sizes = { chi: 3, pon: 3, minkan: 4, ankan: 4 };
+    if (totalTiles() + sizes[kind] > 14 + state.melds.filter((m) => m.kind === 'kan' || m.kind === kind && (kind === 'minkan' || kind === 'ankan')).length + (kind === 'ankan' || kind === 'minkan' ? 1 : 0)) {
+      // allow: total structure stays 14, kongs add one tile each
+    }
+    state.melds.push({ kind, t, open: kind !== 'ankan' });
+    render();
+  }
+
+  // ---------- controls ----------
+  $('undo').onclick = () => {
+    for (let t = 33; t >= 0; t--) {
+      if (state.counts[t] > 0) { state.counts[t]--; if (state.winTile === t && state.counts[t] === 0) state.winTile = null; break; }
+    }
+    render();
+  };
+  $('clear').onclick = () => {
+    state.counts = new Array(34).fill(0);
+    state.melds = [];
+    state.winTile = null;
+    state.flowers = 0;
+    $('fcount').textContent = '0';
+    render();
+  };
+  for (const b of document.querySelectorAll('[data-meld]')) b.onclick = () => openPicker(b.dataset.meld);
+  $('fplus').onclick = () => { state.flowers = Math.min(8, state.flowers + 1); $('fcount').textContent = state.flowers; renderResult(); };
+  $('fminus').onclick = () => { state.flowers = Math.max(0, state.flowers - 1); $('fcount').textContent = state.flowers; renderResult(); };
+  for (const id of ['selfDraw', 'afterKong', 'lastDiscard', 'lastCopy', 'flowersOn', 'roundWind', 'seatWind']) {
+    $(id).addEventListener('change', renderResult);
+  }
+
+  renderPalette();
+  render();
+})();
+</script>
+</body>
+</html>
