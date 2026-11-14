@@ -14,7 +14,12 @@
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","Helvetica Neue",Arial,sans-serif}
   body{padding:14px 14px calc(24px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
-  header{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:4px 0 14px}
+  header{position:sticky;top:0;z-index:10;display:flex;align-items:baseline;justify-content:space-between;
+    gap:10px;margin:-14px -14px 10px;padding:11px 14px;background:rgba(13,17,23,.93);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  header .live{display:flex;align-items:baseline;gap:3px}
+  header .live b{font-size:19px;font-weight:700;letter-spacing:-.02em}
+  header .live span{font-size:11px;color:var(--dim)}
   h1{font-size:17px;font-weight:600;margin:0;letter-spacing:.02em}
   .sub{font-size:12px;color:var(--dim)}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
@@ -27,7 +32,11 @@
   .tile.on{filter:drop-shadow(0 0 1.5px var(--accent)) drop-shadow(0 0 3px rgba(59,130,246,.85))}
   .tile:disabled{opacity:.3}
   .hand{display:flex;flex-wrap:wrap;gap:5px;min-height:56px;align-items:flex-start}
-  .chip{appearance:none;border:0;background:transparent;padding:0;cursor:pointer;width:42px;line-height:0}
+  .chip{position:relative;appearance:none;border:0;background:transparent;padding:0;cursor:pointer;width:44px;line-height:0}
+  .chip .rm{position:absolute;top:-5px;right:-5px;width:19px;height:19px;border-radius:50%;padding:0;
+    border:1px solid #3a4655;background:#222c38;color:#cbd5e1;font-size:12px;line-height:15px;
+    font-family:inherit;opacity:.9}
+  .chip .rm:active{background:#39465a}
   .chip svg{width:100%;height:auto;border-radius:5px;display:block}
   .chip.win{filter:drop-shadow(0 0 1px var(--warn)) drop-shadow(0 0 4px rgba(245,158,11,.9))}
   .meld{display:flex;gap:3px;align-items:center;background:#111820;border:1px solid var(--line);
@@ -71,7 +80,7 @@
 <body>
 <header>
   <h1>国标麻将算番</h1>
-  <span class="sub">MCR · 8 番起和</span>
+  <span class="live"><b id="liveTotal">0</b><span>番</span></span>
 </header>
 
 <section class="card">
@@ -88,7 +97,7 @@
     </div>
   </div>
   <div class="hand" id="hand"></div>
-  <p class="hint">点牌加入手牌，点手牌里的牌设为和牌张，再点一次取消。</p>
+  <p class="hint" id="hint">点牌加入手牌，点手牌里的牌设为和牌张，再点一次取消。</p>
 </section>
 
 <section class="card">
@@ -166,14 +175,14 @@
   };
   const STICK_LAYOUT = {
     1: [[20,26]],
-    2: [[20,16],[20,36]],
-    3: [[20,12],[14,36],[26,36]],
-    4: [[14,16],[26,16],[14,36],[26,36]],
-    5: [[14,13],[26,13],[20,26],[14,39],[26,39]],
-    6: [[14,13],[20,13],[26,13],[14,37],[20,37],[26,37]],
-    7: [[20,9],[14,20],[20,20],[26,20],[14,38],[20,38],[26,38]],
-    8: [[14,11],[20,11],[26,11],[14,23],[20,23],[26,23],[14,38],[20,38],[26,38]],
-    9: [[14,10],[20,10],[26,10],[14,24],[20,24],[26,24],[14,38],[20,38],[26,38]],
+    2: [[20,15],[20,37]],
+    3: [[20,12],[14,37],[26,37]],
+    4: [[14,15],[26,15],[14,37],[26,37]],
+    5: [[14,12],[26,12],[20,26],[14,40],[26,40]],
+    6: [[14,13],[26,13],[14,26],[26,26],[14,39],[26,39]],
+    7: [[20,9],[14,21],[26,21],[14,33],[26,33],[14,45],[26,45]],
+    8: [[14,10],[26,10],[14,21],[26,21],[14,32],[26,32],[14,43],[26,43]],
+    9: [[12,12],[20,12],[28,12],[12,26],[20,26],[28,26],[12,40],[20,40],[28,40]],
   };
   const DOT_COLORS = ['#1e5aa8', '#c8392f', '#1f7a4d'];
 
@@ -199,8 +208,8 @@
     } else if (t < 27) {
       const r = t - 18;
       const pts = STICK_LAYOUT[r + 1] || [];
-      const w = r === 0 ? 8 : 4.3;
-      const h = r === 0 ? 27 : 8.4;
+      const w = r === 0 ? 8 : (r + 1 === 9 ? 3.9 : 4.8);
+      const h = r === 0 ? 27 : 8.2;
       pts.forEach(([x, y], i) => {
         const c = r === 0 ? '#1f7a4d' : (i % 5 === 4 ? '#c8392f' : '#1f7a4d');
         body += '<rect x="' + (x - w / 2).toFixed(1) + '" y="' + (y - h / 2).toFixed(1) + '" width="' + w
@@ -227,7 +236,7 @@
   const face = (t, cls) => '<span class="' + (cls || 'mt') + '">' + tileSVG(t) + '</span>';
 
   /* ---------------- state ---------------- */
-  const state = { counts: new Array(34).fill(0), melds: [], winTile: null, flowers: 0 };
+  const state = { counts: new Array(34).fill(0), order: [], melds: [], winTile: null, flowers: 0 };
   const $ = (id) => document.getElementById(id);
   const isKong = (k) => k === 'kan' || k === 'minkan' || k === 'ankan';
 
@@ -285,7 +294,19 @@
     const kongs = state.melds.filter((m) => isKong(m.kind)).length;
     if (totalTiles() >= 14 + kongs) return;
     state.counts[t]++;
-    if (state.winTile === null) state.winTile = t;
+    state.order.push(t);
+    state.winTile = t;
+    render();
+  }
+
+  function removeTile(t) {
+    if (!state.counts[t]) return;
+    state.counts[t]--;
+    const i = state.order.lastIndexOf(t);
+    if (i >= 0) state.order.splice(i, 1);
+    if (state.winTile === t && state.counts[t] === 0) {
+      state.winTile = state.order.length ? state.order[state.order.length - 1] : null;
+    }
     render();
   }
 
@@ -299,16 +320,26 @@
       hand.innerHTML = '<span class="hint">还没有牌。</span>';
       return;
     }
+    let prevSuit = -1;
     tiles.forEach((t) => {
-      const c = document.createElement('button');
-      c.className = 'chip' + (state.winTile === t ? ' win' : '');
-      c.innerHTML = tileSVG(t);
-      c.title = NAMES[t];
-      c.onclick = () => {
+      const wrap = document.createElement('span');
+      wrap.className = 'chip' + (state.winTile === t ? ' win' : '');
+      const s = t < 27 ? Math.floor(t / 9) : 3;
+      if (prevSuit !== -1 && s !== prevSuit) wrap.style.marginLeft = '7px';
+      prevSuit = s;
+      wrap.innerHTML = tileSVG(t);
+      wrap.title = NAMES[t];
+      wrap.onclick = () => {
         state.winTile = state.winTile === t ? null : t;
         render();
       };
-      hand.appendChild(c);
+      const rm = document.createElement('button');
+      rm.className = 'rm';
+      rm.textContent = '×';
+      rm.setAttribute('aria-label', '移除' + NAMES[t]);
+      rm.onclick = (e) => { e.stopPropagation(); removeTile(t); };
+      wrap.appendChild(rm);
+      hand.appendChild(wrap);
     });
   }
 
@@ -351,6 +382,7 @@
       flowersEnabled: $('flowersOn').checked,
     });
     $('total').textContent = res.total;
+    $('liveTotal').textContent = res.total;
     const v = $('verdict');
     v.className = 'verdict ' + (res.valid ? 'ok' : 'no');
     v.textContent = res.valid ? '可以和，' + res.total + ' 番' : (res.reason || '还不能和');
@@ -367,8 +399,18 @@
     }
   }
 
+  function renderHint() {
+    const kongs = state.melds.filter((m) => isKong(m.kind)).length;
+    const need = 14 + kongs - totalTiles();
+    const el = $('hint');
+    if (need > 0) el.textContent = '还差 ' + need + ' 张。点牌加入，点手牌上的 × 可移除。';
+    else if (need === 0) el.textContent = '牌数齐了。点牌面可设为和牌张，橙色框亮起的那张。';
+    else el.textContent = '多出 ' + (-need) + ' 张，请移除。';
+  }
+
   function render() {
     renderHand();
+    renderHint();
     renderMelds();
     syncPalette();
     renderResult();
@@ -414,17 +456,18 @@
 
   /* ---------------- controls ---------------- */
   $('undo').onclick = () => {
-    for (let t = 33; t >= 0; t--) {
-      if (state.counts[t] > 0) {
-        state.counts[t]--;
-        if (state.winTile === t && state.counts[t] === 0) state.winTile = null;
-        break;
+    const t = state.order.pop();
+    if (t !== undefined) {
+      state.counts[t]--;
+      if (state.winTile === t && state.counts[t] === 0) {
+        state.winTile = state.order.length ? state.order[state.order.length - 1] : null;
       }
     }
     render();
   };
   $('clear').onclick = () => {
     state.counts = new Array(34).fill(0);
+    state.order = [];
     state.melds = [];
     state.winTile = null;
     state.flowers = 0;
