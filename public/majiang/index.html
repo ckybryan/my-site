@@ -8,8 +8,7 @@
 <style>
   :root{
     --bg:#0d1117; --panel:#161b22; --line:#232b36; --ink:#e6edf3; --dim:#8b949e;
-    --accent:#3b82f6; --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
-    --man:#e5484d; --pin:#3b82f6; --sou:#22a06b; --honor:#8b5cf6;
+    --accent:#3b82f6; --good:#22c55e; --warn:#f59e0b;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -20,33 +19,27 @@
   .sub{font-size:12px;color:var(--dim)}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
   .label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 8px}
-  .grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
-  .tile{appearance:none;border:1px solid var(--line);background:#0f141b;border-radius:7px;
-    padding:5px 0 3px;color:var(--ink);display:flex;flex-direction:column;align-items:center;
-    gap:1px;font-family:inherit;cursor:pointer;transition:transform .06s,border-color .12s,background .12s}
-  .tile:active{transform:scale(.94)}
-  .tile .r{font-size:14px;font-weight:600;line-height:1.05}
-  .tile .s{font-size:10px;color:var(--dim);line-height:1}
-  .tile.m .r{color:var(--man)} .tile.p .r{color:var(--pin)} .tile.s3 .r{color:var(--sou)}
-  .tile.h .r{color:var(--honor);font-size:15px}
-  .tile.on{background:#1d2b3f;border-color:var(--accent)}
-  .tile:disabled{opacity:.5}
-  .hand{display:flex;flex-wrap:wrap;gap:6px;min-height:64px;align-items:flex-start}
-  .chip{position:relative;border:1px solid var(--line);background:#0f141b;border-radius:8px;
-    padding:6px 8px 4px;font-size:15px;font-weight:600;line-height:1.05;text-align:center;cursor:pointer}
-  .chip small{display:block;font-size:9px;font-weight:400;color:var(--dim);margin-top:2px}
-  .chip.m{color:var(--man)} .chip.p{color:var(--pin)} .chip.s3{color:var(--sou)} .chip.h{color:var(--honor)}
-  .chip.win{outline:2px solid var(--warn);outline-offset:1px}
-  .meld{display:flex;gap:4px;align-items:center;background:#111820;border:1px solid var(--line);
-    border-radius:9px;padding:5px 7px;font-size:13px}
-  .meld .tag{font-size:10px;color:var(--dim);margin-right:2px}
-  .meld .t{font-weight:600}
-  .row{display:flex;flex-wrap:wrap;gap:8px}
+  .grid{display:grid;gap:4px}
+  .tile{appearance:none;border:0;background:transparent;padding:0;cursor:pointer;display:block;line-height:0;
+    transition:transform .06s ease, filter .12s ease}
+  .tile svg{width:100%;height:auto;display:block;border-radius:6px}
+  .tile:active{transform:translateY(1px) scale(.96)}
+  .tile.on{filter:drop-shadow(0 0 1.5px var(--accent)) drop-shadow(0 0 3px rgba(59,130,246,.85))}
+  .tile:disabled{opacity:.3}
+  .hand{display:flex;flex-wrap:wrap;gap:5px;min-height:56px;align-items:flex-start}
+  .chip{appearance:none;border:0;background:transparent;padding:0;cursor:pointer;width:42px;line-height:0}
+  .chip svg{width:100%;height:auto;border-radius:5px;display:block}
+  .chip.win{filter:drop-shadow(0 0 1px var(--warn)) drop-shadow(0 0 4px rgba(245,158,11,.9))}
+  .meld{display:flex;gap:3px;align-items:center;background:#111820;border:1px solid var(--line);
+    border-radius:9px;padding:5px 7px}
+  .meld .tag{font-size:10px;color:var(--dim);margin-right:3px}
+  .meld .mt{width:24px;line-height:0}
+  .meld .mt svg{width:100%;height:auto;border-radius:3px}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   button.b{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--ink);
     border-radius:9px;padding:9px 12px;font-size:13px;font-family:inherit;cursor:pointer}
-  button.b.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-  button.b.ghost{color:var(--dim)}
   button.b:active{transform:scale(.97)}
+  button.b.ghost{color:var(--dim)}
   .toggle{display:flex;align-items:center;gap:8px;font-size:13px;padding:7px 10px;
     border:1px solid var(--line);border-radius:9px;background:#0f141b;cursor:pointer}
   .toggle input{appearance:none;width:16px;height:16px;border:1px solid #3d4757;border-radius:5px;margin:0;position:relative}
@@ -66,7 +59,6 @@
   .hint{font-size:11.5px;color:var(--dim);line-height:1.5;margin:2px 0 0}
   .count{font-size:11px;color:var(--dim)}
   .stepper{display:flex;align-items:center;gap:8px}
-  .stepper button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:#0f141b;color:var(--ink);font-size:15px}
   .modal{position:fixed;inset:0;background:rgba(3,6,10,.72);display:flex;align-items:flex-end;z-index:20}
   .modal .sheet{width:100%;max-width:560px;margin:0 auto;background:var(--panel);
     border:1px solid var(--line);border-radius:16px 16px 0 0;padding:14px 14px calc(18px + env(safe-area-inset-bottom))}
@@ -96,18 +88,18 @@
     </div>
   </div>
   <div class="hand" id="hand"></div>
-  <div class="row" id="melds" style="margin-top:8px"></div>
-  <p class="hint" id="hint">点牌加入手牌。点手牌里的牌设为和牌张。</p>
+  <p class="hint">点牌加入手牌，点手牌里的牌设为和牌张，再点一次取消。</p>
 </section>
 
 <section class="card">
   <p class="label">副露</p>
-  <div class="row">
+  <div class="row" id="meldButtons">
     <button class="b" data-meld="chi">吃</button>
     <button class="b" data-meld="pon">碰</button>
     <button class="b" data-meld="minkan">明杠</button>
     <button class="b" data-meld="ankan">暗杠</button>
   </div>
+  <div class="row" id="melds" style="margin-top:8px"></div>
 </section>
 
 <section class="card">
@@ -157,32 +149,90 @@
 <script>
 (function () {
   const NAMES = MJ.NAMES;
-  const HAND_MAX = 14;
+  const HONOR_TEXT = {27:'東',28:'南',29:'西',30:'北',31:'中',32:'發',33:'白'};
+  const NUM = ['一','二','三','四','五','六','七','八','九'];
 
-  const state = {
-    counts: new Array(34).fill(0),
-    melds: [],
-    winTile: null,
-    flowers: 0,
+  /* ---------------- tile art ---------------- */
+  const DOT_LAYOUT = {
+    1: [[20,26]],
+    2: [[20,16],[20,36]],
+    3: [[13,14],[20,26],[27,38]],
+    4: [[13,16],[27,16],[13,36],[27,36]],
+    5: [[13,16],[27,16],[20,26],[13,36],[27,36]],
+    6: [[13,14],[27,14],[13,26],[27,26],[13,38],[27,38]],
+    7: [[20,10],[13,21],[27,21],[13,32],[27,32],[13,43],[27,43]],
+    8: [[13,10],[27,10],[13,21],[27,21],[13,32],[27,32],[13,43],[27,43]],
+    9: [[13,11],[20,11],[27,11],[13,26],[20,26],[27,26],[13,41],[20,41],[27,41]],
   };
+  const STICK_LAYOUT = {
+    1: [[20,26]],
+    2: [[20,16],[20,36]],
+    3: [[20,12],[14,36],[26,36]],
+    4: [[14,16],[26,16],[14,36],[26,36]],
+    5: [[14,13],[26,13],[20,26],[14,39],[26,39]],
+    6: [[14,13],[20,13],[26,13],[14,37],[20,37],[26,37]],
+    7: [[20,9],[14,20],[20,20],[26,20],[14,38],[20,38],[26,38]],
+    8: [[14,11],[20,11],[26,11],[14,23],[20,23],[26,23],[14,38],[20,38],[26,38]],
+    9: [[14,10],[20,10],[26,10],[14,24],[20,24],[26,24],[14,38],[20,38],[26,38]],
+  };
+  const DOT_COLORS = ['#1e5aa8', '#c8392f', '#1f7a4d'];
 
+  function tileSVG(t) {
+    const gid = 'g' + t;
+    let body = '';
+    if (t < 9) {
+      body = '<text x="20" y="25" text-anchor="middle" font-size="18" font-weight="600" fill="#14305e"'
+        + ' font-family="Songti SC, STSong, SimSun, serif">' + NUM[t] + '</text>'
+        + '<text x="20" y="46" text-anchor="middle" font-size="18" font-weight="600" fill="#b8281f"'
+        + ' font-family="Songti SC, STSong, SimSun, serif">萬</text>';
+    } else if (t < 18) {
+      const r = t - 9;
+      const pts = DOT_LAYOUT[r + 1] || [];
+      const radius = r === 0 ? 7.2 : 4.6;
+      pts.forEach(([x, y], i) => {
+        const c = DOT_COLORS[(i + r) % 3];
+        body += '<circle cx="' + x + '" cy="' + y + '" r="' + radius + '" fill="' + c
+          + '" stroke="#f8f3e6" stroke-width="1.1"/>';
+        body += '<circle cx="' + (x - radius * 0.3).toFixed(1) + '" cy="' + (y - radius * 0.34).toFixed(1)
+          + '" r="' + (radius * 0.26).toFixed(1) + '" fill="#fff" opacity=".55"/>';
+      });
+    } else if (t < 27) {
+      const r = t - 18;
+      const pts = STICK_LAYOUT[r + 1] || [];
+      const w = r === 0 ? 8 : 4.3;
+      const h = r === 0 ? 27 : 8.4;
+      pts.forEach(([x, y], i) => {
+        const c = r === 0 ? '#1f7a4d' : (i % 5 === 4 ? '#c8392f' : '#1f7a4d');
+        body += '<rect x="' + (x - w / 2).toFixed(1) + '" y="' + (y - h / 2).toFixed(1) + '" width="' + w
+          + '" height="' + h + '" rx="' + (w / 2).toFixed(1) + '" fill="' + c + '" stroke="#f8f3e6" stroke-width=".9"/>';
+        body += '<rect x="' + (x - w / 2 + w * 0.28).toFixed(1) + '" y="' + (y - h / 2 + 1).toFixed(1)
+          + '" width="' + (w * 0.22).toFixed(1) + '" height="' + Math.max(2, h - 2) + '" rx="1" fill="#fff" opacity=".3"/>';
+      });
+      if (r === 0) body += '<path d="M20 8 l3.2 5.5 -3.2 3 -3.2 -3 z" fill="#c8392f"/>';
+    } else if (t === 33) {
+      body = '<rect x="8" y="10" width="24" height="34" rx="3" fill="none" stroke="#1e5aa8" stroke-width="2.2"/>'
+        + '<rect x="11.5" y="13.5" width="17" height="27" rx="2" fill="none" stroke="#1e5aa8" stroke-width="1"/>';
+    } else {
+      const color = t === 31 ? '#b8281f' : t === 32 ? '#15703f' : '#14305e';
+      body = '<text x="20" y="38" text-anchor="middle" font-size="29" font-weight="600" fill="' + color + '"'
+        + ' font-family="Songti SC, STSong, SimSun, serif">' + HONOR_TEXT[t] + '</text>';
+    }
+    return '<svg viewBox="0 0 40 54" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + NAMES[t] + '">'
+      + '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="#fcf8ee"/><stop offset="1" stop-color="#e9e1cc"/></linearGradient></defs>'
+      + '<rect x=".8" y=".8" width="38.4" height="52.4" rx="5" fill="url(#' + gid + ')" stroke="#c9c0a8" stroke-width="1"/>'
+      + '<rect x="3" y="3" width="34" height="48" rx="4" fill="none" stroke="#ded5bd" stroke-width=".7"/>'
+      + body + '</svg>';
+  }
+  const face = (t, cls) => '<span class="' + (cls || 'mt') + '">' + tileSVG(t) + '</span>';
+
+  /* ---------------- state ---------------- */
+  const state = { counts: new Array(34).fill(0), melds: [], winTile: null, flowers: 0 };
   const $ = (id) => document.getElementById(id);
-  const cls = (t) => (t < 9 ? 'm' : t < 18 ? 'p' : t < 27 ? 's3' : 'h');
-  const rankChar = ['一','二','三','四','五','六','七','八','九'];
-  const honorChar = {27:'东',28:'南',29:'西',30:'北',31:'中',32:'發',33:'白'};
-  const suitChar = (t) => (t < 9 ? '万' : t < 18 ? '筒' : t < 27 ? '条' : '');
+  const isKong = (k) => k === 'kan' || k === 'minkan' || k === 'ankan';
 
-  function tileFace(t) {
-    if (t >= 27) return { r: honorChar[t], s: '' };
-    return { r: rankChar[t % 9], s: suitChar(t) };
-  }
-
-  function totalTiles() {
-    let n = 0;
-    for (let i = 0; i < 34; i++) n += state.counts[i];
-    for (const m of state.melds) n += m.kind === 'kan' ? 4 : 3;
-    return n;
-  }
+  const totalTiles = () => state.counts.reduce((a, b) => a + b, 0)
+    + state.melds.reduce((a, m) => a + (isKong(m.kind) ? 4 : 3), 0);
 
   function tileCount(t) {
     let n = state.counts[t];
@@ -193,6 +243,7 @@
     return n;
   }
 
+  /* ---------------- palette ---------------- */
   function renderPalette() {
     const pal = $('palette');
     pal.innerHTML = '';
@@ -200,42 +251,45 @@
       const g = document.createElement('div');
       g.className = 'grid';
       g.style.marginBottom = row < 3 ? '6px' : '0';
+      g.style.gridTemplateColumns = row < 3 ? 'repeat(9,1fr)' : 'repeat(7,1fr)';
+      g.style.gap = row < 3 ? '4px' : '7px';
       const from = row < 3 ? row * 9 : 27;
       const to = row < 3 ? from + 9 : 34;
-      if (row === 3) g.style.gridTemplateColumns = 'repeat(7,1fr)';
-      if (row === 3) g.style.gap = '6px';
       for (let t = from; t < to; t++) {
         const b = document.createElement('button');
-        b.className = 'tile ' + cls(t);
-        const f = tileFace(t);
-        b.innerHTML = '<span class="r">' + f.r + '</span>' + (f.s ? '<span class="s">' + f.s + '</span>' : '');
+        b.className = 'tile';
         b.dataset.t = t;
+        b.innerHTML = tileSVG(t);
+        b.setAttribute('aria-label', NAMES[t]);
         b.onclick = () => addTile(t);
         g.appendChild(b);
       }
       pal.appendChild(g);
     }
-    syncPalette();
   }
 
   function syncPalette() {
+    const kongs = state.melds.filter((m) => isKong(m.kind)).length;
+    const full = totalTiles() >= 14 + kongs;
     for (const b of document.querySelectorAll('#palette .tile')) {
       const t = +b.dataset.t;
-      const used = tileCount(t);
       b.classList.toggle('on', state.counts[t] > 0);
-      b.disabled = used >= 4 || totalTiles() >= HAND_MAX + 4 * state.melds.filter(m => m.kind === 'kan').length;
+      b.disabled = tileCount(t) >= 4;
+      b.style.opacity = full && tileCount(t) < 4 ? '.55' : '';
     }
     $('count').textContent = totalTiles() + ' / 14';
   }
 
   function addTile(t) {
     if (tileCount(t) >= 4) return;
-    if (totalTiles() >= 14 + state.melds.filter((m) => m.kind === 'kan').length) return;
+    const kongs = state.melds.filter((m) => isKong(m.kind)).length;
+    if (totalTiles() >= 14 + kongs) return;
     state.counts[t]++;
     if (state.winTile === null) state.winTile = t;
     render();
   }
 
+  /* ---------------- hand ---------------- */
   function renderHand() {
     const hand = $('hand');
     hand.innerHTML = '';
@@ -245,32 +299,44 @@
       hand.innerHTML = '<span class="hint">还没有牌。</span>';
       return;
     }
-    for (const t of tiles) {
+    tiles.forEach((t) => {
       const c = document.createElement('button');
-      c.className = 'chip ' + cls(t) + (state.winTile === t ? ' win' : '');
-      const f = tileFace(t);
-      c.innerHTML = f.r + (f.s ? '<small>' + f.s + '</small>' : '<small>&nbsp;</small>');
-      c.onclick = () => { state.winTile = t; render(); };
+      c.className = 'chip' + (state.winTile === t ? ' win' : '');
+      c.innerHTML = tileSVG(t);
+      c.title = NAMES[t];
+      c.onclick = () => {
+        state.winTile = state.winTile === t ? null : t;
+        render();
+      };
       hand.appendChild(c);
-    }
+    });
   }
 
   function renderMelds() {
     const box = $('melds');
     box.innerHTML = '';
+    if (!state.melds.length) {
+      box.innerHTML = '<span class="hint">没有副露，点副露块可删除。</span>';
+      return;
+    }
     state.melds.forEach((m, idx) => {
       const d = document.createElement('div');
       d.className = 'meld';
-      const names = (m.kind === 'chi' ? [m.t, m.t + 1, m.t + 2] : [m.t, m.t, m.t]).map((x) => NAMES[x]).join('');
-      d.innerHTML = '<span class="tag">' + (m.kind === 'chi' ? '吃' : m.kind === 'pon' ? '碰' : m.kind === 'kan' ? (m.open ? '明杠' : '暗杠') : '') + '</span><span class="t">' + names + '</span>';
+      const label = m.kind === 'chi' ? '吃' : m.kind === 'pon' ? '碰' : m.kind === 'ankan' ? '暗杠' : '明杠';
+      const tiles = m.kind === 'chi' ? [m.t, m.t + 1, m.t + 2] : [m.t, m.t, m.t, m.t];
+      d.innerHTML = '<span class="tag">' + label + '</span>' + tiles.map((t) => face(t)).join('');
       d.onclick = () => { state.melds.splice(idx, 1); render(); };
       box.appendChild(d);
     });
-    if (!state.melds.length) box.innerHTML = '<span class="hint">没有副露。点副露徽章可删除。</span>';
   }
 
+  /* ---------------- result ---------------- */
   function renderResult() {
-    const melds = state.melds.map((m) => ({ kind: m.kind === 'ankan' ? 'kan' : m.kind === 'minkan' ? 'kan' : m.kind, t: m.t, open: m.kind !== 'ankan' }));
+    const melds = state.melds.map((m) => ({
+      kind: m.kind === 'chi' ? 'chi' : m.kind === 'pon' ? 'pon' : 'kan',
+      t: m.t,
+      open: m.kind !== 'ankan',
+    }));
     const res = MJ.score({
       counts: state.counts,
       melds,
@@ -287,7 +353,7 @@
     $('total').textContent = res.total;
     const v = $('verdict');
     v.className = 'verdict ' + (res.valid ? 'ok' : 'no');
-    v.textContent = res.valid ? '可以和第 ' + res.total + ' 番' : (res.reason || '还不能和');
+    v.textContent = res.valid ? '可以和，' + res.total + ' 番' : (res.reason || '还不能和');
     const list = $('fans');
     list.innerHTML = '';
     if (!res.fans.length) {
@@ -308,22 +374,21 @@
     renderResult();
   }
 
-  // ---------- meld picker ----------
-  let picker = null;
+  /* ---------------- meld picker ---------------- */
   function openPicker(kind) {
-    picker = kind;
-    const title = { chi: '吃：选顺子最小的一张', pon: '碰：选刻子的牌', minkan: '明杠：选牌', ankan: '暗杠：选牌' }[kind];
-    $('modalTitle').textContent = title;
+    $('modalTitle').textContent = { chi: '吃：选顺子里最小的一张', pon: '碰：选刻子的牌',
+      minkan: '明杠：选牌', ankan: '暗杠：选牌' }[kind];
     const body = $('modalBody');
     body.innerHTML = '';
     const g = document.createElement('div');
     g.className = 'grid';
+    g.style.gridTemplateColumns = 'repeat(7,1fr)';
+    g.style.gap = '6px';
     for (let t = 0; t < 34; t++) {
       const ok = kind === 'chi' ? (t < 27 && (t % 9) <= 6) : true;
       const b = document.createElement('button');
-      b.className = 'tile ' + cls(t);
-      const f = tileFace(t);
-      b.innerHTML = '<span class="r">' + f.r + '</span>' + (f.s ? '<span class="s">' + f.s + '</span>' : '');
+      b.className = 'tile';
+      b.innerHTML = tileSVG(t);
       b.disabled = !ok;
       b.onclick = () => { closePicker(); applyMeld(kind, t); };
       g.appendChild(b);
@@ -331,27 +396,30 @@
     body.appendChild(g);
     $('modal').classList.remove('hidden');
   }
-  function closePicker() { $('modal').classList.add('hidden'); picker = null; }
+  function closePicker() { $('modal').classList.add('hidden'); }
   $('modalCancel').onclick = closePicker;
   $('modal').onclick = (e) => { if (e.target.id === 'modal') closePicker(); };
 
   function applyMeld(kind, t) {
     const need = kind === 'chi' ? [t, t + 1, t + 2] : [t, t, t, t];
-    const counts = state.counts.slice();
-    for (const x of need) counts[x] = (counts[x] || 0) + 1;
-    if (need.some((x) => counts[x] > 4)) { alert('牌不够了'); return; }
-    const sizes = { chi: 3, pon: 3, minkan: 4, ankan: 4 };
-    if (totalTiles() + sizes[kind] > 14 + state.melds.filter((m) => m.kind === 'kan' || m.kind === kind && (kind === 'minkan' || kind === 'ankan')).length + (kind === 'ankan' || kind === 'minkan' ? 1 : 0)) {
-      // allow: total structure stays 14, kongs add one tile each
-    }
+    const c = state.counts.slice();
+    for (const x of need) c[x] = (c[x] || 0) + 1;
+    if (need.some((x) => c[x] > 4)) return;
+    const kongs = state.melds.filter((m) => isKong(m.kind)).length;
+    const add = isKong(kind) ? 4 : 3;
+    if (totalTiles() + add > 14 + kongs + (isKong(kind) ? 1 : 0)) return;
     state.melds.push({ kind, t, open: kind !== 'ankan' });
     render();
   }
 
-  // ---------- controls ----------
+  /* ---------------- controls ---------------- */
   $('undo').onclick = () => {
     for (let t = 33; t >= 0; t--) {
-      if (state.counts[t] > 0) { state.counts[t]--; if (state.winTile === t && state.counts[t] === 0) state.winTile = null; break; }
+      if (state.counts[t] > 0) {
+        state.counts[t]--;
+        if (state.winTile === t && state.counts[t] === 0) state.winTile = null;
+        break;
+      }
     }
     render();
   };
