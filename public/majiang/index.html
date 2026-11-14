@@ -105,7 +105,7 @@
     </div>
   </div>
   <div class="hand" id="hand"></div>
-  <p class="hint" id="hint">点牌加入手牌，新牌加在右边。点手牌里的牌放回去。</p>
+  <p class="hint" id="hint">点牌加入手牌，手牌按万筒条字自动排序。点手牌里的牌放回去。</p>
 </section>
 
 <section class="card hidden" id="tenpaiCard">
@@ -362,15 +362,20 @@
   function renderHand() {
     const hand = $('hand');
     hand.innerHTML = '';
-    if (!state.order.length) {
+    const tiles = [];
+    for (let t = 0; t < 34; t++) for (let i = 0; i < state.counts[t]; i++) tiles.push(t);
+    if (!tiles.length) {
       hand.innerHTML = '<span class="hint">还没有牌。</span>';
       return;
     }
-    state.order.forEach((t, i) => {
+    let prevSuit = -1;
+    tiles.forEach((t) => {
       const wrap = document.createElement('button');
-      wrap.className = 'chip' + (state.winTile === t && i === state.order.lastIndexOf(t) ? ' win' : '')
+      const suit = t < 27 ? Math.floor(t / 9) : 3;
+      wrap.className = 'chip' + (state.winTile === t ? ' win' : '')
         + (state.pickWin ? ' picking' : '');
-      if (state.winTile === t && i === state.order.lastIndexOf(t)) wrap.classList.add('win');
+      if (prevSuit !== -1 && suit !== prevSuit) wrap.style.marginLeft = '7px';
+      prevSuit = suit;
       wrap.innerHTML = tileSVG(t);
       wrap.title = NAMES[t];
       wrap.setAttribute('aria-label', state.pickWin ? '设为和牌张 ' + NAMES[t] : '放回 ' + NAMES[t]);
