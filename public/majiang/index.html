@@ -526,21 +526,52 @@
   }
 
   /* ---------------- meld picker ---------------- */
+  // Only groups the hand can actually make: 碰 needs a pair, 吃 needs two of the run,
+  // 明杠 needs three of a kind, 暗杠 all four.
+  function meldCandidates(kind) {
+    const out = [];
+    if (kind === 'chi') {
+      for (let t = 0; t < 27; t++) {
+        if (t % 9 > 6) continue;
+        const have = [t, t + 1, t + 2].filter((x) => state.counts[x] > 0).length;
+        if (have >= 2) out.push(t);
+      }
+      return out;
+    }
+    for (let t = 0; t < 34; t++) {
+      const need = kind === 'pon' ? 2 : kind === 'minkan' ? 3 : 4;
+      if (state.counts[t] >= need) out.push(t);
+    }
+    return out;
+  }
+
   function openPicker(kind) {
-    $('modalTitle').textContent = { chi: '吃：选顺子里最小的一张', pon: '碰：选刻子的牌',
-      minkan: '明杠：选牌', ankan: '暗杠：选牌' }[kind];
+    const title = {
+      chi: '吃：手里有两张顺子，选最小的那张',
+      pon: '碰：选手里已有的一对',
+      minkan: '明杠：选手里已有的三张',
+      ankan: '暗杠：选手里已有的四张',
+    }[kind];
     const body = $('modalBody');
     body.innerHTML = '';
+    const cands = meldCandidates(kind);
+    if (!cands.length) {
+      $('modalTitle').textContent = title;
+      body.innerHTML = '<p class="hint">手里没有可以' + { chi: '吃的搭子', pon: '碰的对子',
+        minkan: '杠的三张', ankan: '杠的四张' }[kind] + '。先把牌加进手牌。</p>';
+      $('modal').classList.remove('hidden');
+      return;
+    }
+    $('modalTitle').textContent = title;
     const g = document.createElement('div');
     g.className = 'grid';
     g.style.gridTemplateColumns = 'repeat(7,1fr)';
     g.style.gap = '6px';
-    for (let t = 0; t < 34; t++) {
-      const ok = kind === 'chi' ? (t < 27 && (t % 9) <= 6) : true;
+    for (const t of cands) {
       const b = document.createElement('button');
       b.className = 'tile';
-      b.innerHTML = tileSVG(t);
-      b.disabled = !ok;
+      b.innerHTML = tileSVG(t) + '<span style="display:block;font-size:10px;color:#8b949e;line-height:1.4">'
+        + (kind === 'chi' ? [t, t + 1, t + 2].map((x) => NAMES[x][0]).join('') : '') + '</span>';
       b.onclick = () => { closePicker(); applyMeld(kind, t); };
       g.appendChild(b);
     }
@@ -551,15 +582,34 @@
   $('modalCancel').onclick = closePicker;
   $('modal').onclick = (e) => { if (e.target.id === 'modal') closePicker(); };
 
+  function takeFromHand(t, n) {
+    for (let i = 0; i < n; i++) {
+      if (!state.counts[t]) return false;
+      state.counts[t]--;
+      const idx = state.order.lastIndexOf(t);
+      if (idx >= 0) state.order.splice(idx, 1);
+    }
+    return true;
+  }
+
+  // Move the tiles out of the hand and into the meld; the claimed tile is the one
+  // the meld adds, so a 碰 consumes two from hand and a 吃 consumes the two it held.
   function applyMeld(kind, t) {
-    const need = kind === 'chi' ? [t, t + 1, t + 2] : [t, t, t, t];
-    const c = state.counts.slice();
-    for (const x of need) c[x] = (c[x] || 0) + 1;
-    if (need.some((x) => c[x] > 4)) return;
-    const kongs = state.melds.filter((m) => isKong(m.kind)).length;
-    const add = isKong(kind) ? 4 : 3;
-    if (totalTiles() + add > 14 + kongs + (isKong(kind) ? 1 : 0)) return;
+    const tiles = kind === 'chi' ? [t, t + 1, t + 2] : [t, t, t, t];
+    const take = kind === 'chi' || kind === 'pon' ? 2 : kind === 'minkan' ? 3 : 4;
+    if (kind === 'chi') {
+      // take from the two tiles the hand actually holds, leave the claimed one
+      const held = [t, t + 1, t + 2].filter((x) => state.counts[x] > 0);
+      if (held.length < 2) return;
+      const singles = held.slice(0, 2);
+      for (const x of singles) if (!takeFromHand(x, 1)) return;
+    } else {
+      if (!takeFromHand(t, take)) return;
+    }
     state.melds.push({ kind, t, open: kind !== 'ankan' });
+    if (state.winTile !== null && !state.counts[state.winTile]) {
+      state.winTile = state.order.length ? state.order[state.order.length - 1] : null;
+    }
     render();
   }
 
