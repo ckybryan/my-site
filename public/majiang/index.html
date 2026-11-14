@@ -25,26 +25,30 @@
   .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
   .label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 8px}
   .grid{display:grid;gap:4px}
-  .tile{appearance:none;border:0;background:transparent;padding:0;cursor:pointer;display:block;line-height:0;
+  .tile{appearance:none;border:0;padding:4%;cursor:pointer;display:block;line-height:0;border-radius:7px;
+    background:linear-gradient(#fcf8ee,#e7dfc9);box-shadow:0 2px 3px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.55);
     transition:transform .06s ease, filter .12s ease}
-  .tile svg{width:100%;height:auto;display:block;border-radius:6px}
+  .tile svg,.tile img{width:100%;height:auto;display:block;border-radius:6px}
+
   .tile:active{transform:translateY(1px) scale(.96)}
   .tile.on{filter:drop-shadow(0 0 1.5px var(--accent)) drop-shadow(0 0 3px rgba(59,130,246,.85))}
   .tile:disabled{opacity:.3}
   .hand{display:flex;flex-wrap:wrap;gap:5px;min-height:56px;align-items:flex-start}
-  .chip{position:relative;appearance:none;border:0;background:transparent;padding:0;cursor:pointer;width:44px;line-height:0}
+  .chip{position:relative;appearance:none;border:0;padding:3%;cursor:pointer;width:46px;line-height:0;border-radius:6px;
+    background:linear-gradient(#fcf8ee,#e7dfc9);box-shadow:0 2px 3px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.5)}
   .chip .rm{position:absolute;top:-5px;right:-5px;width:19px;height:19px;border-radius:50%;padding:0;
     border:1px solid #3a4655;background:#222c38;color:#cbd5e1;font-size:12px;line-height:15px;
     font-family:inherit;opacity:.9}
   .chip .rm:active{background:#39465a}
-  .chip svg{width:100%;height:auto;border-radius:5px;display:block}
+  .chip svg,.chip img{width:100%;height:auto;border-radius:5px;display:block}
+
   .chip.win{filter:drop-shadow(0 0 1px var(--warn)) drop-shadow(0 0 4px rgba(245,158,11,.9))}
   .chip.picking{filter:drop-shadow(0 0 1px var(--accent)) drop-shadow(0 0 3px rgba(59,130,246,.8));cursor:crosshair}
   .meld{display:flex;gap:3px;align-items:center;background:#111820;border:1px solid var(--line);
     border-radius:9px;padding:5px 7px}
   .meld .tag{font-size:10px;color:var(--dim);margin-right:3px}
-  .meld .mt{width:24px;line-height:0}
-  .meld .mt svg{width:100%;height:auto;border-radius:3px}
+  .meld .mt{width:26px;line-height:0;padding:1px;border-radius:4px;background:linear-gradient(#fcf8ee,#e7dfc9)}
+  .meld .mt svg,.meld .mt img{width:100%;height:auto;border-radius:3px}
   .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   button.b{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--ink);
     border-radius:9px;padding:9px 12px;font-size:13px;font-family:inherit;cursor:pointer}
@@ -144,7 +148,7 @@
   <ul class="fans" id="fans"></ul>
 </section>
 
-<footer>按 1998 年国标规则计算 · <a href="https://www.bryan.wtf">bryan.wtf</a></footer>
+<footer>按 1998 年国标规则计算 · 牌面 <a href="https://github.com/FluffyStuff/riichi-mahjong-tiles">FluffyStuff</a> CC0 · <a href="https://www.bryan.wtf">bryan.wtf</a></footer>
 
 <div class="modal hidden" id="modal">
   <div class="sheet">
@@ -188,7 +192,19 @@
   };
   const DOT_COLORS = ['#1e5aa8', '#c8392f', '#1f7a4d'];
 
+  const TILE_FILES = [
+    'Man1','Man2','Man3','Man4','Man5','Man6','Man7','Man8','Man9',
+    'Pin1','Pin2','Pin3','Pin4','Pin5','Pin6','Pin7','Pin8','Pin9',
+    'Sou1','Sou2','Sou3','Sou4','Sou5','Sou6','Sou7','Sou8','Sou9',
+    'Ton','Nan','Shaa','Pei','Chun','Hatsu','Haku',
+  ];
+
+  // Public domain tile art (CC0) from FluffyStuff/riichi-mahjong-tiles.
   function tileSVG(t) {
+    return '<img src="./tiles/' + TILE_FILES[t] + '.svg" alt="' + NAMES[t] + '" loading="lazy" draggable="false">';
+  }
+
+  function tileArtUnused(t) {
     const gid = 'g' + t;
     let body = '';
     if (t < 9) {
@@ -270,8 +286,12 @@
       const g = document.createElement('div');
       g.className = 'grid';
       g.style.marginBottom = row < 3 ? '6px' : '0';
-      g.style.gridTemplateColumns = row < 3 ? 'repeat(9,1fr)' : 'repeat(7,1fr)';
-      g.style.gap = row < 3 ? '4px' : '7px';
+      g.style.gridTemplateColumns = 'repeat(9,1fr)';
+      g.style.gap = '4px';
+      if (row === 3) {
+        g.appendChild(document.createElement('span'));
+        g.appendChild(document.createElement('span'));
+      }
       const from = row < 3 ? row * 9 : 27;
       const to = row < 3 ? from + 9 : 34;
       for (let t = from; t < to; t++) {
