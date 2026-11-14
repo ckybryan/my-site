@@ -53,8 +53,10 @@
   .toggle input:checked{background:var(--accent);border-color:var(--accent)}
   .toggle input:checked::after{content:"";position:absolute;left:4.5px;top:1.5px;width:4px;height:8px;
     border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
-  select{appearance:none;background:#0f141b;color:var(--ink);border:1px solid var(--line);
-    border-radius:9px;padding:9px 10px;font-size:13px;font-family:inherit}
+  .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .seg button{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--dim);
+    border-radius:9px;padding:10px 0;font-size:14px;font-family:inherit;cursor:pointer}
+  .seg button.on{background:rgba(59,130,246,.16);border-color:var(--accent);color:var(--ink);font-weight:600}
   .total{display:flex;align-items:baseline;gap:10px}
   .total .n{font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1}
   .total .u{font-size:13px;color:var(--dim)}
@@ -132,15 +134,17 @@
     <label class="toggle"><input type="checkbox" id="lastCopy">和绝张</label>
     <label class="toggle"><input type="checkbox" id="quanQiuRen">全求人</label>
   </div>
-  <div class="row">
-    <select id="roundWind">
-      <option value="27">东风圈</option><option value="28">南风圈</option>
-      <option value="29">西风圈</option><option value="30">北风圈</option>
-    </select>
-    <select id="seatWind">
-      <option value="27">东风位</option><option value="28">南风位</option>
-      <option value="29">西风位</option><option value="30">北风位</option>
-    </select>
+  <p class="label" style="margin:12px 0 6px">圈风</p>
+  <div class="seg" id="roundSeg">
+    <button data-wind="27">东</button><button data-wind="28">南</button>
+    <button data-wind="29">西</button><button data-wind="30">北</button>
+  </div>
+  <p class="label" style="margin:12px 0 6px">门风</p>
+  <div class="seg" id="seatSeg">
+    <button data-wind="27">东</button><button data-wind="28">南</button>
+    <button data-wind="29">西</button><button data-wind="30">北</button>
+  </div>
+  <div class="row" style="margin-top:12px">
     <label class="toggle"><input type="checkbox" id="flowersOn" checked>花牌</label>
     <span class="stepper">
       <button class="b" id="fminus">−</button><span id="fcount" class="count">0</span><button class="b" id="fplus">+</button>
@@ -283,7 +287,7 @@
   const face = (t, cls) => '<span class="' + (cls || 'mt') + '">' + tileSVG(t) + '</span>';
 
   /* ---------------- state ---------------- */
-  const state = { counts: new Array(34).fill(0), order: [], melds: [], winTile: null, flowers: 0, pickWin: false };
+  const state = { counts: new Array(34).fill(0), order: [], melds: [], winTile: null, flowers: 0, pickWin: false, roundWind: 27, seatWind: 27 };
   const $ = (id) => document.getElementById(id);
   const isKong = (k) => k === 'kan' || k === 'minkan' || k === 'ankan';
 
@@ -417,8 +421,8 @@
       lastDiscard: $('lastDiscard').checked,
       lastCopy: $('lastCopy').checked,
       quanQiuRen: $('quanQiuRen').checked,
-      roundWind: +$('roundWind').value,
-      seatWind: +$('seatWind').value,
+      roundWind: state.roundWind,
+      seatWind: state.seatWind,
       flowers: state.flowers,
       flowersEnabled: $('flowersOn').checked,
     });
@@ -463,8 +467,8 @@
         lastDiscard: $('lastDiscard').checked,
         lastCopy: $('lastCopy').checked,
         quanQiuRen: $('quanQiuRen').checked,
-        roundWind: +$('roundWind').value,
-        seatWind: +$('seatWind').value,
+        roundWind: state.roundWind,
+        seatWind: state.seatWind,
         flowers: state.flowers,
         flowersEnabled: $('flowersOn').checked,
       });
@@ -601,9 +605,25 @@
   for (const b of document.querySelectorAll('[data-meld]')) b.onclick = () => openPicker(b.dataset.meld);
   $('fplus').onclick = () => { state.flowers = Math.min(8, state.flowers + 1); $('fcount').textContent = state.flowers; renderResult(); };
   $('fminus').onclick = () => { state.flowers = Math.max(0, state.flowers - 1); $('fcount').textContent = state.flowers; renderResult(); };
-  for (const id of ['selfDraw', 'afterKong', 'lastDiscard', 'lastCopy', 'quanQiuRen', 'flowersOn', 'roundWind', 'seatWind']) {
+  for (const id of ['selfDraw', 'afterKong', 'lastDiscard', 'lastCopy', 'quanQiuRen', 'flowersOn']) {
     $(id).addEventListener('change', renderResult);
   }
+  function wireSeg(el, key) {
+    for (const b of el.querySelectorAll('button')) {
+      b.onclick = () => {
+        state[key] = +b.dataset.wind;
+        paintSegs();
+        render();
+      };
+    }
+  }
+  function paintSegs() {
+    for (const b of document.querySelectorAll('#roundSeg button')) b.classList.toggle('on', +b.dataset.wind === state.roundWind);
+    for (const b of document.querySelectorAll('#seatSeg button')) b.classList.toggle('on', +b.dataset.wind === state.seatWind);
+  }
+  wireSeg($('roundSeg'), 'roundWind');
+  wireSeg($('seatSeg'), 'seatWind');
+  paintSegs();
 
   renderPalette();
   render();
