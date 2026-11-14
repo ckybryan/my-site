@@ -201,7 +201,15 @@
   ];
 
   // Public domain tile art (CC0) from FluffyStuff/riichi-mahjong-tiles.
+  // 白板 gets drawn here: the Japanese haku is a blank tile, while the Chinese
+  // tile is a blue double frame, which is what players expect in a 国标 app.
   function tileSVG(t) {
+    if (t === 33) {
+      return '<svg viewBox="0 0 300 400" role="img" aria-label="白板">'
+        + '<rect x="40" y="52" width="220" height="296" rx="12" fill="none" stroke="#1e5aa8" stroke-width="18"/>'
+        + '<rect x="72" y="84" width="156" height="232" rx="6" fill="none" stroke="#1e5aa8" stroke-width="8"/>'
+        + '</svg>';
+    }
     return '<img src="./tiles/' + TILE_FILES[t] + '.svg" alt="' + NAMES[t] + '" loading="lazy" draggable="false">';
   }
 
