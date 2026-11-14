@@ -24,23 +24,23 @@
   .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
   .label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 8px}
   .grid{display:grid;gap:4px}
-  .tile{appearance:none;border:0;padding:3%;cursor:pointer;display:block;line-height:0;border-radius:7px;
-    background:linear-gradient(#fcf8ee,#e7dfc9);box-shadow:0 2px 3px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.55);
+  .tile{appearance:none;border:0;padding:0;cursor:pointer;display:block;line-height:0;border-radius:6px;
+    background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.55);overflow:hidden;
     transition:transform .06s ease, filter .12s ease}
   .tile svg{width:100%;height:auto;display:block;border-radius:6px}
   .tile:active{transform:translateY(1px) scale(.96)}
   .tile.on{filter:drop-shadow(0 0 1.5px var(--accent)) drop-shadow(0 0 3px rgba(59,130,246,.85))}
   .tile:disabled{opacity:.3}
   .hand{display:flex;flex-wrap:wrap;gap:5px;min-height:56px;align-items:flex-start;justify-content:flex-end}
-  .chip{position:relative;appearance:none;border:0;padding:2.4%;cursor:pointer;width:46px;line-height:0;border-radius:6px;
-    background:linear-gradient(#fcf8ee,#e7dfc9);box-shadow:0 2px 3px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.5)}
+  .chip{position:relative;appearance:none;border:0;padding:0;cursor:pointer;width:46px;line-height:0;border-radius:5px;
+    background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.5);overflow:hidden}
   .chip svg{width:100%;height:auto;border-radius:5px;display:block}
   .chip.win{filter:drop-shadow(0 0 1px var(--warn)) drop-shadow(0 0 4px rgba(245,158,11,.9))}
   .chip.picking{filter:drop-shadow(0 0 1px var(--accent)) drop-shadow(0 0 3px rgba(59,130,246,.8));cursor:crosshair}
   .meld{display:flex;gap:3px;align-items:center;background:#111820;border:1px solid var(--line);
     border-radius:9px;padding:5px 7px}
   .meld .tag{font-size:10px;color:var(--dim);margin-right:3px}
-  .meld .mt{width:26px;line-height:0;padding:1px;border-radius:4px;background:linear-gradient(#fcf8ee,#e7dfc9)}
+  .meld .mt{width:26px;line-height:0;padding:0;border-radius:3px;background:#fff;overflow:hidden}
   .meld .mt svg{width:100%;height:auto;border-radius:3px}
   .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
   button.b{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--ink);
@@ -142,7 +142,7 @@
   <ul class="fans" id="fans"></ul>
 </section>
 
-<footer>按 1998 年国标规则计算 · <a href="https://www.bryan.wtf">bryan.wtf</a></footer>
+<footer>按 1998 年国标规则计算 · 牌面 <a href="https://commons.wikimedia.org/wiki/File:Mahjong_1m.svg">蔡蜜</a> CC BY-SA 4.0 · <a href="https://www.bryan.wtf">bryan.wtf</a></footer>
 
 <div class="modal hidden" id="modal">
   <div class="sheet">
@@ -161,6 +161,13 @@
   const HONOR_TEXT = {27:'東',28:'南',29:'西',30:'北',31:'中',32:'發',33:'白'};
   const NUM = ['一','二','三','四','五','六','七','八','九'];
   const RED = '#c0392b', GREEN = '#1f7a4d', BLUE = '#1e5aa8', NAVY = '#16305c';
+  // Tile art by 蔡蜜, Wikimedia Commons, CC BY-SA 4.0.
+  const TILE_FILES = [
+    'm1','m2','m3','m4','m5','m6','m7','m8','m9',
+    'p1','p2','p3','p4','p5','p6','p7','p8','p9',
+    's1','s2','s3','s4','s5','s6','s7','s8','s9',
+    'east','south','west','north','green','red','white',
+  ];
 
   /* ---------------- tile art, Chinese set ---------------- */
   // 300 x 400 canvas; the cream body comes from CSS, this draws only the face.
@@ -207,6 +214,17 @@
   }
 
   function tileSVG(t) {
+    if (t === 33) {
+      return '<svg viewBox="0 0 45 60" role="img" aria-label="白板">'
+        + '<rect width="45" height="60" fill="#fff"/>'
+        + '<rect x="4.5" y="5.5" width="36" height="49" rx="2" fill="none" stroke="' + GREEN + '" stroke-width="2.4"/>'
+        + '<rect x="8.5" y="9.5" width="28" height="41" rx="1.5" fill="none" stroke="' + RED + '" stroke-width="1.6"/>'
+        + '</svg>';
+    }
+    return '<img src="./tiles/' + TILE_FILES[t] + '.svg" alt="' + NAMES[t] + '" loading="lazy" draggable="false">';
+  }
+
+  function tileFaceLegacy(t) {
     let body = '';
     if (t < 9) {
       body = '<text x="150" y="168" text-anchor="middle" font-size="150" font-weight="600" fill="' + NAVY + '"'
