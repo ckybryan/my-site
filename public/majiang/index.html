@@ -97,6 +97,7 @@
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
     <p class="label" style="margin:0">手牌 <span class="count" id="count">0 / 14</span></p>
     <div class="row" style="gap:6px">
+      <button class="b ghost" id="copy">复制</button>
       <button class="b ghost" id="winMode">和牌张</button>
       <button class="b ghost" id="undo">撤回</button>
       <button class="b ghost" id="clear">清空</button>
@@ -505,6 +506,29 @@
     state.flowers = 0;
     $('fcount').textContent = '0';
     render();
+  };
+  $('copy').onclick = async () => {
+    const group = (from, to) => {
+      let s = '';
+      for (let t = from; t < to; t++) for (let i = 0; i < state.counts[t]; i++) s += ((t % 9) + 1);
+      return s;
+    };
+    const honours = [];
+    for (let t = 27; t < 34; t++) for (let i = 0; i < state.counts[t]; i++) honours.push(NAMES[t][0]);
+    const parts = [];
+    if (group(0, 9)) parts.push(group(0, 9) + 'm');
+    if (group(9, 18)) parts.push(group(9, 18) + 'p');
+    if (group(18, 27)) parts.push(group(18, 27) + 's');
+    if (honours.length) parts.push(honours.join(''));
+    if (state.melds.length) parts.push('| 副露 ' + state.melds.map((m) => m.kind + ':' + NAMES[m.t]).join(', '));
+    if (state.winTile !== null) parts.push('| 和 ' + NAMES[state.winTile]);
+    const text = parts.join(' ') || '（空）';
+    try {
+      await navigator.clipboard.writeText(text);
+      $('hint').textContent = '已复制：' + text;
+    } catch (e) {
+      $('hint').textContent = text;
+    }
   };
   $('winMode').onclick = () => { state.pickWin = !state.pickWin; render(); };
   for (const b of document.querySelectorAll('[data-meld]')) b.onclick = () => openPicker(b.dataset.meld);
