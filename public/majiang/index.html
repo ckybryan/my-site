@@ -130,6 +130,7 @@
     <label class="toggle"><input type="checkbox" id="afterKong">杠上开花</label>
     <label class="toggle"><input type="checkbox" id="lastDiscard">海底捞月</label>
     <label class="toggle"><input type="checkbox" id="lastCopy">和绝张</label>
+    <label class="toggle"><input type="checkbox" id="quanQiuRen">全求人</label>
   </div>
   <div class="row">
     <select id="roundWind">
@@ -415,6 +416,7 @@
       afterKong: $('afterKong').checked,
       lastDiscard: $('lastDiscard').checked,
       lastCopy: $('lastCopy').checked,
+      quanQiuRen: $('quanQiuRen').checked,
       roundWind: +$('roundWind').value,
       seatWind: +$('seatWind').value,
       flowers: state.flowers,
@@ -460,6 +462,7 @@
         afterKong: $('afterKong').checked,
         lastDiscard: $('lastDiscard').checked,
         lastCopy: $('lastCopy').checked,
+        quanQiuRen: $('quanQiuRen').checked,
         roundWind: +$('roundWind').value,
         seatWind: +$('seatWind').value,
         flowers: state.flowers,
@@ -598,7 +601,7 @@
   for (const b of document.querySelectorAll('[data-meld]')) b.onclick = () => openPicker(b.dataset.meld);
   $('fplus').onclick = () => { state.flowers = Math.min(8, state.flowers + 1); $('fcount').textContent = state.flowers; renderResult(); };
   $('fminus').onclick = () => { state.flowers = Math.max(0, state.flowers - 1); $('fcount').textContent = state.flowers; renderResult(); };
-  for (const id of ['selfDraw', 'afterKong', 'lastDiscard', 'lastCopy', 'flowersOn', 'roundWind', 'seatWind']) {
+  for (const id of ['selfDraw', 'afterKong', 'lastDiscard', 'lastCopy', 'quanQiuRen', 'flowersOn', 'roundWind', 'seatWind']) {
     $(id).addEventListener('change', renderResult);
   }
 

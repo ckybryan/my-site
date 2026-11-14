@@ -125,7 +125,7 @@
     混一色: ['缺一门'],
     七对: ['门前清', '单钓将', '平和'],
     碰碰和: ['平和'],
-    全求人: ['单钓将'],
+    全求人: ['单钓将', '门前清', '不求人', '自摸'],
     平和: ['无字'],
     四杠: ['三杠', '双暗杠', '双明杠', '暗杠', '明杠', '碰碰和'],
     四暗刻: ['碰碰和', '门前清', '三暗刻', '双暗刻', '幺九刻', '不求人', '自摸'],
@@ -277,7 +277,7 @@
     if (suitsUsed.size === 1 && honours.length) add('混一色', 6);
     if (threeSuitSteppingChis(chis)) add('三色三步高', 6);
     if (hasFiveGates(allTiles, chis, pons)) add('五门齐', 6);
-    if (open && flags.discardWin && melds.length === 4 && pair === winTile) add('全求人', 6);
+    if (flags.quanQiuRen || (open && flags.discardWin && melds.length === 4 && pair === winTile)) add('全求人', 6);
     if (kans.filter((k) => k.open === false).length === 2) add('双暗杠', 6);
     if (dragonPons.length === 2) add('双箭刻', 6);
 
@@ -581,6 +581,7 @@
       robbingKong: !!input.robbingKong,
       winTile: input.winTile ?? null,
       lastCopy: !!input.lastCopy,
+      quanQiuRen: !!input.quanQiuRen,
       seatWind: input.seatWind ?? 27,
       roundWind: input.roundWind ?? 27,
     };
