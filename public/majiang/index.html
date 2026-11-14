@@ -284,7 +284,6 @@
       const t = +b.dataset.t;
       b.classList.toggle('on', state.counts[t] > 0);
       b.disabled = tileCount(t) >= 4;
-      b.style.opacity = full && tileCount(t) < 4 ? '.55' : '';
     }
     $('count').textContent = totalTiles() + ' / 14';
   }
