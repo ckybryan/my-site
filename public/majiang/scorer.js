@@ -187,9 +187,15 @@
     const allTiles = expand(counts).concat(meldTiles);
     const everySet = [...sets, ...melds];
 
-    const pons = everySet.filter((s) => !isChi(s));
+    const pons = everySet.filter((s) => !isChi(s)).map((s) => ({ ...s }));
     const chis = everySet.filter(isChi);
     const kans = everySet.filter(isKan);
+    // A triplet completed by the winning tile on a discard is an exposed triplet,
+    // not a concealed one, so it cannot count toward 暗刻 at any level.
+    if (flags.discardWin && flags.winTile !== null && flags.winTile !== undefined && pair !== flags.winTile) {
+      const completed = pons.find((s) => s.t === flags.winTile && !s.open);
+      if (completed) completed.open = true;
+    }
     const hiddenPons = pons.filter((s) => !s.open);
     const open = melds.some((m) => m.open !== false);
     const suitsUsed = new Set(allTiles.filter((t) => t < 27).map(suit));
