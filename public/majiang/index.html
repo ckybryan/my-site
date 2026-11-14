@@ -39,6 +39,7 @@
   .chip .rm:active{background:#39465a}
   .chip svg{width:100%;height:auto;border-radius:5px;display:block}
   .chip.win{filter:drop-shadow(0 0 1px var(--warn)) drop-shadow(0 0 4px rgba(245,158,11,.9))}
+  .chip.picking{filter:drop-shadow(0 0 1px var(--accent)) drop-shadow(0 0 3px rgba(59,130,246,.8));cursor:crosshair}
   .meld{display:flex;gap:3px;align-items:center;background:#111820;border:1px solid var(--line);
     border-radius:9px;padding:5px 7px}
   .meld .tag{font-size:10px;color:var(--dim);margin-right:3px}
@@ -92,6 +93,7 @@
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
     <p class="label" style="margin:0">手牌 <span class="count" id="count">0 / 14</span></p>
     <div class="row" style="gap:6px">
+      <button class="b ghost" id="winMode">和牌张</button>
       <button class="b ghost" id="undo">撤回</button>
       <button class="b ghost" id="clear">清空</button>
     </div>
@@ -216,6 +218,14 @@
           + '" height="' + h + '" rx="' + (w / 2).toFixed(1) + '" fill="' + c + '" stroke="#f8f3e6" stroke-width=".9"/>';
         body += '<rect x="' + (x - w / 2 + w * 0.28).toFixed(1) + '" y="' + (y - h / 2 + 1).toFixed(1)
           + '" width="' + (w * 0.22).toFixed(1) + '" height="' + Math.max(2, h - 2) + '" rx="1" fill="#fff" opacity=".3"/>';
+        // bamboo joints: one or two cream bands across the stick
+        body += '<line x1="' + (x - w / 2).toFixed(1) + '" x2="' + (x + w / 2).toFixed(1)
+          + '" y1="' + y + '" y2="' + y + '" stroke="#f8f3e6" stroke-width="1.3"/>';
+        if (h > 12) {
+          body += '<line x1="' + (x - w / 2).toFixed(1) + '" x2="' + (x + w / 2).toFixed(1)
+            + '" y1="' + (y - h / 3).toFixed(1) + '" y2="' + (y - h / 3).toFixed(1)
+            + '" stroke="#f8f3e6" stroke-width="1.1"/>';
+        }
       });
       if (r === 0) body += '<path d="M20 8 l3.2 5.5 -3.2 3 -3.2 -3 z" fill="#c8392f"/>';
     } else if (t === 33) {
@@ -236,7 +246,7 @@
   const face = (t, cls) => '<span class="' + (cls || 'mt') + '">' + tileSVG(t) + '</span>';
 
   /* ---------------- state ---------------- */
-  const state = { counts: new Array(34).fill(0), order: [], melds: [], winTile: null, flowers: 0 };
+  const state = { counts: new Array(34).fill(0), order: [], melds: [], winTile: null, flowers: 0, pickWin: false };
   const $ = (id) => document.getElementById(id);
   const isKong = (k) => k === 'kan' || k === 'minkan' || k === 'ankan';
 
@@ -321,23 +331,24 @@
     }
     let prevSuit = -1;
     tiles.forEach((t) => {
-      const wrap = document.createElement('span');
-      wrap.className = 'chip' + (state.winTile === t ? ' win' : '');
+      const wrap = document.createElement('button');
+      wrap.className = 'chip' + (state.winTile === t ? ' win' : '')
+        + (state.pickWin ? ' picking' : '');
       const s = t < 27 ? Math.floor(t / 9) : 3;
       if (prevSuit !== -1 && s !== prevSuit) wrap.style.marginLeft = '7px';
       prevSuit = s;
       wrap.innerHTML = tileSVG(t);
       wrap.title = NAMES[t];
+      wrap.setAttribute('aria-label', state.pickWin ? '设为和牌张 ' + NAMES[t] : '放回 ' + NAMES[t]);
       wrap.onclick = () => {
-        state.winTile = state.winTile === t ? null : t;
-        render();
+        if (state.pickWin) {
+          state.winTile = t;
+          state.pickWin = false;
+          render();
+        } else {
+          removeTile(t);
+        }
       };
-      const rm = document.createElement('button');
-      rm.className = 'rm';
-      rm.textContent = '×';
-      rm.setAttribute('aria-label', '移除' + NAMES[t]);
-      rm.onclick = (e) => { e.stopPropagation(); removeTile(t); };
-      wrap.appendChild(rm);
       hand.appendChild(wrap);
     });
   }
@@ -402,12 +413,14 @@
     const kongs = state.melds.filter((m) => isKong(m.kind)).length;
     const need = 14 + kongs - totalTiles();
     const el = $('hint');
-    if (need > 0) el.textContent = '还差 ' + need + ' 张。点牌加入，点手牌上的 × 可移除。';
-    else if (need === 0) el.textContent = '牌数齐了。点牌面可设为和牌张，橙色框亮起的那张。';
-    else el.textContent = '多出 ' + (-need) + ' 张，请移除。';
+    if (state.pickWin) { el.textContent = '点手牌里的一张，把它设为和牌张。'; return; }
+    if (need > 0) el.textContent = '还差 ' + need + ' 张。点牌加入，点手牌里的牌放回去。';
+    else if (need === 0) el.textContent = '牌数齐了。橙框是和牌张，点「和牌张」可改。';
+    else el.textContent = '多出 ' + (-need) + ' 张，点手牌放回去。';
   }
 
   function render() {
+    $('winMode').textContent = state.pickWin ? '点一张' : '和牌张';
     renderHand();
     renderHint();
     renderMelds();
@@ -473,6 +486,7 @@
     $('fcount').textContent = '0';
     render();
   };
+  $('winMode').onclick = () => { state.pickWin = !state.pickWin; render(); };
   for (const b of document.querySelectorAll('[data-meld]')) b.onclick = () => openPicker(b.dataset.meld);
   $('fplus').onclick = () => { state.flowers = Math.min(8, state.flowers + 1); $('fcount').textContent = state.flowers; renderResult(); };
   $('fminus').onclick = () => { state.flowers = Math.max(0, state.flowers - 1); $('fcount').textContent = state.flowers; renderResult(); };
