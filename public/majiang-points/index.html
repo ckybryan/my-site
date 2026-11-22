@@ -114,7 +114,7 @@
   <p class="hint" id="payerHint" style="margin-top:6px">自摸时不需要选点炮者。</p>
   <div class="fanrow">
     <button class="stepper2" id="fanMinus" aria-label="减一番">−</button>
-    <label class="fanbox"><input type="number" id="fan" min="8" max="300" step="1" value="8" inputmode="numeric" aria-label="番数" /><span class="u">番</span></label>
+    <label class="fanbox"><input type="text" id="fan" value="8" inputmode="numeric" pattern="[0-9]*" autocomplete="off" enterkeyhint="done" aria-label="番数" /><span class="u">番</span></label>
     <button class="stepper2" id="fanPlus" aria-label="加一番">+</button>
   </div>
   <p class="hint" style="margin-top:8px">直接输入任意番数，或者用下面的常用值。</p>
@@ -311,6 +311,8 @@
     preview();
   };
   $('fan').addEventListener('input', () => {
+    const digits = $('fan').value.replace(/[^0-9]/g, '').slice(0, 3);
+    if (digits !== $('fan').value) $('fan').value = digits;
     for (const b of $('fanChips').querySelectorAll('button')) b.classList.remove('on');
     preview();
   });
