@@ -65,6 +65,14 @@
   .fans{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:1fr auto;gap:6px 10px;font-size:13px}
   .fans li{display:contents}
   .fans .name{color:var(--ink)} .fans .val{color:var(--dim);text-align:right;font-variant-numeric:tabular-nums}
+  .fans button.row2{appearance:none;border:0;background:none;padding:6px 0;display:grid;
+    grid-template-columns:1fr auto;gap:10px;width:100%;font:inherit;color:inherit;cursor:pointer;
+    border-bottom:1px solid rgba(255,255,255,.04);text-align:left}
+  .fans button.row2 .val{text-align:right}
+  .fans button.row2:active{background:rgba(59,130,246,.1)}
+  .fans button.row2 .hintv{grid-column:1 / -1;font-size:10.5px;color:var(--dim);margin-top:2px}
+  .fanTiles{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 4px}
+  .fanTiles img,.fanTiles svg{width:38px;height:auto;border-radius:4px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.5)}
   .hint{font-size:11.5px;color:var(--dim);line-height:1.5;margin:2px 0 0}
   .count{font-size:11px;color:var(--dim)}
   .stepper{display:flex;align-items:center;gap:8px}
@@ -160,6 +168,18 @@
 </section>
 
 <footer>按 1998 年国标规则计算 · 牌面 <a href="https://commons.wikimedia.org/wiki/File:Mahjong_1m.svg">蔡蜜</a> CC BY-SA 4.0 · <a href="https://www.bryan.wtf">bryan.wtf</a></footer>
+
+<div class="modal hidden" id="fanModal">
+  <div class="sheet">
+    <h2 id="fanTitle"></h2>
+    <p class="hint" id="fanDesc" style="margin:0 0 4px"></p>
+    <div class="fanTiles" id="fanTiles"></div>
+    <p class="hint" id="fanNote"></p>
+    <div class="row" style="margin-top:12px">
+      <button class="b ghost" id="fanClose">关闭</button>
+    </div>
+  </div>
+</div>
 
 <div class="modal hidden" id="modal">
   <div class="sheet">
@@ -448,10 +468,98 @@
     }
     for (const f of res.fans) {
       const li = document.createElement('li');
-      li.innerHTML = '<span class="name">' + f.name + '</span><span class="val">' + f.fan + '</span>';
+      const b = document.createElement('button');
+      b.className = 'row2';
+      b.innerHTML = '<span class="name">' + f.name + '</span><span class="val">' + f.fan + '</span>'
+        + '<span class="hintv">点开看是哪几张牌</span>';
+      b.onclick = () => showFan(f);
+      li.appendChild(b);
       list.appendChild(li);
     }
   }
+
+  const FAN_INFO = {
+    '大四喜': '东南西北四副刻子或杠。',
+    '大三元': '中、發、白三副刻子或杠。',
+    '小四喜': '三副风刻，加一对风作将。',
+    '小三元': '两副箭刻，加一对箭牌作将。',
+    '字一色': '整手都是字牌。',
+    '清幺九': '全部由一、九组成。',
+    '混幺九': '全部由一、九和字牌组成。',
+    '四暗刻': '四副暗刻或暗杠。',
+    '三暗刻': '三副暗刻或暗杠。',
+    '双暗刻': '两副暗刻或暗杠。',
+    '大三元': '中發白三副刻子。',
+    '箭刻': '中、發 或 白 的刻子。',
+    '双箭刻': '两副箭牌刻子。',
+    '圈风刻': '本圈风牌的刻子。',
+    '门风刻': '自家门风的刻子。',
+    '三风刻': '三副风牌刻子。',
+    '清一色': '整手同一花色，没有字牌。',
+    '混一色': '一门花色加字牌。',
+    '缺一门': '三种花色只用了两种。',
+    '无字': '没有字牌。',
+    '断幺': '没有一、九，也没有字牌。',
+    '七对': '七组对子。',
+    '连七对': '同一花色七个连续对子。',
+    '十三幺': '十三种幺九牌各一张，加一张作将。',
+    '清龙': '同一花色的 123、456、789 三副顺子。',
+    '花龙': '三种花色分别组成 123、456、789。',
+    '一色三步高': '同花色三副顺子，依次递增一位或两位。',
+    '三色三步高': '三种花色各一副顺子，依次递增。',
+    '一色三同顺': '同花色三副一样的顺子。',
+    '三色三同顺': '三种花色同样的顺子各一副。',
+    '一般高': '两副一样的顺子。',
+    '喜相逢': '两种花色同样的顺子。',
+    '连六': '同花色两副相连的顺子，合起来六张连号。',
+    '老少副': '同花色的 123 与 789。',
+    '碰碰和': '四副刻子或杠。',
+    '平和': '四副顺子，将牌不是字牌。',
+    '门前清': '没有副露，靠别人打出的牌和。',
+    '不求人': '没有副露，自摸和牌。',
+    '自摸': '自己摸到和牌张。',
+    '全求人': '四副副露，单钓将，靠别人打出。',
+    '全带幺': '每一副牌和将牌都带一、九或字牌。',
+    '全带五': '每一副牌和将牌都带五。',
+    '全大': '全部是七、八、九。',
+    '全中': '全部是四、五、六。',
+    '全小': '全部是一、二、三。',
+    '大于五': '全部是六以上。',
+    '小于五': '全部是四以下。',
+    '一色双龙会': '同花色的 123、123、789、789，加五作将。',
+    '三色双龙会': '两门花色的 123 与 789，第三门五作将。',
+    '组合龙': '三种花色各取 147、258、369 三组，共九张。',
+    '全不靠': '十四张互不相连，字牌与三路隔张各取其一。',
+    '七星不靠': '全不靠，且七张字牌齐全。',
+    '九莲宝灯': '同花色 1112345678999 加任意一张。',
+    '花牌': '每张花牌计一番。',
+    '无番和': '没有其它番种时的底番。',
+  };
+
+  function showFan(f) {
+    const info = FAN_INFO[f.name] || '这手牌满足该番种的条件。';
+    $('fanTitle').textContent = f.name + ' · ' + f.fan + ' 番';
+    $('fanDesc').textContent = info;
+    const box = $('fanTiles');
+    box.innerHTML = '';
+    let tiles = f.tiles;
+    if (!tiles || !tiles.length) {
+      tiles = [];
+      for (let t = 0; t < 34; t++) for (let i = 0; i < state.counts[t]; i++) tiles.push(t);
+      $('fanNote').textContent = '这一项由整手牌成立，下面是全部手牌。';
+    } else {
+      $('fanNote').textContent = '高亮的这几张就是成立条件。';
+    }
+    for (const t of tiles) {
+      const s = document.createElement('span');
+      s.innerHTML = tileSVG(t);
+      s.title = NAMES[t];
+      box.appendChild(s);
+    }
+    $('fanModal').classList.remove('hidden');
+  }
+  $('fanClose').onclick = () => $('fanModal').classList.add('hidden');
+  $('fanModal').onclick = (e) => { if (e.target.id === 'fanModal') $('fanModal').classList.add('hidden'); };
 
   function renderTenpai() {
     const card = $('tenpaiCard');
@@ -532,26 +640,31 @@
   /* ---------------- meld picker ---------------- */
   // Only groups the hand can actually make: 碰 needs a pair, 吃 needs two of the run,
   // 明杠 needs three of a kind, 暗杠 all four.
+  // Each candidate carries the tile it claims from the discard: for a 吃 that is the
+  // one tile the hand is missing, for 碰 and 杠 it is the tile itself.
   function meldCandidates(kind) {
     const out = [];
     if (kind === 'chi') {
       for (let t = 0; t < 27; t++) {
         if (t % 9 > 6) continue;
-        const have = [t, t + 1, t + 2].filter((x) => state.counts[x] > 0).length;
-        if (have >= 2) out.push(t);
+        const run = [t, t + 1, t + 2];
+        for (const claim of run) {
+          const held = run.filter((x) => x !== claim);
+          if (held.every((x) => state.counts[x] > 0)) out.push({ t, claim });
+        }
       }
       return out;
     }
     for (let t = 0; t < 34; t++) {
       const need = kind === 'pon' ? 2 : kind === 'minkan' ? 3 : 4;
-      if (state.counts[t] >= need) out.push(t);
+      if (state.counts[t] >= need) out.push({ t, claim: t });
     }
     return out;
   }
 
   function openPicker(kind) {
     const title = {
-      chi: '吃：手里有两张顺子，选最小的那张',
+      chi: '吃：挑一组，缺的那张高亮',
       pon: '碰：选手里已有的一对',
       minkan: '明杠：选手里已有的三张',
       ankan: '暗杠：选手里已有的四张',
@@ -567,19 +680,32 @@
       return;
     }
     $('modalTitle').textContent = title;
-    const g = document.createElement('div');
-    g.className = 'grid';
-    g.style.gridTemplateColumns = 'repeat(7,1fr)';
-    g.style.gap = '6px';
-    for (const t of cands) {
+    const wrap = document.createElement('div');
+    wrap.className = 'fanTiles';
+    for (const cand of cands) {
       const b = document.createElement('button');
       b.className = 'tile';
-      b.innerHTML = tileSVG(t) + '<span style="display:block;font-size:10px;color:#8b949e;line-height:1.4">'
-        + (kind === 'chi' ? [t, t + 1, t + 2].map((x) => NAMES[x][0]).join('') : '') + '</span>';
-      b.onclick = () => { closePicker(); applyMeld(kind, t); };
-      g.appendChild(b);
+      b.style.cssText = 'background:none;box-shadow:none;display:flex;gap:3px;padding:4px;border-radius:8px;'
+        + 'border:1px solid var(--line);align-items:flex-end';
+      if (kind === 'chi') {
+        for (const x of [cand.t, cand.t + 1, cand.t + 2]) {
+          const s = document.createElement('span');
+          s.style.cssText = 'width:34px;display:block;'
+            + (x === cand.claim ? 'outline:2px solid var(--warn);outline-offset:1px;border-radius:4px' : 'opacity:.55');
+          s.innerHTML = tileSVG(x);
+          s.title = NAMES[x] + (x === cand.claim ? '（要吃的那张）' : '');
+          b.appendChild(s);
+        }
+      } else {
+        const s = document.createElement('span');
+        s.style.cssText = 'width:38px;display:block';
+        s.innerHTML = tileSVG(cand.t);
+        b.appendChild(s);
+      }
+      b.onclick = () => { closePicker(); applyMeld(kind, cand.t, cand.claim); };
+      wrap.appendChild(b);
     }
-    body.appendChild(g);
+    body.appendChild(wrap);
     $('modal').classList.remove('hidden');
   }
   function closePicker() { $('modal').classList.add('hidden'); }
@@ -598,15 +724,12 @@
 
   // Move the tiles out of the hand and into the meld; the claimed tile is the one
   // the meld adds, so a 碰 consumes two from hand and a 吃 consumes the two it held.
-  function applyMeld(kind, t) {
-    const tiles = kind === 'chi' ? [t, t + 1, t + 2] : [t, t, t, t];
+  function applyMeld(kind, t, claim) {
     const take = kind === 'chi' || kind === 'pon' ? 2 : kind === 'minkan' ? 3 : 4;
     if (kind === 'chi') {
-      // take from the two tiles the hand actually holds, leave the claimed one
-      const held = [t, t + 1, t + 2].filter((x) => state.counts[x] > 0);
-      if (held.length < 2) return;
-      const singles = held.slice(0, 2);
-      for (const x of singles) if (!takeFromHand(x, 1)) return;
+      // the claim comes from the discard, the other two leave the hand
+      const held = [t, t + 1, t + 2].filter((x) => x !== claim);
+      for (const x of held) if (!takeFromHand(x, 1)) return;
     } else {
       if (!takeFromHand(t, take)) return;
     }

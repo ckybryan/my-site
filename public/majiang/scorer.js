@@ -315,7 +315,118 @@
 
     let scored = applyExclusions(fans);
     if (!scored.length) scored = [{ name: '无番和', fan: 8 }];
-    return scored;
+
+    // Evidence for the popup: which tiles made this fan true.
+    const allSorted = allTiles.slice().sort((a, b) => a - b);
+    const chisBySuit = (s) => chis.filter((c) => suit(c.t) === s);
+    const windSet = (w) => windPons.includes(w);
+    const ev = {
+      '清一色': () => allSorted,
+      '混一色': () => allSorted,
+      '字一色': () => allSorted,
+      '清幺九': () => allSorted,
+      '混幺九': () => allSorted,
+      '七对': () => allSorted,
+      '连七对': () => allSorted,
+      '十三幺': () => allSorted,
+      '全不靠': () => allSorted,
+      '七星不靠': () => allSorted,
+      '九莲宝灯': () => allSorted,
+      '全大': () => allSorted,
+      '全中': () => allSorted,
+      '全小': () => allSorted,
+      '大于五': () => allSorted,
+      '小于五': () => allSorted,
+      '全带幺': () => allSorted,
+      '全带五': () => allSorted,
+      '碰碰和': () => pons.flatMap(tilesOf),
+      '四暗刻': () => hiddenPons.flatMap(tilesOf),
+      '三暗刻': () => hiddenPons.flatMap(tilesOf),
+      '双暗刻': () => hiddenPons.flatMap(tilesOf),
+      '大三元': () => pons.filter((s) => DRAGONS.includes(s.t)).flatMap(tilesOf),
+      '小三元': () => [...pons.filter((s) => DRAGONS.includes(s.t)).flatMap(tilesOf), pair, pair],
+      '大四喜': () => pons.filter((s) => WINDS.includes(s.t)).flatMap(tilesOf),
+      '小四喜': () => [...pons.filter((s) => WINDS.includes(s.t)).flatMap(tilesOf), pair, pair],
+      '三风刻': () => pons.filter((s) => WINDS.includes(s.t)).flatMap(tilesOf),
+      '箭刻': () => pons.filter((s) => DRAGONS.includes(s.t)).flatMap(tilesOf),
+      '双箭刻': () => pons.filter((s) => DRAGONS.includes(s.t)).flatMap(tilesOf),
+      '圈风刻': () => pons.filter((s) => s.t === flags.roundWind).flatMap(tilesOf),
+      '门风刻': () => pons.filter((s) => s.t === flags.seatWind).flatMap(tilesOf),
+      '三色三同顺': () => {
+        for (const r of [1, 2, 3, 4, 5, 6, 7]) {
+          const pick = [0, 1, 2].map((k) => chis.find((c) => suit(c.t) === k && rank(c.t) === r));
+          if (pick.every(Boolean)) return pick.flatMap(tilesOf);
+        }
+        return null;
+      },
+      '三色三步高': () => chis.slice(0, 3).flatMap(tilesOf),
+      '三色三节高': () => pons.filter((s) => s.t < 27).slice(0, 3).flatMap(tilesOf),
+      '一色三同顺': () => {
+        const bySuit = [0, 1, 2].map(chisBySuit);
+        for (const group of bySuit) {
+          const counts = new Map();
+          for (const c of group) counts.set(c.t, (counts.get(c.t) || 0) + 1);
+          for (const [t, n] of counts) if (n >= 3) return [t, t + 1, t + 2, t, t + 1, t + 2].slice(0, 9);
+        }
+        return null;
+      },
+      '一色四同顺': () => {
+        const bySuit = [0, 1, 2].map(chisBySuit);
+        for (const group of bySuit) {
+          const counts = new Map();
+          for (const c of group) counts.set(c.t, (counts.get(c.t) || 0) + 1);
+          for (const [t, n] of counts) if (n >= 4) return [t, t + 1, t + 2, t, t + 1, t + 2, t, t + 1, t + 2, t, t + 1, t + 2];
+        }
+        return null;
+      },
+      '清龙': () => {
+        for (let s = 0; s < 3; s++) {
+          const g = chisBySuit(s);
+          const need = [1, 4, 7].every((r) => g.some((c) => rank(c.t) === r));
+          if (need) {
+            const out = [];
+            for (const r of [1, 4, 7]) {
+              const c = g.find((x) => rank(x.t) === r);
+              out.push(...tilesOf(c));
+            }
+            return out;
+          }
+        }
+        return null;
+      },
+      '花龙': () => {
+        for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) for (let c = 0; c < 3; c++) {
+          if (new Set([a, b, c]).size !== 3) continue;
+          const p1 = chisBySuit(a).find((x) => rank(x.t) === 1);
+          const p2 = chisBySuit(b).find((x) => rank(x.t) === 4);
+          const p3 = chisBySuit(c).find((x) => rank(x.t) === 7);
+          if (p1 && p2 && p3) return [...tilesOf(p1), ...tilesOf(p2), ...tilesOf(p3)];
+        }
+        return null;
+      },
+      '老少副': () => chis.flatMap(tilesOf),
+      '一般高': () => chis.flatMap(tilesOf),
+      '喜相逢': () => chis.flatMap(tilesOf),
+      '连六': () => chis.flatMap(tilesOf),
+      '平和': () => allSorted,
+      '门前清': () => allSorted,
+      '不求人': () => allSorted,
+      '自摸': () => allSorted,
+      '无字': () => allSorted,
+      '断幺': () => allSorted,
+      '缺一门': () => allSorted,
+      '全求人': () => [...melds.flatMap(tilesOf), pair, pair],
+      '组合龙': () => allSorted,
+      '一色双龙会': () => allSorted,
+      '三色双龙会': () => allSorted,
+    };
+    const decorate = (f) => {
+      const fn = ev[f.name];
+      let tiles = null;
+      if (fn) { try { tiles = fn(); } catch (e) { tiles = null; } }
+      return { name: f.name, fan: f.fan, tiles: tiles || null };
+    };
+    return scored.map(decorate);
   }
 
   // ---------- helpers ----------
