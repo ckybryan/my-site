@@ -39,8 +39,24 @@
   .stepper2{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--ink);
     border-radius:12px;height:56px;font-size:22px;font-family:inherit;cursor:pointer}
   .stepper2:active{background:#1b2430}
-  #payer{appearance:auto;background:#0f141b;color:var(--ink);border:1px solid var(--line);
-    border-radius:9px;padding:9px 10px;font-size:14px;font-family:inherit;min-width:132px}
+  .segRow{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin-top:4px}
+  .segRow button{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--ink);
+    border-radius:11px;padding:14px 8px;font-size:15px;font-family:inherit;cursor:pointer}
+  .segRow button:active{transform:scale(.98)}
+  .segRow button.on{background:rgba(59,130,246,.18);border-color:var(--accent);font-weight:600}
+  .segRow button.dim{color:var(--dim);opacity:.55}
+  #payerRow button.on{background:rgba(245,158,11,.16);border-color:var(--warn)}
+  .dlg{position:fixed;inset:0;background:rgba(3,6,10,.72);display:flex;align-items:center;
+    justify-content:center;padding:18px;z-index:30}
+  .dlg .box{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;padding:18px}
+  .dlg h2{font-size:16px;margin:0 0 6px}
+  .dlg p{font-size:13px;color:var(--dim);margin:0 0 14px;line-height:1.5}
+  .dlg .opt{display:block;width:100%;text-align:left;margin-bottom:8px;padding:14px;
+    border:1px solid var(--line);background:#0f141b;color:var(--ink);border-radius:11px;font:inherit;cursor:pointer}
+  .dlg .opt b{display:block;font-size:15px;margin-bottom:2px}
+  .dlg .opt span{font-size:12px;color:var(--dim)}
+  .dlg .opt.cancel{border:0;background:none;color:var(--dim);text-align:center;padding:10px}
   .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
   .seg button{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--dim);
     border-radius:9px;padding:12px 0;font-size:15px;font-family:inherit;cursor:pointer}
@@ -91,8 +107,11 @@
 </section>
 
 <section class="card hidden" id="entryCard">
-  <p class="label">记一笔</p>
-  <div class="row" id="winnerRow"></div>
+  <p class="label">谁和牌</p>
+  <div class="segRow" id="winnerRow"></div>
+  <p class="label" style="margin:14px 0 0">点炮者</p>
+  <div class="segRow" id="payerRow"></div>
+  <p class="hint" id="payerHint" style="margin-top:6px">自摸时不需要选点炮者。</p>
   <div class="fanrow">
     <button class="stepper2" id="fanMinus" aria-label="减一番">−</button>
     <label class="fanbox"><input type="number" id="fan" min="8" max="300" step="1" value="8" inputmode="numeric" aria-label="番数" /><span class="u">番</span></label>
@@ -106,8 +125,7 @@
     <button data-f="88">88</button><button data-f="0">清空</button>
   </div>
   <div class="row" style="margin-top:12px">
-    <button class="b" id="selfDrawBtn">自摸</button>
-    <span class="sub" id="payerWrap">点炮者 <select id="payer" class="b"></select></span>
+    <button class="b" id="selfDrawBtn" style="flex:1">自摸</button>
   </div>
   <div class="row" style="margin-top:12px">
     <button class="b prime" id="addBtn">记下</button>
@@ -127,6 +145,16 @@
   <p class="label">记录</p>
   <ul class="hist" id="hist"></ul>
 </section>
+
+<div class="dlg hidden" id="resetDlg">
+  <div class="box">
+    <h2>重开一局</h2>
+    <p>同一批人的话，名字留着，分数清零。</p>
+    <button class="opt" id="samePlayers"><b>同一批人，重新计分</b><span id="samePlayersNote">名字保留，分数清零</span></button>
+    <button class="opt" id="newPlayers"><b>换人，重新开局</b><span>回到输入人数的界面</span></button>
+    <button class="opt cancel" id="cancelReset">取消</button>
+  </div>
+</div>
 
 <footer><a href="../majiang/">算番器</a> · <a href="https://www.bryan.wtf">bryan.wtf</a></footer>
 
@@ -196,6 +224,7 @@
 
   // ---------- entry ----------
   let winnerIdx = null;
+  let payerIdx = null;
   let selfDraw = false;
 
   function paintWinners() {
@@ -203,31 +232,38 @@
     row.innerHTML = '';
     game.players.forEach((p, i) => {
       const b = document.createElement('button');
-      b.className = 'b' + (winnerIdx === i ? ' on' : '');
+      b.className = winnerIdx === i ? 'on' : '';
       b.textContent = p.name;
-      b.onclick = () => { winnerIdx = i; paintWinners(); paintPayer(); preview(); };
+      b.onclick = () => {
+        winnerIdx = i;
+        if (payerIdx === i) payerIdx = null;
+        paintWinners();
+        paintPayer();
+        preview();
+      };
       row.appendChild(b);
     });
   }
 
   function paintPayer() {
-    const sel = $('payer');
-    const keep = sel.value;
-    sel.innerHTML = '';
-    game.players.forEach((p, i) => {
-      if (i === winnerIdx) return;
-      const o = document.createElement('option');
-      o.value = String(i);
-      o.textContent = p.name;
-      sel.appendChild(o);
-    });
-    if (keep) sel.value = keep;
-    if (!sel.value) {
+    const row = $('payerRow');
+    row.innerHTML = '';
+    if (payerIdx === null && winnerIdx !== null) {
       const first = game.players.findIndex((p, i) => i !== winnerIdx);
-      if (first >= 0) sel.value = String(first);
+      if (first >= 0) payerIdx = first;
     }
-    $('payerWrap').classList.toggle('hidden', selfDraw);
-    sel.classList.toggle('hidden', selfDraw);
+    game.players.forEach((p, i) => {
+      const b = document.createElement('button');
+      const isWinner = i === winnerIdx;
+      b.className = (isWinner ? 'dim' : (payerIdx === i ? 'on' : ''));
+      b.textContent = p.name;
+      b.disabled = isWinner;
+      b.onclick = () => { payerIdx = i; paintPayer(); preview(); };
+      row.appendChild(b);
+    });
+    row.classList.toggle('hidden', selfDraw);
+    $('payerRow').previousElementSibling.classList.toggle('hidden', selfDraw);
+    $('payerHint').textContent = selfDraw ? '自摸时不需要选点炮者。' : '选放炮的那一家。';
   }
 
   function fanValue() {
@@ -243,11 +279,8 @@
     if (selfDraw) {
       game.players.forEach((p, i) => { if (i !== winnerIdx) { d[i] = -gain; d[winnerIdx] += gain; } });
     } else {
-      let payer = parseInt($('payer').value, 10);
-      if (!Number.isFinite(payer) || payer === winnerIdx) {
-        payer = game.players.findIndex((p, i) => i !== winnerIdx);
-      }
-      if (payer < 0) return null;
+      const payer = payerIdx;
+      if (payer === null || payer === winnerIdx) return null;
       d[payer] = -gain;
       d[winnerIdx] = gain;
     }
@@ -262,7 +295,7 @@
     const who = game.players[winnerIdx].name;
     $('preview').textContent = selfDraw
       ? who + ' 自摸 ' + fan + ' 番，每家付 ' + gain + '，共进 ' + (gain * (game.players.length - 1)) + '。'
-      : who + ' 和 ' + fan + ' 番，' + game.players[parseInt($('payer').value, 10)].name + ' 付 ' + gain + '。';
+      : who + ' 和 ' + fan + ' 番，' + game.players[payerIdx].name + ' 付 ' + gain + '。';
   }
 
   $('fanMinus').onclick = () => {
@@ -295,7 +328,7 @@
     paintPayer();
     preview();
   };
-  $('payer').addEventListener('change', preview);
+
 
   $('addBtn').onclick = () => {
     const d = deltas();
@@ -303,12 +336,13 @@
     const fan = fanValue();
     game.entries.push({
       at: Date.now(), winner: winnerIdx, fan, selfDraw,
-      payer: selfDraw ? null : parseInt($('payer').value, 10),
+      payer: selfDraw ? null : payerIdx,
       deltas: d,
     });
     game.players.forEach((p, i) => { p.score += d[i]; });
     save();
     winnerIdx = null;
+    payerIdx = null;
     $('fan').value = '8';
     for (const x of $('fanChips').querySelectorAll('button')) x.classList.remove('on');
     render();
@@ -323,10 +357,27 @@
   };
 
   $('newGame').onclick = () => {
-    if (!confirm('清空这一局的所有记录？')) return;
+    $('samePlayersNote').textContent = '保留 ' + game.players.length + ' 位玩家，分数清零';
+    $('resetDlg').classList.remove('hidden');
+  };
+  $('cancelReset').onclick = () => $('resetDlg').classList.add('hidden');
+  $('resetDlg').onclick = (e) => { if (e.target.id === 'resetDlg') $('resetDlg').classList.add('hidden'); };
+  $('samePlayers').onclick = () => {
+    game.players.forEach((p) => { p.score = 0; });
+    game.entries = [];
+    game.started = Date.now();
+    save();
+    winnerIdx = null;
+    payerIdx = null;
+    $('resetDlg').classList.add('hidden');
+    render();
+  };
+  $('newPlayers').onclick = () => {
     game = null;
     save();
     winnerIdx = null;
+    payerIdx = null;
+    $('resetDlg').classList.add('hidden');
     render();
   };
 
