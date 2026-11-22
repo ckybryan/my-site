@@ -28,7 +28,19 @@
   button.b.on{background:rgba(59,130,246,.18);border-color:var(--accent);color:#fff;font-weight:600}
   input[type=text],input[type=number]{appearance:none;background:#0f141b;color:var(--ink);
     border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:15px;font-family:inherit;width:100%}
-  input[type=number]{width:96px;text-align:center;font-variant-numeric:tabular-nums}
+  input[type=number]{font-variant-numeric:tabular-nums}
+  .fanrow{display:grid;grid-template-columns:52px 1fr 52px;gap:8px;align-items:center;margin-top:10px}
+  .fanbox{display:flex;align-items:center;justify-content:center;gap:8px;background:#0f141b;
+    border:1px solid var(--accent);border-radius:12px;padding:4px 10px}
+  .fanbox input{border:0;background:none;font-size:30px;font-weight:700;text-align:center;
+    width:100%;padding:6px 0;color:var(--ink)}
+  .fanbox input:focus{outline:none}
+  .fanbox .u{font-size:14px;color:var(--dim)}
+  .stepper2{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--ink);
+    border-radius:12px;height:56px;font-size:22px;font-family:inherit;cursor:pointer}
+  .stepper2:active{background:#1b2430}
+  #payer{appearance:auto;background:#0f141b;color:var(--ink);border:1px solid var(--line);
+    border-radius:9px;padding:9px 10px;font-size:14px;font-family:inherit;min-width:132px}
   .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
   .seg button{appearance:none;border:1px solid var(--line);background:#0f141b;color:var(--dim);
     border-radius:9px;padding:12px 0;font-size:15px;font-family:inherit;cursor:pointer}
@@ -81,10 +93,12 @@
 <section class="card hidden" id="entryCard">
   <p class="label">记一笔</p>
   <div class="row" id="winnerRow"></div>
-  <div class="row" style="margin-top:10px;justify-content:space-between">
-    <span class="sub">番数</span>
-    <input type="number" id="fan" min="8" max="200" step="1" value="8" />
+  <div class="fanrow">
+    <button class="stepper2" id="fanMinus" aria-label="减一番">−</button>
+    <label class="fanbox"><input type="number" id="fan" min="8" max="300" step="1" value="8" inputmode="numeric" aria-label="番数" /><span class="u">番</span></label>
+    <button class="stepper2" id="fanPlus" aria-label="加一番">+</button>
   </div>
+  <p class="hint" style="margin-top:8px">直接输入任意番数，或者用下面的常用值。</p>
   <div class="fanchips" id="fanChips">
     <button data-f="8">8</button><button data-f="16">16</button>
     <button data-f="24">24</button><button data-f="32">32</button>
@@ -251,6 +265,18 @@
       : who + ' 和 ' + fan + ' 番，' + game.players[parseInt($('payer').value, 10)].name + ' 付 ' + gain + '。';
   }
 
+  $('fanMinus').onclick = () => {
+    const v = fanValue() === null ? 8 : fanValue();
+    $('fan').value = String(Math.max(8, v - 1));
+    for (const b of $('fanChips').querySelectorAll('button')) b.classList.remove('on');
+    preview();
+  };
+  $('fanPlus').onclick = () => {
+    const v = fanValue() === null ? 8 : fanValue();
+    $('fan').value = String(Math.min(300, v + 1));
+    for (const b of $('fanChips').querySelectorAll('button')) b.classList.remove('on');
+    preview();
+  };
   $('fan').addEventListener('input', () => {
     for (const b of $('fanChips').querySelectorAll('button')) b.classList.remove('on');
     preview();
