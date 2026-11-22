@@ -87,7 +87,7 @@
 <body>
 <header>
   <h1>国标记分</h1>
-  <span class="sub" id="subline">按 8 番底分</span>
+  <span class="sub" id="subline">按番数计分</span>
 </header>
 
 <section class="card" id="setupCard">
@@ -138,7 +138,7 @@
 <section class="card hidden" id="scoreCard">
   <p class="label">总分 <span class="sub" id="roundCount"></span></p>
   <div class="scores" id="scores"></div>
-  <p class="hint">和牌得分 = 8 + 番数。自摸时其余每家各付，点炮只由放炮那家付。</p>
+  <p class="hint">和牌得分就是番数。自摸时其余每家各付，点炮只由放炮那家付。</p>
 </section>
 
 <section class="card hidden" id="histCard">
@@ -162,7 +162,7 @@
 (function () {
   const KEY = 'mj_points_v1';
   const $ = (id) => document.getElementById(id);
-  const BASE = 8;
+  const BASE = 0;   // points = fan only, no base 8
 
   let game = load();
 
