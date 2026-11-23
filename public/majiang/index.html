@@ -89,6 +89,13 @@
   .histRow .ht img,.histRow .ht svg{width:24px;height:auto;border-radius:3px;background:#fff}
   .histRow .hv{font-size:13px;font-weight:600;color:var(--warn);min-width:44px;text-align:right}
   .histRow .del{appearance:none;border:0;background:none;color:var(--dim);font-size:16px;padding:0 2px;cursor:pointer}
+  .flowerRow{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;margin-top:8px}
+  .flowerRow button{appearance:none;border:0;background:none;padding:0;cursor:pointer;line-height:0;
+    border-radius:5px;opacity:.32;transition:opacity .12s, transform .06s}
+  .flowerRow button svg{width:100%;height:auto;display:block;border-radius:5px;background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.5)}
+  .flowerRow button.on{opacity:1}
+  .flowerRow button:active{transform:scale(.95)}
   .fanTiles img,.fanTiles svg{width:38px;height:auto;border-radius:4px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.5)}
   .hint{font-size:11.5px;color:var(--dim);line-height:1.5;margin:2px 0 0}
   .count{font-size:11px;color:var(--dim)}
@@ -176,10 +183,9 @@
   </div>
   <div class="row" style="margin-top:12px">
     <label class="toggle"><input type="checkbox" id="flowersOn" checked>花牌</label>
-    <span class="stepper">
-      <button class="b" id="fminus">−</button><span id="fcount" class="count">0</span><button class="b" id="fplus">+</button>
-    </span>
+    <span class="count" id="fcount">0 / 8</span>
   </div>
+  <div class="flowerRow" id="flowerRow"></div>
 </section>
 
 <section class="card hidden" id="histCard">
@@ -344,7 +350,8 @@
   const face = (t, cls) => '<span class="' + (cls || 'mt') + '">' + tileSVG(t) + '</span>';
 
   /* ---------------- state ---------------- */
-  const state = { counts: new Array(34).fill(0), order: [], melds: [], winTile: null, flowers: 0, pickWin: false, roundWind: 27, seatWind: 27 };
+  const state = { counts: new Array(34).fill(0), order: [], melds: [], winTile: null, flowers: 0,
+    flowerSet: new Array(8).fill(false), pickWin: false, roundWind: 27, seatWind: 27 };
   const $ = (id) => document.getElementById(id);
   const isKong = (k) => k === 'kan' || k === 'minkan' || k === 'ankan';
 
@@ -769,6 +776,7 @@
       melds: state.melds.map((m) => ({ ...m })),
       winTile: state.winTile,
       flowers: state.flowers,
+      flowerSet: state.flowerSet.slice(),
       roundWind: state.roundWind,
       seatWind: state.seatWind,
       flags: {
@@ -786,6 +794,10 @@
     state.melds = (s.melds || []).map((m) => ({ ...m }));
     state.winTile = s.winTile ?? null;
     state.flowers = s.flowers || 0;
+    state.flowerSet = Array.isArray(s.flowerSet) ? s.flowerSet.slice(0, 8) : new Array(8).fill(false);
+    if (!Array.isArray(s.flowerSet)) {
+      for (let i = 0; i < state.flowers; i++) state.flowerSet[i] = true;
+    }
     state.roundWind = s.roundWind || 27;
     state.seatWind = s.seatWind || 27;
     state.pickWin = false;
@@ -793,8 +805,9 @@
     for (const id of ['selfDraw', 'afterKong', 'lastDiscard', 'lastCopy', 'quanQiuRen', 'flowersOn']) {
       if (typeof f[id] === 'boolean' && $(id)) $(id).checked = f[id];
     }
-    $('fcount').textContent = state.flowers;
+    $('fcount').textContent = state.flowers + ' / 8';
     paintSegs();
+    renderFlowers();
     render();
   }
 
@@ -862,6 +875,43 @@
     });
   }
 
+
+  /* ---------------- flower tiles ---------------- */
+  const FLOWERS = [
+    ['梅', '#c0392b'], ['兰', '#7c3aed'], ['竹', '#1f7a4d'], ['菊', '#b45309'],
+    ['春', '#15803d'], ['夏', '#c0392b'], ['秋', '#a16207'], ['冬', '#1e5aa8'],
+  ];
+
+  function flowerSVG(i) {
+    const [ch, color] = FLOWERS[i];
+    return '<svg viewBox="0 0 300 400" role="img" aria-label="花牌 ' + ch + '">'
+      + '<rect x="14" y="14" width="272" height="372" rx="16" fill="none" stroke="' + color + '" stroke-width="6" opacity=".55"/>'
+      + '<text x="150" y="250" text-anchor="middle" font-size="190" font-weight="600" fill="' + color + '"'
+      + ' font-family="Songti SC, STSong, SimSun, serif">' + ch + '</text>'
+      + '<rect x="120" y="300" width="60" height="8" rx="4" fill="' + color + '" opacity=".5"/>'
+      + '</svg>';
+  }
+
+  function renderFlowers() {
+    const row = $('flowerRow');
+    row.innerHTML = '';
+    FLOWERS.forEach(([ch], i) => {
+      const b = document.createElement('button');
+      b.className = state.flowerSet[i] ? 'on' : '';
+      b.innerHTML = flowerSVG(i);
+      b.title = '花牌 ' + ch;
+      b.onclick = () => {
+        state.flowerSet[i] = !state.flowerSet[i];
+        state.flowers = state.flowerSet.filter(Boolean).length;
+        renderFlowers();
+        renderResult();
+        persist();
+      };
+      row.appendChild(b);
+    });
+    $('fcount').textContent = state.flowers + ' / 8';
+  }
+
   function renderHint() {
     const kongs = state.melds.filter((m) => isKong(m.kind)).length;
     const need = 14 + kongs - totalTiles();
@@ -874,6 +924,7 @@
 
   function render() {
     $('winMode').textContent = state.pickWin ? '点一张' : '和牌张';
+    renderFlowers();
     renderHand();
     renderHint();
     renderTenpai();
@@ -1003,7 +1054,9 @@
     state.melds = [];
     state.winTile = null;
     state.flowers = 0;
-    $('fcount').textContent = '0';
+    state.flowerSet = new Array(8).fill(false);
+    $('fcount').textContent = '0 / 8';
+    renderFlowers();
     render();
   };
   $('copy').onclick = async () => {
@@ -1032,8 +1085,6 @@
   $('saveHist').onclick = () => { saveHistory(); persist(); };
   $('winMode').onclick = () => { state.pickWin = !state.pickWin; render(); };
   for (const b of document.querySelectorAll('[data-meld]')) b.onclick = () => openPicker(b.dataset.meld);
-  $('fplus').onclick = () => { state.flowers = Math.min(8, state.flowers + 1); $('fcount').textContent = state.flowers; renderResult(); };
-  $('fminus').onclick = () => { state.flowers = Math.max(0, state.flowers - 1); $('fcount').textContent = state.flowers; renderResult(); };
   for (const id of ['selfDraw', 'afterKong', 'lastDiscard', 'lastCopy', 'quanQiuRen', 'flowersOn']) {
     $(id).addEventListener('change', renderResult);
   }
