@@ -562,11 +562,12 @@
       const r = rank(p.t), s = suit(p.t);
       if (r > 7) continue;
       for (const order of [[0, 1, 2], [2, 1, 0]]) {
-        const others = order.filter((x) => x !== s);
-        if (others.length !== 2) continue;
-        const ok = others.every((ns, k) => {
-          const needRank = order[k] === s ? r : r + (order[k] > s ? 1 : -1);
-          return pons.some((q) => suit(q.t) === ns && rank(q.t) === needRank);
+        const pos = order.indexOf(s);
+        const ok = order.every((ns, k) => {
+          if (k === pos) return true;
+          const needRank = r + (k - pos);
+          return needRank >= 1 && needRank <= 9
+            && pons.some((q) => suit(q.t) === ns && rank(q.t) === needRank);
         });
         if (ok) return true;
       }
@@ -616,7 +617,10 @@
     const c = counts.slice();
     for (const m of melds) for (const t of tilesOf(m)) c[t] = (c[t] || 0) + 1;
     for (let t = 0; t < 34; t++) {
-      if (c[t] === 4 && !everySet.some((s) => !isChi(s) && s.t === t)) return true;
+      if (c[t] !== 4) continue;
+      // all four inside one kong is not 四归一; spread across sets is
+      const allInOneKong = everySet.some((s) => isKan(s) && s.t === t);
+      if (!allInOneKong) return true;
     }
     return false;
   }

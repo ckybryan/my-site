@@ -72,6 +72,17 @@
   .fans button.row2:active{background:rgba(59,130,246,.1)}
   .fans button.row2 .hintv{grid-column:1 / -1;font-size:10.5px;color:var(--dim);margin-top:2px}
   .fanTiles{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 4px}
+  #listBody{max-height:70vh;overflow:auto;-webkit-overflow-scrolling:touch;padding-right:2px}
+  .fanGroup{margin:14px 0 4px;font-size:11px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+  .fanItem{border-bottom:1px solid rgba(255,255,255,.06);padding:9px 0}
+  .fanHead{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:baseline}
+  .fanHead .n{font-size:14px}
+  .fanHead .v{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .fanItem .d{font-size:11.5px;color:var(--dim);margin-top:2px;line-height:1.45}
+  .fanItem .fanTiles{margin:6px 0 0}
+  .fanItem .fanTiles img,.fanItem .fanTiles svg{width:30px}
+  .fanItem .try{font-size:11px;color:var(--accent);margin-top:4px;display:inline-block}
+  .fanItem button.tryBtn{appearance:none;border:0;background:none;padding:4px 0;cursor:pointer}
   .fanTiles img,.fanTiles svg{width:38px;height:auto;border-radius:4px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.5)}
   .hint{font-size:11.5px;color:var(--dim);line-height:1.5;margin:2px 0 0}
   .count{font-size:11px;color:var(--dim)}
@@ -94,7 +105,10 @@
 <body>
 <header>
   <h1>国标麻将算番</h1>
-  <span class="live"><b id="liveTotal">0</b><span>番</span></span>
+  <span class="row" style="gap:8px;align-items:baseline">
+    <button class="b ghost" id="openList" style="padding:6px 10px;font-size:12px">番种表</button>
+    <span class="live"><b id="liveTotal">0</b><span>番</span></span>
+  </span>
 </header>
 
 <section class="card">
@@ -168,6 +182,16 @@
 </section>
 
 <footer>按 1998 年国标规则计算 · 牌面 <a href="https://commons.wikimedia.org/wiki/File:Mahjong_1m.svg">蔡蜜</a> CC BY-SA 4.0 · <a href="https://www.bryan.wtf">bryan.wtf</a></footer>
+
+<div class="modal hidden" id="listModal">
+  <div class="sheet" style="max-height:86vh;display:flex;flex-direction:column">
+    <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:6px">
+      <h2 style="margin:0">全部番种</h2>
+      <button class="b ghost" id="listClose" style="padding:6px 10px;font-size:12px">关闭</button>
+    </div>
+    <div id="listBody"></div>
+  </div>
+</div>
 
 <div class="modal hidden" id="fanModal">
   <div class="sheet">
@@ -535,6 +559,108 @@
     '花牌': '每张花牌计一番。',
     '无番和': '没有其它番种时的底番。',
   };
+
+
+  const FAN_GROUPS = {"88": ["大四喜", "大三元", "九莲宝灯", "四杠", "连七对", "十三幺"], "64": ["清幺九", "小四喜", "小三元", "字一色", "四暗刻", "一色双龙会"], "48": ["一色四同顺", "一色四节高"], "32": ["一色四步高", "三杠", "混幺九"], "24": ["七对", "七星不靠", "全双刻", "清一色", "一色三同顺", "一色三节高", "全大", "全中", "全小"], "16": ["清龙", "三色双龙会", "一色三步高", "全带五", "三同刻", "三暗刻"], "12": ["全不靠", "组合龙", "大于五", "小于五", "三风刻"], "8": ["花龙", "推不倒", "三色三同顺", "三色三节高", "无番和", "妙手回春", "海底捞月", "杠上开花"], "6": ["碰碰和", "混一色", "三色三步高", "五门齐", "全求人", "双暗杠", "双箭刻"], "4": ["全带幺", "不求人", "双明杠", "和绝张"], "2": ["箭刻", "圈风刻", "门风刻", "门前清", "平和", "四归一", "双同刻", "双暗刻", "暗杠", "断幺"], "1": ["一般高", "喜相逢", "连六", "老少副", "幺九刻", "明杠", "缺一门", "无字", "边张", "坎张", "单钓将", "自摸"]};
+  const EXAMPLES = {"大四喜":{"spec":"东东东 南南南 西西西 北北北 中中","opts":{}},"大三元":{"spec":"中中中 發發發 白白白 123m 44m","opts":{}},"九莲宝灯":{"spec":"1112345678999m 5m","opts":{}},"四杠":{"spec":"22m","opts":{"melds":[{"kind":"kan","t":27,"open":true},{"kind":"kan","t":28,"open":true},{"kind":"kan","t":31,"open":true},{"kind":"kan","t":32,"open":true}],"winTile":9}},"连七对":{"spec":"11223344556677m","opts":{}},"十三幺":{"spec":"19m 19p 19s 东南西北中發白 东","opts":{}},"清幺九":{"spec":"111m 999m 111p 999p 11s","opts":{}},"小四喜":{"spec":"东东东 南南南 西西西 北北 123m","opts":{}},"小三元":{"spec":"中中中 發發發 白白 123m 456m","opts":{}},"字一色":{"spec":"东东东 南南南 西西西 北北北 中中","opts":{}},"四暗刻":{"spec":"111m 222p 333s 444m 55p","opts":{"selfDraw":true}},"一色双龙会":{"spec":"123m 123m 789m 789m 55m","opts":{}},"一色四同顺":{"spec":"123m 123m 123m 123m 55m","opts":{}},"一色四节高":{"spec":"111m 222m 333m 444m 55m","opts":{}},"一色四步高":{"spec":"123m 234m 345m 456m 55m","opts":{}},"三杠":{"spec":"22m 345p","opts":{"melds":[{"kind":"kan","t":27,"open":true},{"kind":"kan","t":31,"open":true},{"kind":"kan","t":28,"open":false}],"winTile":0}},"混幺九":{"spec":"111m 999m 东东东 中中中 白白","opts":{}},"七对":{"spec":"11m 22m 33m 44p 55p 66s 东东","opts":{}},"七星不靠":{"spec":"14m 58p 369s 东南西北中發白","opts":{}},"全双刻":{"spec":"222m 444m 666p 888s 22s","opts":{}},"清一色":{"spec":"123m 456m 789m 234m 55m","opts":{}},"一色三同顺":{"spec":"123m 123m 123m 456m 55m","opts":{}},"一色三节高":{"spec":"111m 222m 333m 456m 55m","opts":{}},"全大":{"spec":"789m 789p 777s 888s 99m","opts":{}},"全中":{"spec":"456m 456p 444s 555s 66m","opts":{}},"全小":{"spec":"123m 123p 111s 222s 33m","opts":{}},"清龙":{"spec":"123m 456m 789m 123p 55p","opts":{}},"三色双龙会":{"spec":"123m 789m 123p 789p 55s","opts":{}},"一色三步高":{"spec":"123m 345m 567m 111p 55s","opts":{}},"全带五":{"spec":"345m 456p 555m 567s 55p","opts":{}},"三同刻":{"spec":"111m 111p 111s 234s 55m","opts":{}},"三暗刻":{"spec":"111m 222p 333s 456m 55p","opts":{}},"全不靠":{"spec":"147m 258p 369s 东南西北中","opts":{}},"组合龙":{"spec":"147m 258p 369s 234s 55m","opts":{}},"大于五":{"spec":"678m 789p 999s 666m 88s","opts":{}},"小于五":{"spec":"123m 123p 234s 111m 22s","opts":{}},"三风刻":{"spec":"东东东 南南南 西西西 234m 55p","opts":{}},"花龙":{"spec":"123m 456p 789s 234s 55m","opts":{}},"推不倒":{"spec":"123p 234p 555p 888p 99p","opts":{}},"三色三同顺":{"spec":"123m 123p 123s 456m 99p","opts":{}},"三色三节高":{"spec":"222p 333s 456m 99p","opts":{"melds":[{"kind":"pon","t":0,"open":true}],"winTile":1}},"妙手回春":{"spec":"123m 456p 789s 234s 99p","opts":{"selfDraw":true,"lastOfWall":true}},"海底捞月":{"spec":"123m 456p 789s 234s 99p","opts":{"selfDraw":false,"lastDiscard":true}},"杠上开花":{"spec":"123m 456p 789s 234s 99p","opts":{"selfDraw":true,"afterKong":true}},"碰碰和":{"spec":"111m 222p 333s 55m","opts":{"melds":[{"kind":"pon","t":31,"open":true}],"winTile":0}},"混一色":{"spec":"123m 456m 789m 东东东 白白","opts":{}},"三色三步高":{"spec":"123m 234p 345s 456m 99p","opts":{}},"五门齐":{"spec":"123m 456p 789s 东东东 中中","opts":{}},"全求人":{"spec":"22s","opts":{"melds":[{"kind":"chi","t":0,"open":true},{"kind":"chi","t":9,"open":true},{"kind":"pon","t":27,"open":true},{"kind":"pon","t":33,"open":true}],"winTile":19,"quanQiuRen":true}},"双暗杠":{"spec":"22m 345p 678s","opts":{"melds":[{"kind":"kan","t":27,"open":false},{"kind":"kan","t":28,"open":false}],"winTile":0}},"双箭刻":{"spec":"中中中 發發發 123m 456m 99p","opts":{}},"全带幺":{"spec":"123m 789m 111p 999p 东东","opts":{}},"不求人":{"spec":"123m 456p 789s 234s 99p","opts":{"selfDraw":true}},"双明杠":{"spec":"22m 345p 678s","opts":{"melds":[{"kind":"kan","t":27,"open":true},{"kind":"kan","t":28,"open":true}],"winTile":0}},"和绝张":{"spec":"123m 456p 789s 234s 99p","opts":{"selfDraw":false,"lastCopy":true}},"箭刻":{"spec":"中中中 123m 456m 789m 55p","opts":{}},"圈风刻":{"spec":"东东东 123m 456m 789m 55p","opts":{"roundWind":27}},"门风刻":{"spec":"东东东 123m 456m 789m 55p","opts":{"seatWind":27}},"门前清":{"spec":"123m 456p 789s 234s 99p","opts":{"selfDraw":false}},"平和":{"spec":"123m 456m 789m 234p 55s","opts":{}},"四归一":{"spec":"111m 123m 456m 789m 55p","opts":{}},"双同刻":{"spec":"111m 111p 456s 789s 99s","opts":{}},"双暗刻":{"spec":"111m 222p 456s 789s 99s","opts":{}},"暗杠":{"spec":"22m 345p 678s 999p","opts":{"melds":[{"kind":"kan","t":27,"open":false}],"winTile":0}},"断幺":{"spec":"234m 567p 345s 666m 88s","opts":{}},"一般高":{"spec":"123m 123m 456m 789m 55p","opts":{}},"喜相逢":{"spec":"123m 123p 456m 789p 55s","opts":{}},"连六":{"spec":"123m 456m 789p 234s 55s","opts":{}},"老少副":{"spec":"123m 789m 456p 234s 55s","opts":{}},"幺九刻":{"spec":"111m 456p 789s 234s 55p","opts":{}},"明杠":{"spec":"22m 345p 678s 999p","opts":{"melds":[{"kind":"kan","t":27,"open":true}],"winTile":0}},"缺一门":{"spec":"123m 456m 789m 123p 55p","opts":{}},"无字":{"spec":"111m 234p 567s 789s 99m","opts":{}},"边张":{"spec":"123m 345m 678m 999m 55p","opts":{"winTile":2}},"坎张":{"spec":"123m 345m 678m 999m 55p","opts":{"winTile":1}},"单钓将":{"spec":"123m 456m 789m 999m 55p","opts":{"winTile":13}},"自摸":{"spec":"456p 789s 234s 99p","opts":{"selfDraw":true,"melds":[{"kind":"chi","t":0,"open":true}],"winTile":18}}};
+
+  function specTiles(spec) {
+    const counts = new Array(34).fill(0);
+    for (const tok of spec.split(/\s+/).filter(Boolean)) {
+      const m = tok.match(/^(\d+)([mps])$/);
+      if (m) {
+        const base = { m: 0, p: 9, s: 18 }[m[2]];
+        for (const ch of m[1]) counts[base + (+ch) - 1]++;
+      } else {
+        const hm = { 东: 27, 南: 28, 西: 29, 北: 30, 中: 31, 發: 32, 白: 33 };
+        for (const ch of tok) counts[hm[ch]]++;
+      }
+    }
+    return counts;
+  }
+
+  function renderList() {
+    const body = $('listBody');
+    body.innerHTML = '';
+    for (const val of Object.keys(FAN_GROUPS).map(Number).sort((a, b) => b - a)) {
+      const names = FAN_GROUPS[val];
+      const h = document.createElement('p');
+      h.className = 'fanGroup';
+      h.textContent = val + ' 番';
+      body.appendChild(h);
+      for (const name of names) {
+        const ex = EXAMPLES[name];
+        const item = document.createElement('div');
+        item.className = 'fanItem';
+        const head = document.createElement('div');
+        head.className = 'fanHead';
+        head.innerHTML = '<span class="n">' + name + '</span><span class="v">' + val + ' 番</span>';
+        item.appendChild(head);
+        const d = document.createElement('div');
+        d.className = 'd';
+        d.textContent = FAN_INFO[name] || '';
+        item.appendChild(d);
+        if (ex) {
+          const tiles = document.createElement('div');
+          tiles.className = 'fanTiles';
+          const counts = specTiles(ex.spec);
+          for (let t = 0; t < 34; t++) {
+            for (let i = 0; i < counts[t]; i++) {
+              const s = document.createElement('span');
+              s.innerHTML = tileSVG(t);
+              s.title = NAMES[t];
+              tiles.appendChild(s);
+            }
+          }
+          item.appendChild(tiles);
+          const btn = document.createElement('button');
+          btn.className = 'tryBtn';
+          btn.innerHTML = '<span class="try">载入这手牌</span>';
+          btn.onclick = () => { loadExample(ex); $('listModal').classList.add('hidden'); };
+          item.appendChild(btn);
+        } else {
+          const none = document.createElement('div');
+          none.className = 'd';
+          none.textContent = '示例暂缺。';
+          item.appendChild(none);
+        }
+        body.appendChild(item);
+      }
+    }
+  }
+
+  function loadExample(ex) {
+    const counts = specTiles(ex.spec);
+    state.counts = counts;
+    state.order = [];
+    for (let t = 0; t < 34; t++) for (let i = 0; i < counts[t]; i++) state.order.push(t);
+    state.melds = (ex.opts.melds || []).map((m) => ({
+      kind: m.kind === 'kan' ? (m.open ? 'minkan' : 'ankan') : m.kind,
+      t: m.t,
+      open: m.open !== false,
+    }));
+    state.winTile = ex.opts.winTile ?? null;
+    state.pickWin = false;
+    const map = {
+      selfDraw: 'selfDraw', afterKong: 'afterKong', lastDiscard: 'lastDiscard',
+      lastCopy: 'lastCopy', quanQiuRen: 'quanQiuRen',
+    };
+    for (const [k, id] of Object.entries(map)) {
+      const el = $(id);
+      if (el) el.checked = !!ex.opts[k];
+    }
+    if (ex.opts.roundWind) state.roundWind = ex.opts.roundWind;
+    if (ex.opts.seatWind) state.seatWind = ex.opts.seatWind;
+    if (typeof paintSegs === 'function') paintSegs();
+    render();
+  }
+
+  $('openList').onclick = () => {
+    if (!$('listBody').childElementCount) renderList();
+    $('listModal').classList.remove('hidden');
+  };
+  $('listClose').onclick = () => $('listModal').classList.add('hidden');
+  $('listModal').onclick = (e) => { if (e.target.id === 'listModal') $('listModal').classList.add('hidden'); };
 
   function showFan(f) {
     const info = FAN_INFO[f.name] || '这手牌满足该番种的条件。';
