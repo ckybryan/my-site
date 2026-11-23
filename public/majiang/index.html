@@ -474,6 +474,20 @@
         : [m.t, m.t, m.t, m.t];
       d.innerHTML = '<span class="tag">' + label + '</span>' + tiles.map((t) => face(t)).join('');
       d.onclick = () => { state.melds.splice(idx, 1); render(); };
+      // 碰 then draw the fourth: 补杠, which scores as a 明杠
+      if (m.kind === 'pon' && state.counts[m.t] > 0) {
+        const up = document.createElement('button');
+        up.className = 'b';
+        up.style.cssText = 'padding:4px 8px;font-size:11px;margin-left:4px';
+        up.textContent = '补杠';
+        up.onclick = (e) => {
+          e.stopPropagation();
+          if (!takeFromHand(m.t, 1)) return;
+          m.kind = 'minkan';
+          render();
+        };
+        d.appendChild(up);
+      }
       box.appendChild(d);
     });
   }
